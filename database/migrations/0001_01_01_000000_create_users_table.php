@@ -19,7 +19,15 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->enum('role', ['admin', 'vendor', 'user'])->default('user');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+           
+
+            $table->boolean('is_user')->default(1);
+             $table->enum('user_status', ['active', 'inactive', 'banned', 'is_vendor'])->default('active');
+
+            $table->boolean('is_vendor')->default(0);
+            $table->enum('vendor_status', ['approved', 'pending', 'rejected', 'banned', 'is_user'])->default('is_user');
+
+            
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
