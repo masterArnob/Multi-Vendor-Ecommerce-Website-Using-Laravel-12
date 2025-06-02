@@ -24,6 +24,8 @@ class UserSeeder extends Seeder
                 'user_status' => 'is_vendor',
                 'is_vendor' => '1',
                 'vendor_status' => 'approved',
+                'document' => 'demo.pdf',
+                'vendor_request' => '1'
             ],
             [
                 'name' => 'user',
@@ -35,6 +37,8 @@ class UserSeeder extends Seeder
                 'user_status' => 'active',
                 'is_vendor' => '0',
                 'vendor_status' => 'is_user',
+                'document' => '',
+                'vendor_request' => 0
             ]
         ];
 

@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-class RegisteredUserController extends Controller
+class RegisteredVendorController extends Controller
 {
     /**
      * Display the registration view.
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.vendor-register');
     }
 
     /**
@@ -29,22 +29,38 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+           'document' => ['required', 'file', 'mimes:pdf,doc,docx,jpg,png', 'max:2048'],
+           'contact' => ['required', 'integer']
         ]);
 
+        $path = null;
+
+        if(($request->hasFile('document'))){
+            $file = $request->document;
+            $fileName = time().'_'.$file->getClientOriginalName();
+            $path = "/uploads/vendor/{$request->name}/documents/".$fileName;
+            $file->move(public_path("uploads/vendor/{$request->name}documents"), $fileName);
+        }
+
+        //dd($path);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'user',
-            
+            'contact' => $request->contact,
+            'document' => $path,
+
             'is_user' => '1',
             'user_status' => 'active',
             'is_vendor' => '0',
-            'vendor_status' => 'is_user'
+            'vendor_status' => 'pending',
+            'vendor_request' => '1'
         ]);
 
         event(new Registered($user));

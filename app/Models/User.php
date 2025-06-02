@@ -25,7 +25,10 @@ class User extends Authenticatable
         'is_user',
         'user_status',
         'is_vendor',
-        'vendor_status'
+        'vendor_status',
+        'document',
+        'contact',
+        'vendor_request'
     ];
 
     /**
