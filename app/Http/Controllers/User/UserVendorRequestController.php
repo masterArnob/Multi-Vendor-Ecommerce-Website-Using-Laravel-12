@@ -65,7 +65,7 @@ class UserVendorRequestController extends Controller
         //dd($request->all());
         $request->validate([
             'document' => ['required', 'file', 'mimes:pdf,doc,docx,jpg,png', 'max:2048'],
-            'contact' => ['required', 'integer']
+            'contact' => ['required', 'numeric']
         ]);
 
         $path = null;
@@ -82,8 +82,8 @@ class UserVendorRequestController extends Controller
 
             $file = $request->document;
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = "/uploads/vendor/{$user->name}/documents/" . $fileName;
-            $file->move(public_path("uploads/vendor/{$user->name}documents"), $fileName);
+            $path = "/uploads/vendor/" . str_replace(' ', '_', $user->name) . "/documents/" . $fileName;
+            $file->move(public_path("uploads/vendor/" . str_replace(' ', '_', $user->name) . "/documents"), $fileName);
         }
 
         //dd($path);

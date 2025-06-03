@@ -23,17 +23,15 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $show = '<a href="#" class="btn btn-primary">
-                        Show
-                      </a>';
-                $edit = '<a href="#" class="btn btn-warning mx-2">
+              
+                $edit = '<a href="'.route('admin.vendor-request.edit', $query->id).'" class="btn btn-warning mx-2">
                         Edit
                       </a>';
-                $delete = '<a href="#" class="btn btn-danger">
+                $delete = '<a href="'.route('admin.vendor-request.destroy', $query->id).'" class="btn btn-danger">
                         Delete
                       </a>';
 
-                      return $show.$edit.$delete;
+                      return $edit.$delete;
             })
 
 

@@ -35,7 +35,7 @@ class RegisteredVendorController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
            'document' => ['required', 'file', 'mimes:pdf,doc,docx,jpg,png', 'max:2048'],
-           'contact' => ['required', 'integer']
+           'contact' => ['required', 'numeric']
         ]);
 
         $path = null;
@@ -43,8 +43,8 @@ class RegisteredVendorController extends Controller
         if(($request->hasFile('document'))){
             $file = $request->document;
             $fileName = time().'_'.$file->getClientOriginalName();
-            $path = "/uploads/vendor/{$request->name}/documents/".$fileName;
-            $file->move(public_path("uploads/vendor/{$request->name}documents"), $fileName);
+             $path = "/uploads/vendor/" . str_replace(' ', '_', $request->name) . "/documents/" . $fileName;
+            $file->move(public_path("uploads/vendor/" . str_replace(' ', '_', $request->name) . "/documents"), $fileName);
         }
 
         //dd($path);

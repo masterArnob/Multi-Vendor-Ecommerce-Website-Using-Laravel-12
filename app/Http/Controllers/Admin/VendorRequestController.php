@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class VendorRequestController extends Controller
@@ -37,7 +38,7 @@ class VendorRequestController extends Controller
      */
     public function show(string $id)
     {
-        //
+      
     }
 
     /**
@@ -45,7 +46,8 @@ class VendorRequestController extends Controller
      */
     public function edit(string $id)
     {
-        //
+          $request = User::where(['id' => $id, 'role' => 'user', 'vendor_request' => 1])->first();
+        return view('admin.vendor-request.edit', compact('request'));
     }
 
     /**
@@ -53,7 +55,16 @@ class VendorRequestController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //dd($request->all());
+        $user = User::findOrFail($id);
+        $user->vendor_status = $request->vendor_status;
+        if($request->vendor_status === 'approved'){
+            $user->is_user = 0;
+            $user->is_vendor = 1;
+            $user->role = 'vendor';
+        }
+        $user->save();
+        return redirect()->route('admin.vendor-request.index');
     }
 
     /**
