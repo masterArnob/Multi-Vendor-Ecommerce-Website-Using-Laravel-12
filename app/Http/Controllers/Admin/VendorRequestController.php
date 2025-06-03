@@ -6,6 +6,7 @@ use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use File;
 
 class VendorRequestController extends Controller
 {
@@ -64,6 +65,7 @@ class VendorRequestController extends Controller
             $user->role = 'vendor';
         }
         $user->save();
+        notyf()->success('Vendor Status Updated Successfully!');
         return redirect()->route('admin.vendor-request.index');
     }
 
@@ -72,6 +74,13 @@ class VendorRequestController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //dd($id);
+        $request = User::findOrFail($id);
+        if(File::exists(public_path($request->document))){
+            File::delete(public_path($request->document));
+        }
+        $request->delete();
+        notyf()->success('Vendor Request Deleted Successfully!');
+        return response(['status' => 'success']);
     }
 }

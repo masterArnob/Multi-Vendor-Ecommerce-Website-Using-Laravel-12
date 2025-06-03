@@ -13,24 +13,17 @@
     <link href="{{ asset('admin/dist/css/tabler-vendors.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('admin/dist/css/demo.min.css?1692870487') }}" rel="stylesheet" />
 
+        <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <!-- CSRF Token -->
 
-    <!-- Data Table CSS -->
-    <link rel="stylesheet" href="cdn.datatables.net/2.3.1/css/dataTables.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
-    <!-- Data Table CSS -->
+    <!-- DataTable CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.min.css">
+    <!-- DataTable CSS -->
 
-
-    <style>
-        @import url('https://rsms.me/inter/inter.css');
-
-        :root {
-            --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-        }
-
-        body {
-            font-feature-settings: "cv03", "cv04", "cv11";
-        }
-    </style>
+        <!-- Notyf CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+                <!-- Notyf CSS -->
 </head>
 
 <body>
@@ -40,19 +33,20 @@
         @include('admin.layout.sidebar')
         <!-- Sidebar -->
 
-        <!-- header -->
+        <!-- Header -->
         @include('admin.layout.header')
-        <!-- header -->
+        <!-- Header -->
 
         <div class="page-wrapper">
             @yield('content')
 
-            <!-- footer -->
+            <!-- Footer -->
             @include('admin.layout.footer')
-            <!-- footer -->
-
+            <!-- Footer -->
         </div>
     </div>
+
+    <!-- Report Modal -->
     <div class="modal modal-blur fade" id="modal-report" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -63,8 +57,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" name="example-text-input"
-                            placeholder="Your report name">
+                        <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
                     </div>
                     <label class="form-label">Report type</label>
                     <div class="form-selectgroup-boxes row mb-3">
@@ -77,8 +70,7 @@
                                     </span>
                                     <span class="form-selectgroup-label-content">
                                         <span class="form-selectgroup-title strong mb-1">Simple</span>
-                                        <span class="d-block text-secondary">Provide only basic data needed for the
-                                            report</span>
+                                        <span class="d-block text-secondary">Provide only basic data needed for the report</span>
                                     </span>
                                 </span>
                             </label>
@@ -92,8 +84,7 @@
                                     </span>
                                     <span class="form-selectgroup-label-content">
                                         <span class="form-selectgroup-title strong mb-1">Advanced</span>
-                                        <span class="d-block text-secondary">Insert charts and additional advanced
-                                            analyses to be inserted in the report</span>
+                                        <span class="d-block text-secondary">Insert charts and additional advanced analyses to be inserted in the report</span>
                                     </span>
                                 </span>
                             </label>
@@ -150,10 +141,7 @@
                         Cancel
                     </a>
                     <a href="#" class="btn btn-primary ms-auto" data-bs-dismiss="modal">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M12 5l0 14" />
                             <path d="M5 12l14 0" />
@@ -165,6 +153,35 @@
         </div>
     </div>
 
+    <!-- Delete Confirmation Modal -->
+    <div class="modal modal-blur fade" id="modal-danger" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z"></path>
+                        <path d="M12 9v4"></path>
+                        <path d="M12 17h.01"></path>
+                    </svg>
+                    <h3>Are you sure?</h3>
+                    <div class="text-secondary">Do you really want to remove 84 files? What you've done cannot be undone.</div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">Cancel</a></div>
+                            <div class="col"><a href="#" class="btn btn-danger w-100 delete-confirm">Delete</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <!-- Libs JS -->
@@ -172,9 +189,29 @@
     <script src="{{ asset('admin/dist/libs/jsvectormap/dist/js/jsvectormap.min.js?1692870487') }}" defer></script>
     <script src="{{ asset('admin/dist/libs/jsvectormap/dist/maps/world.js?1692870487') }}" defer></script>
     <script src="{{ asset('admin/dist/libs/jsvectormap/dist/maps/world-merc.js?1692870487') }}" defer></script>
+
+    
+
     <!-- Tabler Core -->
     <script src="{{ asset('admin/dist/js/tabler.min.js?1692870487') }}" defer></script>
     <script src="{{ asset('admin/dist/js/demo.min.js?1692870487') }}" defer></script>
+
+
+        
+        <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    {{-- 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+     --}}
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Chart Scripts -->
     <script>
         // @formatter:off
         document.addEventListener("DOMContentLoaded", function () {
@@ -450,7 +487,7 @@
         // @formatter:on
     </script>
     <script>
-        // @formatter:on
+        // @formatter:off
         document.addEventListener("DOMContentLoaded", function () {
             const map = new jsVectorMap({
                 selector: '#map-world',
@@ -465,7 +502,6 @@
                 },
                 zoomOnScroll: false,
                 zoomButtons: false,
-                // -------- Series --------
                 visualizeData: {
                     scale: [tabler.getColor('bg-surface'), tabler.getColor('primary')],
                     values: { "AF": 16, "AL": 11, "DZ": 158, "AO": 85, "AG": 1, "AR": 351, "AM": 8, "AU": 1219, "AT": 366, "AZ": 52, "BS": 7, "BH": 21, "BD": 105, "BB": 3, "BY": 52, "BE": 461, "BZ": 1, "BJ": 6, "BT": 1, "BO": 19, "BA": 16, "BW": 12, "BR": 2023, "BN": 11, "BG": 44, "BF": 8, "BI": 1, "KH": 11, "CM": 21, "CA": 1563, "CV": 1, "CF": 2, "TD": 7, "CL": 199, "CN": 5745, "CO": 283, "KM": 0, "CD": 12, "CG": 11, "CR": 35, "CI": 22, "HR": 59, "CY": 22, "CZ": 195, "DK": 304, "DJ": 1, "DM": 0, "DO": 50, "EC": 61, "EG": 216, "SV": 21, "GQ": 14, "ER": 2, "EE": 19, "ET": 30, "FJ": 3, "FI": 231, "FR": 2555, "GA": 12, "GM": 1, "GE": 11, "DE": 3305, "GH": 18, "GR": 305, "GD": 0, "GT": 40, "GN": 4, "GW": 0, "GY": 2, "HT": 6, "HN": 15, "HK": 226, "HU": 132, "IS": 12, "IN": 1430, "ID": 695, "IR": 337, "IQ": 84, "IE": 204, "IL": 201, "IT": 2036, "JM": 13, "JP": 5390, "JO": 27, "KZ": 129, "KE": 32, "KI": 0, "KR": 986, "KW": 117, "KG": 4, "LA": 6, "LV": 23, "LB": 39, "LS": 1, "LR": 0, "LY": 77, "LT": 35, "LU": 52, "MK": 9, "MG": 8, "MW": 5, "MY": 218, "MV": 1, "ML": 9, "MT": 7, "MR": 3, "MU": 9, "MX": 1004, "MD": 5, "MN": 5, "ME": 3, "MA": 91, "MZ": 10, "MM": 35, "NA": 11, "NP": 15, "NL": 770, "NZ": 138, "NI": 6, "NE": 5, "NG": 206, "NO": 413, "OM": 53, "PK": 174, "PA": 27, "PG": 8, "PY": 17, "PE": 153, "PH": 189, "PL": 438, "PT": 223, "QA": 126, "RO": 158, "RU": 1476, "RW": 5, "WS": 0, "ST": 0, "SA": 434, "SN": 12, "RS": 38, "SC": 0, "SL": 1, "SG": 217, "SK": 86, "SI": 46, "SB": 0, "ZA": 354, "ES": 1374, "LK": 48, "KN": 0, "LC": 1, "VC": 0, "SD": 65, "SR": 3, "SZ": 3, "SE": 444, "CH": 522, "SY": 59, "TW": 426, "TJ": 5, "TZ": 22, "TH": 312, "TL": 0, "TG": 3, "TO": 0, "TT": 21, "TN": 43, "TR": 729, "TM": 0, "UG": 17, "UA": 136, "AE": 239, "GB": 2258, "US": 4624, "UY": 40, "UZ": 37, "VU": 0, "VE": 285, "VN": 101, "YE": 30, "ZM": 15, "ZW": 5 },
@@ -766,23 +802,24 @@
     </script>
 
 
-    <!-- Jquery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <!-- Jquery CDN -->
 
-    <!-- Data Table JS -->
-    <script src="cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
-    <!-- Data Table JS -->
+        <!-- Notyf js -->
+            <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+                <!-- Notyf js -->
 
-    <script>
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                { { --toastr.error("{{ $error }}") --} }
-            @endforeach
-        @endif
-    </script>
+    <!-- Vite-bundled admin.js -->
+    @vite(['resources/js/admin.js'])
+
+    
+
+    <!-- Error Handling -->
+<script>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            notyf.error("{{ $error }}");
+        @endforeach
+    @endif
+</script>
 
     @stack('scripts')
 </body>

@@ -62,6 +62,11 @@
         </div>
     </div>
     <!-- Page body -->
+
+
+
+
+
 @endsection
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}

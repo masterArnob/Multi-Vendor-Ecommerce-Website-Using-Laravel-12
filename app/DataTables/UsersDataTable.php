@@ -16,6 +16,7 @@ class UsersDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
+     * this is acualy vendor request data table
      *
      * @param QueryBuilder<User> $query Results from query() method.
      */
@@ -27,7 +28,7 @@ class UsersDataTable extends DataTable
                 $edit = '<a href="'.route('admin.vendor-request.edit', $query->id).'" class="btn btn-warning mx-2">
                         Edit
                       </a>';
-                $delete = '<a href="'.route('admin.vendor-request.destroy', $query->id).'" class="btn btn-danger">
+                $delete = '<a href="'.route('admin.vendor-request.destroy', $query->id).'" class="btn btn-danger delete-item">
                         Delete
                       </a>';
 
