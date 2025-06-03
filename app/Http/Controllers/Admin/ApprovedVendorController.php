@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\VendorRequestsDataTable;
+use App\DataTables\ApprovedVendorDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use File;
 
-class VendorRequestController extends Controller
+class ApprovedVendorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(VendorRequestsDataTable $dataTable)
+    public function index(ApprovedVendorDataTable $dataTable)
     {
-         return $dataTable->render('admin.vendor-request.index');
+          return $dataTable->render('admin.approved-vendors.index');
     }
 
     /**
@@ -39,7 +39,7 @@ class VendorRequestController extends Controller
      */
     public function show(string $id)
     {
-      
+        //
     }
 
     /**
@@ -47,8 +47,9 @@ class VendorRequestController extends Controller
      */
     public function edit(string $id)
     {
-          $request = User::where(['id' => $id, 'role' => 'user', 'vendor_request' => 1])->first();
-        return view('admin.vendor-request.edit', compact('request'));
+         $request = User::findOrFail($id);
+        // dd($request->all());
+        return view('admin.approved-vendors.edit', compact('request'));
     }
 
     /**
@@ -57,9 +58,9 @@ class VendorRequestController extends Controller
     public function update(Request $request, string $id)
     {
         //dd($request->all());
-        $user = User::findOrFail($id);
+         $user = User::findOrFail($id);
         $user->vendor_status = $request->vendor_status;
-       if($request->vendor_status === 'approved'){
+        if($request->vendor_status === 'approved'){
             $user->is_user = 0;
             $user->is_vendor = 1;
             $user->role = 'vendor';
@@ -78,7 +79,7 @@ class VendorRequestController extends Controller
         }
         $user->save();
         notyf()->success('Vendor Status Updated Successfully!');
-        return redirect()->route('admin.vendor-request.index');
+        return redirect()->route('admin.approved-vendors.index');
     }
 
     /**
@@ -86,13 +87,12 @@ class VendorRequestController extends Controller
      */
     public function destroy(string $id)
     {
-        //dd($id);
-        $request = User::findOrFail($id);
+          $request = User::findOrFail($id);
         if(File::exists(public_path($request->document))){
             File::delete(public_path($request->document));
         }
         $request->delete();
-        notyf()->success('Vendor Request Deleted Successfully!');
+        notyf()->success('Vendor Deleted Successfully!');
         return response(['status' => 'success']);
     }
 }

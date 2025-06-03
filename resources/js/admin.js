@@ -30,7 +30,7 @@ $(document).on("click", ".delete-confirm", function (e) {
             }
         },
         error: function (xhr, status, error) {
-            notyf.success('Your changes have been successfully saved!');
+            notyf.error('Check Error');
         },
     });
 });

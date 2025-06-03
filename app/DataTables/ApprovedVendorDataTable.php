@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\ApprovedVendor;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -12,23 +13,22 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UsersDataTable extends DataTable
+class ApprovedVendorDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
-     * this is acualy vendor request data table
      *
-     * @param QueryBuilder<User> $query Results from query() method.
+     * @param QueryBuilder<ApprovedVendor> $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
+         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
               
-                $edit = '<a href="'.route('admin.vendor-request.edit', $query->id).'" class="btn btn-warning mx-2">
+                $edit = '<a href="'.route('admin.approved-vendors.edit', $query->id).'" class="btn btn-warning mx-2">
                         Edit
                       </a>';
-                $delete = '<a href="'.route('admin.vendor-request.destroy', $query->id).'" class="btn btn-danger delete-item">
+                $delete = '<a href="'.route('admin.approved-vendors.destroy', $query->id).'" class="btn btn-danger delete-item">
                         Delete
                       </a>';
 
@@ -46,13 +46,9 @@ class UsersDataTable extends DataTable
 
 
             ->addColumn('vendor_status', function ($query) {
-                if ($query->vendor_status === 'pending') {
-                    return '<span class="badge bg-orange-lt">Pending</span>';
-                } elseif ($query->vendor_status === 'rejected') {
-                    return '<span class="badge bg-red text-red-fg">Rejected</span>';
-                } elseif ($query->vendor_status === 'banned') {
-                    return '<span class="badge bg-red text-red-fg">Banned</span>';
-                }
+                if ($query->vendor_status === 'approved') {
+                    return '<span class="badge bg-green-lt">Approved</span>';
+                } 
             })
 
 
@@ -63,12 +59,12 @@ class UsersDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      *
-     * @return QueryBuilder<User>
+     * @return QueryBuilder<ApprovedVendor>
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->where('vendor_request', 1)
-            ->where('vendor_status', '!=', 'approved')
+         return $model->where('vendor_request', 1)
+            ->where('vendor_status', '=', 'approved')
             ->newQuery();
     }
 
@@ -78,19 +74,19 @@ class UsersDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('users-table')
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->orderBy(0)
-            ->selectStyleSingle()
-            ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
-            ]);
+                    ->setTableId('approvedvendor-table')
+                    ->columns($this->getColumns())
+                    ->minifiedAjax()
+                    ->orderBy(0)
+                    ->selectStyleSingle()
+                    ->buttons([
+                        Button::make('excel'),
+                        Button::make('csv'),
+                        Button::make('pdf'),
+                        Button::make('print'),
+                        Button::make('reset'),
+                        Button::make('reload')
+                    ]);
     }
 
     /**
@@ -99,8 +95,8 @@ class UsersDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
-            Column::make('id'),
+           
+             Column::make('id'),
             Column::make('name'),
             Column::make('email'),
             Column::make('contact'),
@@ -119,6 +115,6 @@ class UsersDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Users_' . date('YmdHis');
+        return 'ApprovedVendor_' . date('YmdHis');
     }
 }
