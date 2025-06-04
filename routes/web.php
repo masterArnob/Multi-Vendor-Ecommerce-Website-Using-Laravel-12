@@ -6,6 +6,7 @@ use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserVendorRequest;
 use App\Http\Controllers\User\UserVendorRequestController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
+use App\Http\Controllers\Vendor\VendorProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,7 +28,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' 
 
 Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix' => 'vendor', 'as' => 'vendor.'], function(){
 
-    
+    Route::resource('profile', VendorProfileController::class);
 
     Route::get('dashboard', [VendorDashboardController::class, 'index'])->name('dashboard');
 });

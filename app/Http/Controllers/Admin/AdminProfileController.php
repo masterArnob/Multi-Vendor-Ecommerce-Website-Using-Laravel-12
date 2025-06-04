@@ -97,7 +97,7 @@ class AdminProfileController extends Controller
             $request->user()->update([
                 'password' => bcrypt($request->password),
             ]);
-            notyf()->success('Profile Updated Successfully!');
+            notyf()->success('Password Updated Successfully!');
             return redirect()->back();
         }
 
