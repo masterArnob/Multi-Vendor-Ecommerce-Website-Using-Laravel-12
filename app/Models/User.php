@@ -28,7 +28,16 @@ class User extends Authenticatable
         'vendor_status',
         'document',
         'contact',
-        'vendor_request'
+        'vendor_request',
+        'banner',
+        'address',
+        'desc',
+        'fb_link',
+        'tw_link',
+        'insta_link',
+        'tiktok_link',
+        'yt_link'
+
     ];
 
     /**

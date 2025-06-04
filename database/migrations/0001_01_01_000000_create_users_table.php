@@ -33,6 +33,16 @@ return new class extends Migration
             $table->boolean('is_vendor')->default(0);
             $table->enum('vendor_status', ['approved', 'pending', 'rejected', 'banned', 'is_user'])->default('is_user');
 
+
+            $table->text('banner')->nullable();
+            $table->text('address')->nullable();
+            $table->text('desc')->nullable();
+            $table->text('fb_link')->nullable();
+            $table->text('tw_link')->nullable();
+            $table->text('insta_link')->nullable();
+            $table->text('tiktok_link')->nullable();
+            $table->text('yt_link')->nullable();
+
             
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

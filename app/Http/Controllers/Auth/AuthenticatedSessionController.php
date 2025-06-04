@@ -28,13 +28,26 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if ($request->user()->user_status === 'banned') {
+            Auth::guard('web')->logout();
+            $request->session()->regenerateToken();
+            notyf()->error('Your account is banned. Please contact support!');
+            return redirect('/');
+        }
+
+        if ($request->user()->vendor_status === 'banned') {
+            Auth::guard('web')->logout();
+            $request->session()->regenerateToken();
+            notyf()->error('Vendor account is banned. Please contact support!');
+            return redirect('/');
+        }
+
         if ($request->user()->role === 'vendor') {
             return redirect()->intended(route('vendor.dashboard', absolute: false));
         } else if ($request->user()->role === 'user') {
             return redirect()->intended(route('user.dashboard', absolute: false));
         }
         return redirect()->intended(route('dashboard', absolute: false));
-
     }
 
     /**

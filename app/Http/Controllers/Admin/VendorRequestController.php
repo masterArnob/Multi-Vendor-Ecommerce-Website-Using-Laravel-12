@@ -56,25 +56,34 @@ class VendorRequestController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //dd($request->all());
+       // dd($request->all());
         $user = User::findOrFail($id);
-        $user->vendor_status = $request->vendor_status;
+        //$user->vendor_status = $request->vendor_status;
        if($request->vendor_status === 'approved'){
             $user->is_user = 0;
             $user->is_vendor = 1;
             $user->role = 'vendor';
+            $user->vendor_status = 'approved';
+            $user->user_status = 'is_vendor';
         }else if($request->vendor_status === 'pending'){
             $user->is_user = 1;
             $user->is_vendor = 0;
             $user->role = 'user';
+             $user->vendor_status = 'pending';
+            $user->user_status = 'active';
         }else if($request->vendor_status === 'banned'){
+          //  dd($request->all());
             $user->is_user = 1;
             $user->is_vendor = 0;
             $user->role = 'user';
+            $user->user_status = 'banned';
+             $user->vendor_status = $request->vendor_status;
         }else if($request->vendor_status === 'rejected'){
             $user->is_user = 1;
             $user->is_vendor = 0;
             $user->role = 'user';
+             $user->vendor_status = 'rejected';
+            $user->user_status = 'active';
         }
         $user->save();
         notyf()->success('Vendor Status Updated Successfully!');

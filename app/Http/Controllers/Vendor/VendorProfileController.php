@@ -58,7 +58,10 @@ class VendorProfileController extends Controller
 
             $request->validate([
                 'name' => ['required'],
-                'email' => ['required', 'email']
+                'email' => ['required', 'email'],
+                'contact' => ['required', 'numeric'],
+                'address' => ['required'],
+                'desc' => ['required'],
             ]);
             $user = User::findOrFail($id);
             if ($request->hasFile('image')) {
@@ -75,8 +78,36 @@ class VendorProfileController extends Controller
                 //dd($path);
             }
 
+
+
+
+             if ($request->hasFile('banner')) {
+
+                if (File::exists(public_path($user->banner))) {
+                    File::delete(public_path($user->banner));
+                }
+
+                $file = $request->banner;
+                $fileName = rand() . '.' . $file->getClientOriginalExtension();
+                $path = '/uploads/' . $fileName;
+                $file->move(public_path('uploads'), $fileName);
+                $user->banner = $path;
+                //dd($path);
+            }
+
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->contact = $request->contact;
+            $user->desc = $request->desc;
+            $user->address = $request->address;
+            $user->fb_link = $request->fb_link;
+            $user->tw_link = $request->tw_link;
+            $user->insta_link = $request->insta_link;
+            $user->tiktok_link = $request->tiktok_link;
+            $user->yt_link = $request->yt_link;
+ 
+
+
             $user->save();
             notyf()->success('Profile Updated Successfully!');
             return redirect()->back();
