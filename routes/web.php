@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredVendorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserDashboardController;
+use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\User\UserVendorRequest;
 use App\Http\Controllers\User\UserVendorRequestController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
@@ -20,6 +21,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' => 'user', 'as' => 'user.'], function(){
 
+    Route::resource('profile', UserProfileController::class);
     Route::resource('vendor-request', UserVendorRequestController::class);
 
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
