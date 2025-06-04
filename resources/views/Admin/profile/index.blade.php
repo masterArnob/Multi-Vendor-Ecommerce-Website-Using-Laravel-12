@@ -71,10 +71,12 @@
                             <div class="col-md">
                                 <div class="form-label">Name</div>
                                 <input type="text" name="name" class="form-control" value="{{ Auth::user()->name }}">
+                                 <x-input-error :messages="$errors->get('name')" class="mt-2 text-danger" />
                             </div>
                             <div class="col-md">
                                 <div class="form-label">Email Address</div>
                                 <input type="email" name="email" class="form-control" value="{{ Auth::user()->email }}">
+                                  <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                             </div>
 
                         </div>
@@ -94,13 +96,16 @@
                         @method('PUT')
                              <div class="col-5">
                                  <div class="form-label">Current Password</div>
-                                  <input type="text" class="form-control" name="example-password-input" placeholder="Input placeholder">
+                                  <input class="form-control" name="current_password" type="password">
+                                   <x-input-error :messages="$errors->get('current_password')" class="mt-2 text-danger" />
 
                                    <div class="form-label mt-3">New Password</div>
-                                  <input type="text" class="form-control" name="example-password-input" placeholder="Input placeholder">
+                                  <input class="form-control" name="password" type="password">
+                                  <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
 
                                    <div class="form-label mt-3">Confirm Password</div>
-                                  <input type="text" class="form-control" name="example-password-input" placeholder="Input placeholder">
+                                  <input class="form-control" name="password_confirmation" type="password">
+                                   <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-danger" />
                             </div>
 
                               <input type="hidden" name="update_type" value="password_update">
@@ -109,17 +114,8 @@
                        </form>
                     
 
-                        <h3 class="card-title mt-4">Public profile</h3>
-                        <p class="card-subtitle">Making your profile public means that anyone on the Dashkit network will be
-                            able to find
-                            you.</p>
-                        <div>
-                            <label class="form-check form-switch form-switch-lg">
-                                <input class="form-check-input" type="checkbox">
-                                <span class="form-check-label form-check-label-on">You're currently visible</span>
-                                <span class="form-check-label form-check-label-off">You're
-                                    currently invisible</span>
-                            </label>
+                     
+                         
                         </div>
                     </div>
                 </div>
