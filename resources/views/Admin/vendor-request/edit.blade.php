@@ -24,9 +24,9 @@
                         <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
                             data-bs-target="#modal-report">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
@@ -36,9 +36,9 @@
                         <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal"
                             data-bs-target="#modal-report" aria-label="Create new report">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
@@ -82,8 +82,49 @@
                                 </tr>
                                 <tr>
                                     <th>Vendor Request</th>
-                                    <td>{{ $request->vendor_request }}</td>
+                                    <td>{{ $request->vendor_request === 1 ? 'yes' : 'no' }}</td>
                                 </tr>
+
+
+                                    <tr>
+                                    <th>Address</th>
+                                    <td>{{ $request->address }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ $request->desc }}</td>
+                                </tr>
+
+
+                                <tr>
+                                    <th>FaceBook Link</th>
+                                    <td><a href="{{ $request->fb_link }}">{{ $request->fb_link }}</a></td>
+                                </tr>
+
+                                <tr>
+                                    <th>X Link</th>
+                                    <td><a href="{{ $request->tw_link }}">{{ $request->tw_link }}</a></td>
+                                </tr>
+
+
+                                <tr>
+                                    <th>Instagram Link</th>
+                                    <td><a href="{{ $request->insta_link }}">{{ $request->insta_link }}</a></td>
+                                </tr>
+
+
+                                <tr>
+                                    <th>Tik Tok Link</th>
+                                    <td><a href="{{ $request->tiktok_link }}">{{ $request->tiktok_link }}</a></td>
+                                </tr>
+
+                                <tr>
+                                    <th>YouTube Link</th>
+                                    <td><a href="{{ $request->yt_link }}">{{ $request->yt_link }}</a></td>
+                                </tr>
+
+
                                 <tr>
                                     <th>Document</th>
                                     <td>
@@ -99,12 +140,14 @@
                                                         title="Document Preview"></iframe>
                                                 </div>
                                             @endif
-                                            <a href="{{ asset($request->document) }}" download class="btn btn-outline-primary">
+                                            <a href="{{ asset($request->document) }}" download
+                                                class="btn btn-outline-primary">
                                                 <!-- Download SVG icon from http://tabler-icons.io/i/download -->
                                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="icon icon-tabler icon-tabler-download" width="24" height="24"
-                                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                                    stroke-linecap="round" stroke-linejoin="round">
+                                                    class="icon icon-tabler icon-tabler-download" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
                                                     <path d="M7 11l5 5l5 -5" />

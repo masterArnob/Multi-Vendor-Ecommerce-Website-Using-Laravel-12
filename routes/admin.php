@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\VendorRequestController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
+    Route::resource('manage-user', ManageUserController::class);
     Route::resource('profile', AdminProfileController::class);
     Route::resource('approved-vendors', ApprovedVendorController::class);
     Route::resource('vendor-request', VendorRequestController::class);

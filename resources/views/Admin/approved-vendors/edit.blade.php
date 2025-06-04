@@ -60,7 +60,18 @@
                             <tbody>
                                 <tr>
                                     <th>Image</th>
-                                    <td>Paweł Kuna</td>
+                                    <td>
+                                        <span class="avatar avatar-xl"
+                                            style="background-image: url({{ asset($request->image) }})"></span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Banner</th>
+                                    <td>
+                                        <div class="img-responsive img-responsive-3x1 rounded-3 border"
+                                            style="background-image: url({{ asset($request->banner) }})"></div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Name</th>
@@ -82,8 +93,47 @@
                                 </tr>
                                 <tr>
                                     <th>Vendor Request</th>
-                                    <td>{{ $request->vendor_request }}</td>
+                                    <td>{{ $request->vendor_request === 1 ? 'yes' : 'no' }}</td>
                                 </tr>
+
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{{ $request->address }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ $request->desc }}</td>
+                                </tr>
+
+
+                                <tr>
+                                    <th>FaceBook Link</th>
+                                    <td><a href="{{ $request->fb_link }}">{{ $request->fb_link }}</a></td>
+                                </tr>
+
+                                <tr>
+                                    <th>X Link</th>
+                                    <td><a href="{{ $request->tw_link }}">{{ $request->tw_link }}</a></td>
+                                </tr>
+
+
+                                <tr>
+                                    <th>Instagram Link</th>
+                                    <td><a href="{{ $request->insta_link }}">{{ $request->insta_link }}</a></td>
+                                </tr>
+
+
+                                <tr>
+                                    <th>Tik Tok Link</th>
+                                    <td><a href="{{ $request->tiktok_link }}">{{ $request->tiktok_link }}</a></td>
+                                </tr>
+
+                                <tr>
+                                    <th>YouTube Link</th>
+                                    <td><a href="{{ $request->yt_link }}">{{ $request->yt_link }}</a></td>
+                                </tr>
+
                                 <tr>
                                     <th>Document</th>
                                     <td>
