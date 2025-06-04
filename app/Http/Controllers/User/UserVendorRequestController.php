@@ -93,7 +93,7 @@ class UserVendorRequestController extends Controller
         $user->vendor_request = 1;
         $user->vendor_status = 'pending';
         $user->save();
-        return redirect()->route('user.dashboard.index');
+        return redirect()->route('user.dashboard');
     }
 
     /**

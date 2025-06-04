@@ -157,19 +157,19 @@
                     <span class="avatar avatar-sm" style="background-image: url({{ asset(Auth::user()->image) }})"></span>
                     <div class="d-none d-xl-block ps-2">
                         <div>{{ Auth::user()->name }}</div>
-                        <div class="mt-1 small text-secondary">{{ Auth::user()->id === 1 ? 'Super Admin' : 'Admin' }}</div>
+                        <div class="mt-1 small text-secondary">User</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <a href="#" class="dropdown-item">Status</a>
-                    <a href="{{ route('admin.profile.index') }}" class="dropdown-item">Profile</a>
+                    <a href="{{ route('vendor.profile.index') }}" class="dropdown-item">Profile</a>
                     <a href="#" class="dropdown-item">Feedback</a>
                     <div class="dropdown-divider"></div>
                     <a href="./settings.html" class="dropdown-item">Settings</a>
 
-                    <form method="POST" action="{{ route('admin.logout') }}">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                         <a href="{{ route('admin.logout') }}" onclick="event.preventDefault();
+                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 this.closest('form').submit();" class="dropdown-item">Logout</a>
                        
                     </form>
