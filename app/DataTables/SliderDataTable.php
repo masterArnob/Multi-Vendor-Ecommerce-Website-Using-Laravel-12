@@ -32,9 +32,7 @@ class SliderDataTable extends DataTable
                         Delete
                       </a>';
 
-                if ($query->id == 1) {
-                    return '';
-                }
+          
 
                 if (Auth::id() === 1) {
                     return $edit . $delete;
