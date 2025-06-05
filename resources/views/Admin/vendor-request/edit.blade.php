@@ -58,10 +58,9 @@
                     <div class="table-responsive">
                         <table class="table table-vcenter card-table">
                             <tbody>
-                                <tr>
-                                    <th>Image</th>
-                                    <td>Paweł Kuna</td>
-                                </tr>
+                           
+
+                           
                                 <tr>
                                     <th>Name</th>
                                     <td>{{ $request->name }}</td>

@@ -305,8 +305,10 @@
                         </ul>
                         <ul class="wsus__menu_item wsus__menu_item_right">
                             <li><a href="contact.html">contact</a></li>
-                            <li><a href="dsahboard.html">my account</a></li>
-                            <li><a href="login.html">login</a></li>
+                           
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                             <li><a href="{{ route('register') }}">Register</a></li>
+                              <li><a href="{{ route('vendor.register.index') }}">Vendor Register</a></li>
                         </ul>
                     </div>
                 </div>

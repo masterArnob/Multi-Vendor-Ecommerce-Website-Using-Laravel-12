@@ -2,8 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Admin;
-use App\Models\ManageAdmin;
+use App\Models\Slider;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
@@ -14,78 +13,72 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ManageAdminsDataTable extends DataTable
+class SliderDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
      *
-     * @param QueryBuilder<ManageAdmin> $query Results from query() method.
+     * @param QueryBuilder<Slider> $query Results from query() method.
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
 
-                $edit = '<a href="' . route('admin.manage-admin.edit', $query->id) . '" class="btn btn-warning mx-2">
+                $edit = '<a href="' . route('admin.slider.edit', $query->id) . '" class="btn btn-warning mx-2">
                         Edit
                       </a>';
-                $delete = '<a href="' . route('admin.manage-admin.destroy', $query->id) . '" class="btn btn-danger delete-item">
+                $delete = '<a href="' . route('admin.slider.destroy', $query->id) . '" class="btn btn-danger delete-item">
                         Delete
                       </a>';
 
-                       if ($query->id == 1) {
+                if ($query->id == 1) {
                     return '';
                 }
 
-            if (Auth::id() === 1) {
+                if (Auth::id() === 1) {
                     return $edit . $delete;
                 }
 
                 return $edit;
             })
-            ->addColumn('role', function ($query) {
-                return $query->id == '1' ? '<span class="badge bg-purple-lt">Super Admin</span>' : '<span class="badge bg-green-lt">Admin</span>';
-            })
 
-
-->addColumn('created_by', function ($query) {
-    $user = \App\Models\Admin::find($query->created_by);
-    $imagePath = $user && $user->image ? asset( $user->image) : asset('default-avatar.png');
-    return '<span class="avatar avatar-xl" style="background-image: url(' . $imagePath . ')"></span>';
-})
-
-->addColumn('created_person_email', function ($query) {
-    $admin = \App\Models\Admin::find($query->created_by);
-    return $admin ? $admin->email : 'N/A';
-})
-
-
-
-            ->addColumn('image', function ($query) {
-                $imagePath = $query->image ? asset($query->image) : 'Image Not Updated';
-                return '<span class="avatar avatar-xl" style="background-image: url(\'' . $imagePath . '\')"></span>';
-            })
-
-            
-
-               ->addColumn('status', function ($query) {
-                if ($query->status === 'approved') {
-                   return '<span class="badge bg-green-lt">Approved</span>';
-                }elseif ($query->status === 'banned') {
-                     return '<span class="badge bg-danger-lt">Banned</span>';
+            ->addColumn('status', function ($query) {
+                if ($query->status === 1) {
+                    return '<span class="badge bg-green-lt">Active</span>';
+                } else if ($query->status == 0) {
+                    return '<span class="badge bg-danger-lt">Inactive</span>';
                 }
             })
 
-            ->rawColumns(['action', 'role', 'image', 'status', 'created_by'])
+
+            ->addColumn('banner', function ($query) {
+                $imagePath = $query->banner ? asset($query->banner) : 'Banner Not Updated';
+                return '<span class="avatar avatar-xl" style="background-image: url(\'' . $imagePath . '\')"></span>';
+            })
+
+
+            ->addColumn('created_by', function ($query) {
+                $user = \App\Models\Admin::find($query->created_by);
+                $imagePath = $user && $user->image ? asset($user->image) : asset('default-avatar.png');
+                return '<span class="avatar avatar-xl" style="background-image: url(' . $imagePath . ')"></span>';
+            })
+
+            ->addColumn('created_person_email', function ($query) {
+                $admin = \App\Models\Admin::find($query->created_by);
+                return $admin ? $admin->email : 'N/A';
+            })
+
+            ->rawColumns(['action', 'status', 'banner', 'created_by', 'created_person_email'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      *
-     * @return QueryBuilder<ManageAdmin>
+     * @return QueryBuilder<Slider>
      */
-    public function query(Admin $model): QueryBuilder
+    public function query(Slider $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -96,7 +89,7 @@ class ManageAdminsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('manageadmins-table')
+            ->setTableId('slider-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(0)
@@ -118,20 +111,21 @@ class ManageAdminsDataTable extends DataTable
     {
         return [
 
-            Column::make('id'),
-            Column::make('image'),
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('role'),
+            Column::make('id')->width('10'),
+            Column::make('banner'),
+            Column::make('type'),
+            Column::make('title'),
+            Column::make('starting_price'),
+            Column::make('serial')->width('50'),
             Column::make('created_by'),
             Column::make('created_person_email'),
-            
-            Column::make('created_at'),
+
             Column::make('status'),
+            Column::make('created_at'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(360)
+                ->width(160)
                 ->addClass('text-center'),
         ];
     }
@@ -141,6 +135,6 @@ class ManageAdminsDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ManageAdmins_' . date('YmdHis');
+        return 'Slider_' . date('YmdHis');
     }
 }

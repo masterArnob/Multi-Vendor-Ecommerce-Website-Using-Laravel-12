@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\ManageAdminController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\VendorRequestController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
 
+    Route::resource('slider', SliderController::class);
     Route::resource('manage-admin', ManageAdminController::class);
     Route::resource('manage-user', ManageUserController::class);
     Route::resource('profile', AdminProfileController::class);

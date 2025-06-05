@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use File;
+use Illuminate\Support\Facades\Auth;
 
 class VendorRequestController extends Controller
 {
@@ -96,6 +97,9 @@ class VendorRequestController extends Controller
     public function destroy(string $id)
     {
         //dd($id);
+         if (Auth::user()->id != 1) {
+            abort(404);
+        }
         $request = User::findOrFail($id);
         if(File::exists(public_path($request->document))){
             File::delete(public_path($request->document));
