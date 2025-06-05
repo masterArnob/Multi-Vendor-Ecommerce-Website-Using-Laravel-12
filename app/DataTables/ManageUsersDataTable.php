@@ -42,15 +42,19 @@ class ManageUsersDataTable extends DataTable
                 } elseif ($query->user_status === 'inactive') {
                      return '<span class="badge bg-orange-lt">Inactive</span>';
                 }elseif ($query->user_status === 'banned') {
-                     return '<span class="badge bg-orange-lt">Banned</span>';
+                     return '<span class="badge bg-danger-lt">Banned</span>';
                 }
             })
 
 
           
+                      ->addColumn('image', function($query) {
+    $imagePath = $query->image ? asset($query->image) : 'Image Not Updated';
+    return '<span class="avatar avatar-xl" style="background-image: url(\'' . $imagePath . '\')"></span>';
+})
 
 
-            ->rawColumns(['action', 'user_status'])
+            ->rawColumns(['action', 'user_status', 'image'])
             ->setRowId('id');
     }
 

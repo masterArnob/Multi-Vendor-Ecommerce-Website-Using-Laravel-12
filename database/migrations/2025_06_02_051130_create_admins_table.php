@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('bio')->nullable();
+            $table->enum('status', ['approved', 'banned'])->default('approved');
+            $table->string('contact');
+            $table->text('address');
+            $table->string('created_by');
             $table->rememberToken();
             $table->timestamps();
 

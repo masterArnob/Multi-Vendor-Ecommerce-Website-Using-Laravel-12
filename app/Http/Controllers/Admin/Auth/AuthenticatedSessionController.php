@@ -27,7 +27,14 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+    
+       // dd($request->user());
+               if ($request->status === 'banned') {
+            Auth::guard('admin')->logout();
+            $request->session()->regenerateToken();
+            notyf()->error('Your account is banned. Please contact support!');
+            return redirect('/');
+        }
         return redirect()->intended(route('admin.dashboard', absolute: false));
     }
 
@@ -36,7 +43,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
 

@@ -17,8 +17,12 @@ class AdminSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
-            'bio' => 'Default Admin',
-            'image' => ''
+            'image' => '',
+            'status' => 'approved',
+            'contact' => '',
+            'created_by' => '',
+            'address' => '',
+            'created_at' => date('Y-m-d H:i:s')
         ];
         Admin::insert($admin);
     }
