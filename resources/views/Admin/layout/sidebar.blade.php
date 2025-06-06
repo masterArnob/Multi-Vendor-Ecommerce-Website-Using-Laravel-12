@@ -221,7 +221,7 @@
                       <a class="dropdown-item" href="{{ route('admin.category.index') }}">
                         Manage Category
                       </a>
-                      <a class="dropdown-item" href="">
+                      <a class="dropdown-item" href="{{ route('admin.sub-category.index') }}">
                         Manage Sub-category
                       </a>
 
