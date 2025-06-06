@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ManageAdminController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -43,6 +44,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
 
+    Route::resource('category', CategoryController::class);
     Route::resource('slider', SliderController::class);
     Route::resource('manage-admin', ManageAdminController::class);
     Route::resource('manage-user', ManageUserController::class);
