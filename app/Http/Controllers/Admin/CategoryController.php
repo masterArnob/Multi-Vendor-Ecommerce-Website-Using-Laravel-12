@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index(CategoryDataTable $dataTable)
     {
-         return $dataTable->render('admin.category.index');
+        return $dataTable->render('admin.category.index');
     }
 
     /**
@@ -41,7 +42,7 @@ class CategoryController extends Controller
         $category->slug = \Str::slug($request->name);
         $category->status = $request->status;
         $category->save();
-         notyf()->success('Category Created Successfully!');
+        notyf()->success('Category Created Successfully!');
         return redirect()->route('admin.category.index');
     }
 
@@ -59,7 +60,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $cat = Category::findOrFail($id);
-         return view('admin.category.edit', compact('cat'));
+        return view('admin.category.edit', compact('cat'));
     }
 
     /**
@@ -67,7 +68,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-         $request->validate([
+        $request->validate([
             'name' => ['required'],
             'icon' => ['required']
         ]);
@@ -78,7 +79,7 @@ class CategoryController extends Controller
         $category->slug = \Str::slug($request->name);
         $category->status = $request->status;
         $category->save();
-         notyf()->success('Category Updated Successfully!');
+        notyf()->success('Category Updated Successfully!');
         return redirect()->route('admin.category.index');
     }
 
@@ -88,6 +89,13 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $cat = Category::findOrFail($id);
+        $subCat = SubCategory::where(['category_id' => $cat->id])->count();
+
+        if ($subCat > 0) {
+        notyf()->error('There are sub categories under this category. Please delete them first!');
+        return response(['status' => 'error']);
+        }
+
         $cat->delete();
         notyf()->success('Category Deleted Successfully!');
         return response(['status' => 'success']);

@@ -225,7 +225,7 @@
                         Manage Sub-category
                       </a>
 
-                       <a class="dropdown-item" href="">
+                       <a class="dropdown-item" href="{{ route('admin.child-category.index') }}">
                         Manage Child-category
                       </a>
                   </div>

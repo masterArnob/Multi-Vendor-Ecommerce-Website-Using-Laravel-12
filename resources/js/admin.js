@@ -27,6 +27,8 @@ $(document).on("click", ".delete-confirm", function (e) {
         success: function (data) {
             if(data.status === 'success'){
                  window.location.reload();
+            }else if(data.status === 'error'){
+                 window.location.reload();
             }
         },
 error: function (xhr, status, error) {

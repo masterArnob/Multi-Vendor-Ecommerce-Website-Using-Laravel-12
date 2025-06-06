@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\SubCategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\ChildCategory;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class SubCategoryController extends Controller
      */
     public function index(SubCategoryDataTable $dataTable)
     {
-         return $dataTable->render('admin.sub-category.index');
+        return $dataTable->render('admin.sub-category.index');
     }
 
     /**
@@ -43,7 +44,7 @@ class SubCategoryController extends Controller
         $subcat->status = $request->status;
         $subcat->category_id = $request->category_id;
         $subcat->save();
-          notyf()->success('Sub Category Created Successfully!');
+        notyf()->success('Sub Category Created Successfully!');
         return redirect()->route('admin.sub-category.index');
     }
 
@@ -60,11 +61,11 @@ class SubCategoryController extends Controller
      */
     public function edit(string $id)
     {
-    
+
         $cats = Category::where('status', '1')->get();
-       
-          $subcat = SubCategory::findOrFail($id);
-         return view('admin.sub-category.edit', compact('subcat', 'cats'));
+
+        $subcat = SubCategory::findOrFail($id);
+        return view('admin.sub-category.edit', compact('subcat', 'cats'));
     }
 
     /**
@@ -72,7 +73,7 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-          $request->validate([
+        $request->validate([
             'category_id' => ['required'],
             'name' => ['required']
         ]);
@@ -83,7 +84,7 @@ class SubCategoryController extends Controller
         $subcat->status = $request->status;
         $subcat->category_id = $request->category_id;
         $subcat->save();
-          notyf()->success('Sub Category Updated Successfully!');
+        notyf()->success('Sub Category Updated Successfully!');
         return redirect()->route('admin.sub-category.index');
     }
 
@@ -92,7 +93,14 @@ class SubCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-         $subcat = SubCategory::findOrFail($id);
+        $subcat = SubCategory::findOrFail($id);
+        $childCat = ChildCategory::where(['sub_category_id' => $subcat->id])->count();
+
+        if ($childCat > 0) {
+            notyf()->error('There are child categories under this sub category. Please delete them first!');
+            return response(['status' => 'error']);
+        }
+
         $subcat->delete();
         notyf()->success('Sub Category Deleted Successfully!');
         return response(['status' => 'success']);
