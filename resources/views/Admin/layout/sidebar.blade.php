@@ -249,8 +249,8 @@
                       <a class="dropdown-item" href="{{ route('admin.slider.index') }}">
                         Manage Sliders
                       </a>
-                      <a class="dropdown-item" href="">
-                        list 2
+                      <a class="dropdown-item" href="{{ route('admin.brand.index') }}">
+                        Manage Brands
                       </a>
                   </div>
                 </div>
