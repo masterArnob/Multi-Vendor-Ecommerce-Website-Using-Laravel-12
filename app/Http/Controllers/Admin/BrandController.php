@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\BrandDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Auth;
@@ -123,7 +124,16 @@ class BrandController extends Controller
         if (Auth::user()->id != 1) {
             abort(404);
         }
+
+        
           $brand = Brand::findOrFail($id);
+
+          $product = Product::where('brand_id', $brand->id)->count();
+          if($product > 0){
+             notyf()->error('There are product under this brand. Please delete them first!');
+               return response(['status' => 'error']);
+          }
+
         if(File::exists(public_path($brand->logo))){
             File::delete(public_path($brand->logo));
         }
