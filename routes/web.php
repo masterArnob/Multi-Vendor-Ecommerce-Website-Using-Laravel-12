@@ -7,6 +7,7 @@ use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\User\UserVendorRequest;
 use App\Http\Controllers\User\UserVendorRequestController;
+use App\Http\Controllers\Vendor\ProductController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorProfileController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,9 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' 
  */
 Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix' => 'vendor', 'as' => 'vendor.'], function () {
 
+        Route::get('product/get-child-categories/', [ProductController::class, 'getChildCategories'])->name('product.get-child-categories');
+    Route::get('product/get-sub-categories/', [ProductController::class, 'getSubCategories'])->name('product.get-sub-categories');
+    Route::resource('product', ProductController::class);
     Route::resource('profile', VendorProfileController::class);
     Route::get('dashboard', [VendorDashboardController::class, 'index'])->name('dashboard');
 });
