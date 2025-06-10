@@ -32,14 +32,28 @@ class AdminProductDataTable extends DataTable
                 $delete = '<a href="' . route('admin.product.destroy', $query->id) . '" class="btn btn-danger delete-item">
                         Delete
                       </a>';
+$more = '<div class="btn-group dropstart">
+  <!-- Button to toggle the dropdown -->
+  <button type="button" class="btn btn-info w-100 dropdown-toggle mx-2" data-bs-toggle="dropdown" aria-expanded="false">
+<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-settings"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>
+  </button>
+  <!-- Dropdown menu -->
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="'. route('admin.product-variant.index', ['product_id' => $query->id]) .'">Variants</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+</div>';
 
           
 
                 if (Auth::id() === 1) {
-                    return $edit . $delete;
+                    return $edit . $delete . $more;
                 }
 
-                return $edit;
+                return $edit.$more;
             })
 
             ->addColumn('status', function ($query) {
@@ -148,15 +162,14 @@ class AdminProductDataTable extends DataTable
             Column::make('thumb_image'),
             Column::make('name'),
             Column::make('brand'),
-            Column::make('qty'),
+       
             Column::make('price'),
             Column::make('offer_price'),
             Column::make('offer_start_date'),
             Column::make('offer_end_date'),
             Column::make('status'),
             Column::make('is_approved'),
-            Column::make('created_by'),
-             Column::make('created_person_email'),
+ 
             
               Column::computed('action')
                   ->exportable(false)
