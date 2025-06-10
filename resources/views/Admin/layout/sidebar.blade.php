@@ -273,7 +273,7 @@
                       <a class="dropdown-item" href="{{ route('admin.product.index') }}">
                         My Products
                       </a>
-                      <a class="dropdown-item" href="{{ route('admin.brand.index') }}">
+                      <a class="dropdown-item" href="{{ route('admin.vendor-product.index') }}">
                         Vendor Products
                       </a>
                   </div>
