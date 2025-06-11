@@ -33,6 +33,9 @@ class AdminVendorProductDataTable extends DataTable
                         Delete
                       </a>';
 
+                    
+
+
 
 
                 if (Auth::id() === 1) {
@@ -147,11 +150,8 @@ class AdminVendorProductDataTable extends DataTable
             Column::make('thumb_image'),
             Column::make('name'),
             Column::make('brand'),
-            Column::make('qty'),
             Column::make('price'),
-            Column::make('offer_price'),
-            Column::make('offer_start_date'),
-            Column::make('offer_end_date'),
+   
             Column::make('status'),
             Column::make('is_approved'),
             Column::make('created_by'),
