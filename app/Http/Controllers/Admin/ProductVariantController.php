@@ -6,6 +6,7 @@ use App\DataTables\AdminProductVariantDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\ProductVariantItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,6 +70,12 @@ class ProductVariantController extends Controller
     public function destroy($id){
         //dd($id);
         $variant = ProductVariant::findOrFail($id);
+        $items = ProductVariantItem::where('product_variant_id', $variant->id)->count();
+        if($items > 0){
+            notyf()->error('There are items under this variant. Please delete them first!');
+            return response(['status' => 'error']);
+        }
+
         $variant->delete();
         notyf()->success('Variant Deleted Successfully!');
         return response(['status' => 'success']);
