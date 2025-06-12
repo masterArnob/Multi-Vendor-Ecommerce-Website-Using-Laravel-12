@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\VendorProductController;
+use App\Http\Controllers\Admin\VendorProductImageGalleryController;
 use App\Http\Controllers\Admin\VendorProductVariant;
 use App\Http\Controllers\Admin\VendorProductVariantItem;
 use App\Http\Controllers\Admin\VendorRequestController;
@@ -55,6 +56,9 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
 
 
+
+
+    Route::resource('vendor/product/vendor-image-gallery', VendorProductImageGalleryController::class);
 
 
     Route::resource('product/image-gallery', ProductImageGalleryController::class);
