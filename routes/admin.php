@@ -24,6 +24,8 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\VendorProductController;
+use App\Http\Controllers\Admin\VendorProductVariant;
+use App\Http\Controllers\Admin\VendorProductVariantItem;
 use App\Http\Controllers\Admin\VendorRequestController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +53,20 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
 
+
+
+    Route::delete('vendor-product/variant-item/destroy/{variant_item_id}', [VendorProductVariantItem::class, 'destroy'])->name('vendor-product-variant-item.destroy');
+    Route::put('vendor-product/variant-item/update/{variant_item_id}', [VendorProductVariantItem::class, 'update'])->name('vendor-product-variant-item.update');
+    Route::get('vendor-product/variant-item/edit/{product_id}/{variant_id}/{variant_item_id}', [VendorProductVariantItem::class, 'edit'])->name('vendor-product-variant-item.edit');
+    Route::get('vendor-product/variant-item/{product_id}/{variant_id}', [VendorProductVariantItem::class, 'index'])->name('vendor-product-variant-item.index');
+
+
+
+
+    Route::delete('vendor-product/variant/destroy/{variant_id}', [VendorProductVariant::class, 'destroy'])->name('vendor-product-variant.destroy');
+    Route::put('vendor-product/variant/update/{variant_id}', [VendorProductVariant::class, 'update'])->name('vendor-product-variant.update');
+    Route::get('vendor-product/variant/edit/{product_id}/{variant_id}', [VendorProductVariant::class, 'edit'])->name('vendor-product-variant.edit');
+    Route::get('vendor-product/variant/{product_id}', [VendorProductVariant::class, 'index'])->name('vendor-product-variant.index');
 
 
     
