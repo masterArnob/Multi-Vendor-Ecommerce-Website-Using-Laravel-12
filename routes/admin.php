@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\ManageAdminController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductImageGalleryController;
 use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\ProductVariantItemController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -55,27 +56,46 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
 
 
+
+    Route::resource('product/image-gallery', ProductImageGalleryController::class);
+
+    /**
+     * Vendor Product Variant Items Routes
+     */
     Route::delete('vendor-product/variant-item/destroy/{variant_item_id}', [VendorProductVariantItem::class, 'destroy'])->name('vendor-product-variant-item.destroy');
     Route::put('vendor-product/variant-item/update/{variant_item_id}', [VendorProductVariantItem::class, 'update'])->name('vendor-product-variant-item.update');
     Route::get('vendor-product/variant-item/edit/{product_id}/{variant_id}/{variant_item_id}', [VendorProductVariantItem::class, 'edit'])->name('vendor-product-variant-item.edit');
     Route::get('vendor-product/variant-item/{product_id}/{variant_id}', [VendorProductVariantItem::class, 'index'])->name('vendor-product-variant-item.index');
+    /**
+     * Vendor Product Variant Items Routes
+     */
 
 
-
-
+    /**
+     * Vendor Product Variant Routes
+     */
     Route::delete('vendor-product/variant/destroy/{variant_id}', [VendorProductVariant::class, 'destroy'])->name('vendor-product-variant.destroy');
     Route::put('vendor-product/variant/update/{variant_id}', [VendorProductVariant::class, 'update'])->name('vendor-product-variant.update');
     Route::get('vendor-product/variant/edit/{product_id}/{variant_id}', [VendorProductVariant::class, 'edit'])->name('vendor-product-variant.edit');
     Route::get('vendor-product/variant/{product_id}', [VendorProductVariant::class, 'index'])->name('vendor-product-variant.index');
-
+    /**
+     * Vendor Product Variant Routes
+     */
 
     
+    /**
+     * Product Variant Items Routes
+     */
     Route::delete('product/variant-item/destroy/{variant_item_id}', [ProductVariantItemController::class, 'destroy'])->name('product-variant-item.destroy');
     Route::put('product/variant-item/update/{variant_item_id}', [ProductVariantItemController::class, 'update'])->name('product-variant-item.update');
     Route::get('product/variant-item/edit/{product_id}/{variant_id}/{variant_item_id}', [ProductVariantItemController::class, 'edit'])->name('product-variant-item.edit');
     Route::post('product/variant-item/store', [ProductVariantItemController::class, 'store'])->name('product-variant-item.store');
     Route::get('product/variant-item/create/{product_id}/{variant_id}', [ProductVariantItemController::class, 'create'])->name('product-variant-item.create');
     Route::get('product/variant-item/{product_id}/{variant_id}', [ProductVariantItemController::class, 'index'])->name('product-variant-item.index');
+    /**
+     * Product Variant Items Routes
+     */
+
 
     /**
      * Product Variant Routes
