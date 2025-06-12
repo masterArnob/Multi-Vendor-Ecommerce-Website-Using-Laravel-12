@@ -8,6 +8,7 @@ use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\User\UserVendorRequest;
 use App\Http\Controllers\User\UserVendorRequestController;
 use App\Http\Controllers\Vendor\ProductController;
+use App\Http\Controllers\Vendor\ProductImageGalleryController;
 use App\Http\Controllers\Vendor\ProductVariantController;
 use App\Http\Controllers\Vendor\ProductVariantItemController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' 
 Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix' => 'vendor', 'as' => 'vendor.'], function () {
 
     
-    
+    Route::resource('product/image-gallery', ProductImageGalleryController::class);
     Route::delete('product/variant-item/destroy/{variant_item_id}', [ProductVariantItemController::class, 'destroy'])->name('product-variant-item.destroy');
     Route::put('product/variant-item/update/{variant_item_id}', [ProductVariantItemController::class, 'update'])->name('product-variant-item.update');
     Route::get('product/variant-item/edit/{product_id}/{variant_id}/{variant_item_id}', [ProductVariantItemController::class, 'edit'])->name('product-variant-item.edit');

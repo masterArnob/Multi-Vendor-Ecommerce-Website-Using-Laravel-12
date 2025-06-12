@@ -41,10 +41,8 @@ class VendorProductDataTable extends DataTable
   <!-- Dropdown menu -->
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="'. route('vendor.product-variant.index', ['product_id' => $query->id]) .'">Variants</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Separated link</a></li>
+    <li><a class="dropdown-item" href="'.route('vendor.image-gallery.index', ['product_id' => $query->id]).'">Product Image Gallery</a></li>
+
   </ul>
 </div>';
           
