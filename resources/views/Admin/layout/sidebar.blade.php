@@ -252,6 +252,10 @@
                       <a class="dropdown-item" href="{{ route('admin.brand.index') }}">
                         Manage Brands
                       </a>
+
+                        <a class="dropdown-item" href="{{ route('admin.flash-sale.index') }}">
+                        Manage Flash Sale
+                      </a>
                   </div>
                 </div>
               </li>

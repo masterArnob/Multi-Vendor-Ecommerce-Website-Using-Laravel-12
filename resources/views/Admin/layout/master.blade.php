@@ -13,6 +13,10 @@
     <link href="{{ asset('admin/dist/css/tabler-vendors.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('admin/dist/css/demo.min.css?1692870487') }}" rel="stylesheet" />
 
+    {{-- select 2 css --}}
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  {{-- select 2 css --}}
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -203,8 +207,15 @@
   <script src="{{ asset('admin/dist/libs/litepicker/dist/litepicker.js?1692870487') }}" defer></script>
   <script src="{{ asset('admin/dist/libs/tom-select/dist/js/tom-select.base.min.js?1692870487') }}" defer></script>
 
+
+  {{-- select 2 js --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  {{-- select 2 js --}}
+
     <!-- Vite-bundled admin.js -->
     @vite(['resources/js/admin.js'])
+
+
 
     <!-- Error Handling -->
     <script>
