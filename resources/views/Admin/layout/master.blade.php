@@ -14,7 +14,7 @@
     <link href="{{ asset('admin/dist/css/demo.min.css?1692870487') }}" rel="stylesheet" />
 
     {{-- select 2 css --}}
-      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/select2.min.css') }}">
   {{-- select 2 css --}}
 
     <!-- CSRF Token -->
@@ -209,7 +209,7 @@
 
 
   {{-- select 2 js --}}
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="{{ asset('frontend/assets/js/select2.min.js') }}"></script>
   {{-- select 2 js --}}
 
     <!-- Vite-bundled admin.js -->
