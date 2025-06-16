@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredVendorController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserProfileController;
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix
  /**
  * Frontend Routes
  */
+Route::resource('product-details', ProductDetailsController::class);
 Route::resource('flash-sale', FlashSaleController::class);
 Route::get('/', [HomeController::class, 'home'])->name('home');
 

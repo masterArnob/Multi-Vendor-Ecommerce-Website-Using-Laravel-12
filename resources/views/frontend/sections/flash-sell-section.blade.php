@@ -38,7 +38,7 @@
                          
                         </span>
                                @endif
-                        <a class="wsus__pro_link" href="product_details.html">
+                        <a class="wsus__pro_link" href="{{ route('product-details.show', $item->product->id) }}">
                             <img src="{{ asset($item->product->thumb_image) }}" alt="product" class="img-fluid w-100 img_1" />
                             <img src="
                             @if (isset($item->product->productGallery[0]->image))
@@ -64,7 +64,7 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>(133 review)</span>
                             </p>
-                            <a class="wsus__pro_name" href="#">{{ $item->product->name }}</a>
+                            <a class="wsus__pro_name" href="{{ route('product-details.show', $item->product->id) }}">{{ $item->product->name }}</a>
                             <p class="wsus__price">
                                 @if ($item->product->offer_price > 0 && $item->product->offer_start_date <= now() && $item->product->offer_end_date >= now())
                                     ${{ $item->product->offer_price }} <del>${{ $item->product->price }}</del>
