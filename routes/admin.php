@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\FlashSaleController;
 use App\Http\Controllers\Admin\ManageAdminController;
 use App\Http\Controllers\Admin\ManageUserController;
@@ -60,6 +61,8 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
 
 
+
+    Route::resource('coupon', CouponController::class);
 
     Route::resource('settings', SettingsController::class);
 
