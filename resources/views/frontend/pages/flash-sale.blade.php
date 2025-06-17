@@ -122,9 +122,9 @@
                             <a class="wsus__pro_name" href="{{ route('product-details.show', $item->product->id) }}">{{ $item->product->name }}</a>
                             <p class="wsus__price">
                                 @if ($item->product->offer_price > 0 && $item->product->offer_start_date <= now() && $item->product->offer_end_date >= now())
-                                    ${{ $item->product->offer_price }} <del>${{ $item->product->price }}</del>
+                                    {{ @$settings->currency_icon }} {{ $item->product->offer_price }} <del>{{ @$settings->currency_icon }} {{ $item->product->price }}</del>
                                 @else
-                                    ${{ $item->product->price }}
+                                    {{ @$settings->currency_icon }} {{ $item->product->price }}
                                 @endif
                                 
                             </p>

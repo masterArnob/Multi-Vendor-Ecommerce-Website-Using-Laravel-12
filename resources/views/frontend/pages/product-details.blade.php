@@ -63,10 +63,10 @@
                             <a class="title" href="#">{{ $product->name }}</a>
                             <p class="wsus__stock_area"><span class="{{ $product->qty > 0 ? 'in_stock' : 'badge bg-danger' }} ">{{ $product->qty > 0 ? 'in stock' : 'stock out' }}</span> ({{ $product->qty }} item)</p>
                             @if ($product->offer_price > 0 && $product->offer_start_date <= now() && $product->offer_end_date >= now())
-                                <h4>${{ $product->offer_price }} <del>${{ $product->price }}</del></h4>
+                                <h4>{{ @$settings->currency_icon }} {{ $product->offer_price }} <del> {{ @$settings->currency_icon }} {{ $product->price }}</del></h4>
                                 
                             @else
-                                 <h4>${{ $product->price }}</h4>
+                                 <h4>{{ @$settings->currency_icon }} {{ $product->price }}</h4>
                             @endif
                            
                             <p class="review">
