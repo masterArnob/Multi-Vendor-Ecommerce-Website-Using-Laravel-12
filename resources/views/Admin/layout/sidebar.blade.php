@@ -256,6 +256,11 @@
                         <a class="dropdown-item" href="{{ route('admin.flash-sale.index') }}">
                         Manage Flash Sale
                       </a>
+
+
+                        <a class="dropdown-item" href="{{ route('admin.shipping-rule.index') }}">
+                        Manage Shipping Rules
+                      </a>
                   </div>
                 </div>
               </li>
