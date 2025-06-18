@@ -7,7 +7,9 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <title>Sazao || e-Commerce HTML Template</title>
+    <title>
+        @yield('title')
+    </title>
     <link rel="icon" type="image/png" href="{{ asset('frontend/assets/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
@@ -25,6 +27,13 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
+
+        <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Notyf CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
 
@@ -92,6 +101,7 @@
     <!--==========================
       PRODUCT MODAL VIEW START
     ===========================-->
+{{-- 
     <section class="product_popup_modal">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
@@ -224,6 +234,7 @@
             </div>
         </div>
     </section>
+--}}
     <!--==========================
       PRODUCT MODAL VIEW END
     ===========================-->
@@ -251,6 +262,11 @@
     <!--============================
         SCROLL BUTTON  END
     ==============================-->
+
+            <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
 
 
     <!--jquery library js-->
@@ -290,6 +306,37 @@
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+
+
+
+
+    <!-- Notyf JS -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+
+
+
+        <!-- Vite-bundled user.js -->
+    @vite(['resources/js/user.js'])
+
+
+    <!-- Error Handling -->
+    <script>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                notyf.error("{{ $error }}");
+            @endforeach
+        @endif
+
+        var config = {
+            routes: {
+                addToCart: "{{ route('add-to-cart') }}", // Changed to route() for consistency
+                cartCount: "{{ route('cart-count') }}"  // Added cart-count route
+            }
+        };
+    </script>
+
+
 
     @stack('scripts')
 </body>

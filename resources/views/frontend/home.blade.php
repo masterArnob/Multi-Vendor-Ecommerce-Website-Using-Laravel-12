@@ -1,4 +1,9 @@
 @extends('frontend.layout.master')
+@section('title')
+    {{ $settings->site_name }}
+@endsection
+
+
 @section('content')
     
     <!--============================

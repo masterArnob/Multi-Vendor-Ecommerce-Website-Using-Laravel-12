@@ -45,5 +45,54 @@ error: function (xhr, status, error) {
 });
 
 
+$(document).on('submit', '.shopping_cart_form', function(e) {
+    e.preventDefault();
+    console.log('Form submitted'); // Debug: Check if the event is triggered
 
+    let formData = $(this).serialize();
 
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+       url: config.routes.addToCart,
+        type: 'POST',
+        data: formData,
+        success: function(data) {
+            console.log('Success:', data); // Debug: Log the response
+            if (data.status === 'success') {
+                getCartCount(); // Call the function to update cart count
+                notyf.success(data.message);
+            } else if(data.status === 'stockout') {
+                notyf.error(data.message);
+            }else if(data.status === 'qty_error') {
+                notyf.error(data.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', xhr, status, error); // Debug: Log the error
+            notyf.error(xhr.responseJSON?.message || 'An error occurred');
+        }
+    });
+});
+
+// Move getCartCount outside the submit handler
+function getCartCount() {
+    $.ajax({
+        url: config.routes.cartCount,
+        type: "GET",
+        success: function(data) {
+            console.log('Cart Count:', data); // Debug: Log the response
+            if (data.status === 'success') {
+                $('.cart_count').text(data.count);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Cart Count Error:', xhr, status, error); // Debug: Log the error
+            notyf.error('Failed to fetch cart count');
+        }
+    });
+}

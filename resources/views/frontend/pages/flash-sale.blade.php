@@ -103,12 +103,7 @@
                             @endif
                             " alt="product" class="img-fluid w-100 img_2" />
                         </a>
-                        <ul class="wsus__single_pro_icon">
-                            <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                        class="far fa-eye"></i></a></li>
-                            <li><a href="#"><i class="far fa-heart"></i></a></li>
-                            <li><a href="#"><i class="far fa-random"></i></a>
-                        </ul>
+                
                         <div class="wsus__product_details">
                             <a class="wsus__category" href="#">{{ $item->product->category->name }} </a>
                             <p class="wsus__pro_rating">
@@ -128,7 +123,34 @@
                                 @endif
                                 
                             </p>
-                            <a class="add_cart" href="#">add to cart</a>
+                                        <form class="shopping_cart_form">
+                            @forelse ($item->product->variants as $variant)
+                               @if ($variant->status === 1)
+                                    <div class="wsus_pro_det_color" hidden>
+                                <h5>{{ $variant->name }} :</h5>
+                                <ul>
+                                  <select name="variants_items[]" class="form-control" hidden>
+                                    @forelse ($variant->variantItem as $variantItem)
+                                    @if ($variantItem->status === 1)
+                                         <option @selected($variantItem->is_default === 1) value="{{ $variantItem->id }}">{{ $variantItem->name }} (+${{ $variantItem->price }})</option>                                        
+                                    @endif
+                                       
+                                    @empty
+                                       
+                                    @endforelse
+                                   
+                                  </select>
+                                </ul>
+                               @endif
+                            </div>
+                            @empty
+                           
+                            @endforelse
+
+                                <input type="text" name="product_id" value="{{ $item->product_id }}" hidden>
+                                <input type="hidden" name="qty" value="1">
+                                <button class="add_cart" type="submit">Add to Cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -156,5 +178,8 @@
             day: {{date('d', strtotime($flashSaleDate->end_date))}},
         });
     })
+
 </script>
+
+
 @endpush

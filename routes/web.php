@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredVendorController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
@@ -80,6 +81,8 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix
  /**
  * Frontend Routes
  */
+Route::get('cart-count', [CartController::class, 'getCartCount'])->name('cart-count');
+Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::resource('product-details', ProductDetailsController::class);
 Route::resource('flash-sale', FlashSaleController::class);
 Route::get('/', [HomeController::class, 'home'])->name('home');
