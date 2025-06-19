@@ -1,5 +1,16 @@
 @extends('frontend.layout.master')
 @section('content')
+
+<style>
+    .qty-input{
+        width: 60px;
+        height: 40px;
+        border: 1px solid #ddd;
+        padding: 0 10px;
+        font-size: 16px;
+        text-align: center;
+    }
+</style>
     <!--============================
         BREADCRUMB START
     ==============================-->
@@ -58,9 +69,13 @@
 
                                     
 
+
                                         <th class="wsus__pro_icon">
-                                            <a href="#" class="common_btn">clear cart</a>
+                                            @if (Cart::count() > 0)
+                                            <a href="{{ route('clear-cart', 1) }}" class="common_btn delete-item">clear cart</a>
+                                             @endif
                                         </th>
+                                       
                                     </tr>
                                     @forelse ($cartItems as $item)
                                          <tr class="d-flex">
@@ -87,24 +102,26 @@
                                         </td>
 
                                            <td class="wsus__pro_status">
-                                            <p>{{ $settings->currency_icon }}{{ ($item->price + $item->options->variantsTotal) * $item->qty }}</p>
+                                            <p id="{{ $item->rowId }}">{{ $settings->currency_icon }}{{ ($item->price + $item->options->variantsTotal) * $item->qty }}</p>
                                         </td>
 
                                         <td class="wsus__pro_select">
                                             <form class="select_number">
-                                                <input class="number_area" type="text" min="1" max="100" value="1" />
+                                                <button class="btn btn-danger decrement-btn">-</button>
+                                               <input readonly data-rowid="{{ $item->rowId }}" type="number" name="qty" value="{{ $item->qty }}" min="1" class="qty-input">
+                                                 <button class="btn btn-success increment-btn">+</button>
                                             </form>
                                         </td>
 
                                      
 
                                         <td class="wsus__pro_icon">
-                                            <a href="#"><i class="far fa-times"></i></a>
+                                            <a href="{{ route('cart-remove-item', $item->rowId) }}"><i class="far fa-times"></i></a>
                                         </td>
                                     </tr>
                                     @empty
                                         <tr>
-                                            <td>Cart is empty</td>
+                                            <td class="mt-3 mb-3">Cart is empty</td>
                                         </tr>
                                     @endforelse
                          

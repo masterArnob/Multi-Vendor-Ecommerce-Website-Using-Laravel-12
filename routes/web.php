@@ -81,6 +81,9 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix
  /**
  * Frontend Routes
  */
+Route::get('cart/remove-item/{rowid}', [CartController::class, 'removeItem'])->name('cart-remove-item');
+Route::delete('cart/clear-cart/{id}', [CartController::class, 'clearCart'])->name('clear-cart');
+Route::post('cart/qty-update', [CartController::class, 'updateQty'])->name('qty-update');
 Route::get('cart-details', [CartController::class, 'cartDetails'])->name('cart-details');
 Route::get('cart-count', [CartController::class, 'getCartCount'])->name('cart-count');
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');

@@ -5,6 +5,7 @@ var delete_url = null;
 $(document).on("click", ".delete-item", function (e) {
     e.preventDefault();
 
+
     let url = $(this).attr("href");
     delete_url = url;
     //alert(url);
@@ -96,3 +97,96 @@ function getCartCount() {
         }
     });
 }
+
+
+$(document).on('click', '.increment-btn', function(e){
+    e.preventDefault();
+    let input = $(this).siblings('.qty-input');
+    let qty = parseInt(input.val()) + 1;
+    input.val(qty);
+    let rowid = input.data('rowid');
+    //alert(rowid);
+    //console.log(rowid);
+
+        $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: config.routes.updateQty,
+        method: 'POST',
+        data: {
+            qty: qty,
+            rowid: rowid
+        },
+
+        success: function(data){
+            if(data.status === 'success'){
+                //console.log(data.productTotal);
+                let productId = '#' + rowid;
+                $(productId).text(config.icon.currency_icon + data.productTotal);
+                notyf.success(data.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', xhr, status, error); // Debug: Log the error
+            notyf.error(xhr.responseJSON?.message || 'An error occurred while updating quantity');
+        }
+    })
+
+})
+
+
+$(document).on('click', '.decrement-btn', function(e){
+    e.preventDefault();
+    let input = $(this).siblings('.qty-input');
+    let qty = parseInt(input.val()) - 1;
+    input.val(qty);
+
+if (qty < 1) {
+        notyf.error('Quantity cannot be less than 1');
+        input.val(1); // Reset input value to 1
+        return; // Exit the function to prevent AJAX call
+    }
+
+    let rowid = input.data('rowid');
+    //alert(rowid);
+    //console.log(rowid);
+
+        $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: config.routes.updateQty,
+        method: 'POST',
+        data: {
+            qty: qty,
+            rowid: rowid
+        },
+
+        success: function(data){
+            if(data.status === 'success'){
+                //console.log(data.productTotal);
+                let productId = '#' + rowid;
+                $(productId).text(config.icon.currency_icon + data.productTotal);
+                notyf.success(data.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', xhr, status, error); // Debug: Log the error
+            notyf.error(xhr.responseJSON?.message || 'An error occurred while updating quantity');
+        }
+    })
+
+})
+
+
+$(document).on('click', '.remove-item', function(e){
+    e.preventDefault();
+    alert('xxxxxxxxxxxxxxx');
+})

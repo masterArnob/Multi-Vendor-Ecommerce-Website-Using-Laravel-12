@@ -68,4 +68,42 @@ class CartController extends Controller
         $cartItems = Cart::content();
         return view('frontend.pages.cart-details', compact('cartItems'));
     }
+
+
+    public function updateQty(Request $request){
+        //dd($request->all());
+        $productId = Cart::get($request->rowid)->id;
+        $product = Product::findOrFail($productId);
+        if($product->qty === 0){
+            return response(['status' => 'stockout', 'message' => 'Product Stock Out!']);
+        }else if($request->qty > $product->qty){
+            return response(['status' => 'qty_error', 'message' => 'Product Quantity is not available!']);
+        }
+
+        Cart::update($request->rowid, $request->qty); // Will update the id, name and price
+
+
+        $productTotal = $this->productTotal($request->rowid);
+
+        return response(['status' => 'success', 'message' => 'Quantity updated successfully!', 'productTotal' => $productTotal]);
+    }
+
+    public function productTotal($rowId){
+        $product = Cart::get($rowId);
+        $total = ($product->price + $product->options->variantsTotal) * $product->qty;
+        return $total;
+    }
+
+
+    public function clearCart($id){
+        Cart::destroy();
+         notyf()->success('Cart Cleared Successfully!');
+        return response(['status' => 'success']);
+    }
+
+    public function removeItem($rowid){
+        Cart::remove($rowid);
+        notyf()->success('Product Removed Successfully!');
+        return redirect()->back();
+    }
 }
