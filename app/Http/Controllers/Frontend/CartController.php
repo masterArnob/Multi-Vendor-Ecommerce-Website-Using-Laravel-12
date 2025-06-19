@@ -62,4 +62,10 @@ class CartController extends Controller
         $count = Cart::count();
         return response(['status' => 'success', 'count' => $count]);
     }
+
+
+    public function cartDetails(){
+        $cartItems = Cart::content();
+        return view('frontend.pages.cart-details', compact('cartItems'));
+    }
 }

@@ -81,6 +81,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix
  /**
  * Frontend Routes
  */
+Route::get('cart-details', [CartController::class, 'cartDetails'])->name('cart-details');
 Route::get('cart-count', [CartController::class, 'getCartCount'])->name('cart-count');
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::resource('product-details', ProductDetailsController::class);
