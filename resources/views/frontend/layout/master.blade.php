@@ -34,6 +34,15 @@
     <!-- Notyf CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 
+
+       {{-- select 2 css --}}
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/select2.min.css') }}">
+  {{-- select 2 css --}}
+
+
+    <!-- Summernote Lite CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
 
@@ -299,8 +308,6 @@
 
 
 
-    <!--jquery library js-->
-    <script src="{{ asset('frontend/assets/js/jquery-3.6.0.min.js') }}"></script>
     <!--bootstrap js-->
     <script src="{{ asset('frontend/assets/js/bootstrap.bundle.min.js') }}"></script>
     <!--font-awesome js-->
@@ -345,6 +352,19 @@
 
 
 
+      {{-- select 2 js --}}
+  <script src="{{ asset('frontend/assets/js/select2.min.js') }}"></script>
+  {{-- select 2 js --}}
+
+
+
+
+
+
+
+    <!-- Summernote Lite JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    
 
         <!-- Vite-bundled user.js -->
     @vite(['resources/js/user.js'])

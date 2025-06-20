@@ -258,3 +258,29 @@ function couponCalculation(){
         }
     });
 }
+
+
+$(document).on('click', '.shipping_address_id', function(){
+
+
+    let shipping_address_id = $(this).data('id');
+    //alert(shipping_address_id);
+    $('#shipping_address_id').val(shipping_address_id);
+})
+
+$(document).on('click', '.shipping_rule_id', function(){
+   // alert('ppppp');
+   let shipping_rule_id = $(this).val();
+   //alert(shipping_rule_id);
+   $('#shipping_rule_id').val(shipping_rule_id);
+
+   let shipping_fee = $(this).data('id');
+   $('.shipping_fee').text('(+)' + config.icon.currency_icon + shipping_fee)
+  // alert(shipping_fee);
+   let total_cost = $('.total_cost').data('id');
+  // alert(total_cost)
+  let final_cost = total_cost + shipping_fee;
+  //alert(final_cost);
+  $('.final_cost').text(config.icon.currency_icon + final_cost);
+
+})

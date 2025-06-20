@@ -55,6 +55,10 @@ class UserAddressController extends Controller
         $address->address = $request->address;
         $address->save();
          notyf()->success('Address Created Successfully!');
+         
+         if($request->checkout === 'checkout'){
+           return redirect()->route('user.checkout.index');     
+         }
         return redirect()->route('user.address.index');
     }
 
