@@ -364,6 +364,8 @@
                 cartCount: "{{ route('cart-count') }}",  // Added cart-count route
                 updateQty: "{{ route('qty-update') }}",
                 subTotal: "{{ route('cart-sub-total') }}",
+                applyCoupon: "{{ route('coupon.apply') }}",
+                couponCalculation: "{{ route('coupon.calculation') }}"
             },
             icon: {
                 currency_icon: "{{ $settings->currency_icon ?? '$' }}",

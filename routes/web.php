@@ -81,6 +81,8 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix
  /**
  * Frontend Routes
  */
+Route::post('coupon-calculation', [CartController::class, 'couponCalculation'])->name('coupon.calculation');
+Route::post('apply-coupon', [CartController::class, 'applyCoupon'])->name('coupon.apply');
 Route::get('cart/sub-total', [CartController::class, 'getSubTotal'])->name('cart-sub-total');
 Route::get('cart/remove-item/{rowid}', [CartController::class, 'removeItem'])->name('cart-remove-item');
 Route::delete('cart/clear-cart/{id}', [CartController::class, 'clearCart'])->name('clear-cart');

@@ -128,6 +128,7 @@ $(document).on('click', '.increment-btn', function(e){
                 let productId = '#' + rowid;
                 $(productId).text(config.icon.currency_icon + data.productTotal);
                 getSubTotal();
+                couponCalculation();
                 notyf.success(data.message);
             }
         },
@@ -176,6 +177,7 @@ if (qty < 1) {
                 let productId = '#' + rowid;
                 $(productId).text(config.icon.currency_icon + data.productTotal);
                 getSubTotal();
+                couponCalculation();
                 notyf.success(data.message);
             }
         },
@@ -201,6 +203,58 @@ function getSubTotal(){
         error: function(xhr, status, error) {
             console.log('Error:', xhr, status, error); // Debug: Log the error
             notyf.error(xhr.responseJSON?.message || 'An error occurred while fetching cart count');
+        }
+    });
+}
+
+
+$(document).on('submit', '.coupon_form', function(e){
+    e.preventDefault();
+    let formData = $(this).serialize();
+    //alert(formData);
+            $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: config.routes.applyCoupon,
+        method: 'POST',
+        data: formData,
+        success: function(data){
+            if(data.status === 'error'){
+                notyf.error(data.message);
+            }else if(data.status === 'success'){
+                couponCalculation();
+                 notyf.success(data.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', xhr, status, error); // Debug: Log the error
+            notyf.error(xhr.responseJSON?.message || 'An error occurred while applying coupon');
+        }
+    })
+})
+
+
+function couponCalculation(){
+                $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+    $.ajax({
+        url: config.routes.couponCalculation,
+        method: 'POST',
+        success: function(data){
+            if(data.status === 'success'){
+                $('.discount').text('(-)' + config.icon.currency_icon + data.discount);
+                $('.cart_total').text(config.icon.currency_icon + data.cart_total);
+            }
+        },
+        error: function(data){
+
         }
     });
 }

@@ -134,12 +134,11 @@
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
                         <h6>total cart</h6>
                         <p>subtotal: <span class="sub_total">{{ $settings->currency_icon }}{{ getSubTotal() }}</span></p>
-                        <p>delivery: <span>$00.00</span></p>
-                        <p>discount: <span>$10.00</span></p>
-                        <p class="total"><span>total:</span> <span>$134.00</span></p>
+                        <p class="">discount:<span class="discount text-danger">(-) {{ $settings->currency_icon }}{{ discount() }}</span></p>
+                        <p class="total"><span>total:</span> <span class="cart_total">{{ $settings->currency_icon }}{{ mainCartTotal() }}</span></p>
 
-                        <form>
-                            <input type="text" placeholder="Coupon Code">
+                        <form class="coupon_form">
+                            <input type="text" placeholder="Coupon Code" name="coupon_code">
                             <button type="submit" class="common_btn">apply</button>
                         </form>
                         <a class="common_btn mt-4 w-100 text-center" href="check_out.html">checkout</a>
