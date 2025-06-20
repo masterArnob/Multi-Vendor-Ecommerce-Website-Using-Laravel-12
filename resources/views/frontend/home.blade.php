@@ -21,8 +21,9 @@
     <!--============================
         FLASH SELL START
     ==============================-->
+    @if ($flashSaleDate->end_date >= now())
         @include('frontend.sections.flash-sell-section')
-
+    @endif
     <!--============================
         FLASH SELL END
     ==============================-->

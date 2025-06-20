@@ -106,4 +106,10 @@ class CartController extends Controller
         notyf()->success('Product Removed Successfully!');
         return redirect()->back();
     }
+
+
+    public function getSubTotal(){
+        $subTotal = getSubTotal();
+        return response(['status' => 'success', 'subTotal' => $subTotal]);
+    }
 }

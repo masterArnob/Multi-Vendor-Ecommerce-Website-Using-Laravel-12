@@ -127,6 +127,7 @@ $(document).on('click', '.increment-btn', function(e){
                 //console.log(data.productTotal);
                 let productId = '#' + rowid;
                 $(productId).text(config.icon.currency_icon + data.productTotal);
+                getSubTotal();
                 notyf.success(data.message);
             }
         },
@@ -174,6 +175,7 @@ if (qty < 1) {
                 //console.log(data.productTotal);
                 let productId = '#' + rowid;
                 $(productId).text(config.icon.currency_icon + data.productTotal);
+                getSubTotal();
                 notyf.success(data.message);
             }
         },
@@ -186,7 +188,19 @@ if (qty < 1) {
 })
 
 
-$(document).on('click', '.remove-item', function(e){
-    e.preventDefault();
-    alert('xxxxxxxxxxxxxxx');
-})
+function getSubTotal(){
+    $.ajax({
+        url: config.routes.subTotal,
+        method: 'GET',
+        success: function(data){
+            if(data.status === 'success'){
+                $('.sub_total').text(config.icon.currency_icon +data.subTotal);
+                //console.log(data.subTotal);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', xhr, status, error); // Debug: Log the error
+            notyf.error(xhr.responseJSON?.message || 'An error occurred while fetching cart count');
+        }
+    });
+}

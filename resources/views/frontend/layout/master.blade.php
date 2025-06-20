@@ -363,6 +363,7 @@
                 addToCart: "{{ route('add-to-cart') }}", // Changed to route() for consistency
                 cartCount: "{{ route('cart-count') }}",  // Added cart-count route
                 updateQty: "{{ route('qty-update') }}",
+                subTotal: "{{ route('cart-sub-total') }}",
             },
             icon: {
                 currency_icon: "{{ $settings->currency_icon ?? '$' }}",
