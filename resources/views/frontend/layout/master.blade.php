@@ -385,7 +385,8 @@
                 updateQty: "{{ route('qty-update') }}",
                 subTotal: "{{ route('cart-sub-total') }}",
                 applyCoupon: "{{ route('coupon.apply') }}",
-                couponCalculation: "{{ route('coupon.calculation') }}"
+                couponCalculation: "{{ route('coupon.calculation') }}",
+                chckoutFormSubmit: "{{ route('user.checkout.form.submit') }}",
             },
             icon: {
                 currency_icon: "{{ $settings->currency_icon ?? '$' }}",

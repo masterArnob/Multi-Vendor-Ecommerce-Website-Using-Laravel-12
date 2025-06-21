@@ -54,3 +54,21 @@ function getSubTotal(){
             return 0;
         }
     }
+
+
+    function shippingFee(){
+        if(Session::has('shipping_rule')){
+            $cost = Session::get('shipping_rule')['cost'];
+            return $cost;
+        }else{
+            return 0;
+        }
+    }
+
+
+    function finalCost(){
+        $total = mainCartTotal();
+        $shippingFee = shippingFee();
+        $finalCost = ($total + $shippingFee);
+        return round($finalCost);
+    }

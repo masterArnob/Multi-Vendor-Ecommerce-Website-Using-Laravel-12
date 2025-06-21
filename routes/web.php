@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredVendorController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -32,6 +33,8 @@ Route::post('vendor/register/store', [RegisteredVendorController::class, 'store'
  */
 Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' => 'user', 'as' => 'user.'], function () {
 
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');
+    Route::post('checkout/form-submit', [CheckoutController::class, 'checkoutFormSubmit'])->name('checkout.form.submit');
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::resource('address', UserAddressController::class);
     Route::resource('profile', UserProfileController::class);

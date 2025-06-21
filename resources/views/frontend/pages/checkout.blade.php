@@ -29,7 +29,7 @@
             ==============================-->
     <section id="wsus__cart_view">
         <div class="container">
-            <form class="wsus__checkout_form">
+            <div class="wsus__checkout_form">
                 <div class="row">
                     <div class="col-xl-8 col-lg-7">
                         <div class="wsus__check_form">
@@ -72,18 +72,18 @@
                             @forelse ($rules as $rule)
                             @if ($rule->type === 'min_cost' &&  getSubTotal() >= $rule->min_cost)
                                 <div class="form-check">
-                                    <input class="form-check-input shipping_rule_id" type="radio" name="exampleRadios" id="{{ $rule->id }}"
+                                    <input class="form-check-input shipping_rule_id" type="radio" name="exampleRadios" id="{{ $rule->name }}"
                                         value="{{ $rule->id }}" data-id="{{ $rule->cost }}">
-                                    <label class="form-check-label" for="{{ $rule->id }}">
+                                    <label class="form-check-label" for="{{ $rule->name }}">
                                         {{ $rule->name }}
                                         <span>Cost: (+{{ $settings->currency_icon }}{{ $rule->cost }})</span>
                                     </label>
                                 </div>
                             @elseif($rule->type === 'flat_cost')
                                     <div class="form-check">
-                                    <input class="form-check-input shipping_rule_id" type="radio" name="exampleRadios" id="{{ $rule->id }}"
+                                    <input class="form-check-input shipping_rule_id" type="radio" name="exampleRadios" id="{{ $rule->name }}"
                                         value="{{ $rule->id }}" data-id="{{ $rule->cost }}">
-                                    <label class="form-check-label" for="{{ $rule->id }}">
+                                    <label class="form-check-label" for="{{ $rule->name }}">
                                         {{ $rule->name }}
                                         <span>Cost: (+{{ $settings->currency_icon }}{{ $rule->cost }})</span>
                                     </label>
@@ -104,7 +104,7 @@
                                 </p>
                             </div>
                            
-                            <form action="">
+                            <form class="checkoutForm">
                                 <input type="hidden" id="shipping_rule_id" name="shipping_rule_id" value="">
                                 <input type="hidden" id="shipping_address_id" name="shipping_address_id" value="">
                                 <button class="common_btn" type="submit">Place Order</button>
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </section>
 
