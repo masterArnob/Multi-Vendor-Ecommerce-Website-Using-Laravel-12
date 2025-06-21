@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\FlashSaleController;
 use App\Http\Controllers\Admin\ManageAdminController;
 use App\Http\Controllers\Admin\ManageUserController;
+use App\Http\Controllers\Admin\PaymentSettingsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageGalleryController;
 use App\Http\Controllers\Admin\ProductVariantController;
@@ -61,6 +62,8 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
 
 
+
+    Route::resource('payment-settings', PaymentSettingsController::class);
 
     Route::resource('shipping-rule', ShippingRuleController::class);
 

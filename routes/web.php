@@ -23,6 +23,24 @@ use Illuminate\Support\Facades\Route;
 
 
 
+/**
+ * Checking if the env if dinamically changing or not 
+ */
+Route::get('/debug-paypal-config', function () {
+    return [
+        'runtime_config' => config('paypal'), // Current PayPal config
+        'database_settings' => App\Models\PaymentSettings::all()->pluck('value', 'key')->toArray(), // Database values
+        'env_file' => [
+            'PAYPAL_MODE' => env('PAYPAL_MODE'),
+            'PAYPAL_SANDBOX_CLIENT_ID' => env('PAYPAL_SANDBOX_CLIENT_ID'),
+            'PAYPAL_SANDBOX_CLIENT_SECRET' => env('PAYPAL_SANDBOX_CLIENT_SECRET'),
+            'PAYPAL_CURRENCY' => env('PAYPAL_CURRENCY'),
+        ], // Values from .env
+    ];
+});
+/**
+ * Checking if the env if dinamically changing or not 
+ */
 
 
 Route::get('vendor/register', [RegisteredVendorController::class, 'create'])->name('vendor.register.index');
@@ -32,6 +50,7 @@ Route::post('vendor/register/store', [RegisteredVendorController::class, 'store'
  * User Routes
  */
 Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' => 'user', 'as' => 'user.'], function () {
+
 
 
     /**

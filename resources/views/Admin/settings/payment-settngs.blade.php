@@ -1,0 +1,138 @@
+@extends('admin.layout.master')
+@section('content')
+<div class="card">
+                  <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <a href="#tabs-home-8" class="nav-link active" data-bs-toggle="tab" aria-selected="true" role="tab">Paypal Settings</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a href="#tabs-profile-8" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">RazorPay Settings</a>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <a href="#tabs-activity-8" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Activity</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="tab-pane fade active show" id="tabs-home-8" role="tabpanel">
+                        <h4>Paypal Settings</h4>
+                        <div>
+                            <form action="{{ route('admin.payment-settings.update', 1) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+
+                    
+
+                                <div class="col-md-7 mt-3">
+                                <div class="form-label">Mode</div>
+                                <select name="paypal_mode" class="form-control">
+                                    <option value="">Select</option>
+                                    <option @selected(@$paymentSettings['paypal_mode'] === 'live') value="live">Live</option>
+                                    <option @selected(@$paymentSettings['paypal_mode'] === 'sandbox') value="sandbox">Sandbox</option>
+                                   
+                                </select>
+                            </div>
+
+
+                                 <div class="col-md-7 mt-3">
+                                <div class="form-label">Currency</div>
+                                <select name="paypal_currency" class="js-example-basic form-control">
+                                    <option value="">Select</option>
+                                    @forelse (config('settings.currency_list') as $currency)
+                                         <option @selected(@$paymentSettings['paypal_currency'] === $currency) value="{{ $currency }}">{{ $currency }}</option>
+                                    @empty
+                                   No Data Available     
+                                    @endforelse
+                                   
+                                </select>
+                            </div>
+
+
+                            <div class="col-md-7 mt-3">
+                                <div class="form-label">Rate</div>
+                                <input type="text" name="paypal_rate" class="form-control" value="{{ @$paymentSettings['paypal_rate'] }}">
+                                <x-input-error :messages="$errors->get('paypal_rate')" class="mt-2 text-danger" />
+                            </div>
+
+
+                                 <div class="col-md-7 mt-3">
+                                <div class="form-label">Client ID</div>
+                                <input type="text" name="paypal_client_id" class="form-control" value="{{ @$paymentSettings['paypal_client_id'] }}">
+                                <x-input-error :messages="$errors->get('paypal_client_id')" class="mt-2 text-danger" />
+                            </div>
+
+
+                                   <div class="col-md-7 mt-3">
+                                <div class="form-label">Client Secret</div>
+                                <input type="text" name="paypal_client_secret" class="form-control" value="{{ @$paymentSettings['paypal_client_secret'] }}">
+                                <x-input-error :messages="$errors->get('paypal_client_secret')" class="mt-2 text-danger" />
+                            </div>
+
+
+                                          <div class="col-md-7 mt-3">
+                                <div class="form-label">App ID</div>
+                                <input type="text" name="paypal_app_id" class="form-control" value="{{ @$paymentSettings['paypal_app_id'] }}">
+                                <x-input-error :messages="$errors->get('paypal_app_id')" class="mt-2 text-danger" />
+                            </div>
+
+
+                         
+
+                          
+
+
+                                 <div class="mt-4">
+                            <button class="btn btn-primary">Update</button>
+                        </div>
+
+                            </form>
+
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="tabs-profile-8" role="tabpanel">
+                        <h4>Profile tab</h4>
+                        <div>Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
+                      </div>
+                      <div class="tab-pane fade" id="tabs-activity-8" role="tabpanel">
+                        <h4>Activity tab</h4>
+                        <div>Donec ac vitae diam amet vel leo egestas consequat rhoncus in luctus amet, facilisi sit mauris accumsan nibh habitant senectus</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+@endsection
+@push('scripts')
+    <script>
+        $('.summernote').summernote({
+            height: 200,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'video']]
+            ]
+        });
+
+        // Initialize all datepickers with class 'datepicker'
+        document.addEventListener("DOMContentLoaded", function() {
+            window.Litepicker && document.querySelectorAll('.datepicker').forEach(function(element) {
+                new Litepicker({
+                    element: element,
+                    buttonText: {
+                        previousMonth: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>`,
+                        nextMonth: `<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>`,
+                    },
+                });
+            });
+        });
+
+        $(document).ready(function() {
+            $('.js-example-basic').select2();
+        });
+
+    </script>
+@endpush
+
+
