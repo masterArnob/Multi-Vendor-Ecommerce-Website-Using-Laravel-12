@@ -33,6 +33,20 @@ Route::post('vendor/register/store', [RegisteredVendorController::class, 'store'
  */
 Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' => 'user', 'as' => 'user.'], function () {
 
+
+    /**
+     * Paymanr Routes
+     */
+
+     Route::get('payment/paypal', [PaymentController::class, 'payWithPaypal'])->name('payment.pypal');
+     Route::get('payment/paypal/success', [PaymentController::class, 'paypalSuccess'])->name('payment.paypal.success');
+     Route::get('payment/paypal/cancel', [PaymentController::class, 'paypalCancel'])->name('payment.paypal.cancel');
+
+    Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+    Route::get('payment/failed', [PaymentController::class, 'paymentFailed'])->name('payment.failed');
+    /**
+     * Paymanr Routes
+     */
     Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');
     Route::post('checkout/form-submit', [CheckoutController::class, 'checkoutFormSubmit'])->name('checkout.form.submit');
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');

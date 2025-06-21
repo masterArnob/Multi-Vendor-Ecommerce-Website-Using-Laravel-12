@@ -35,7 +35,7 @@
                     <div class="col-xl-8 col-lg-8 d-flex justify-content-start">
                
                       <div class="col-xl-3 col-lg-3">
-                      <a href="">
+                      <a href="{{ route('user.payment.pypal') }}">
                           <img src="{{ asset('frontend/assets/images/payment-gateway/paypal.webp') }}" width="100%">
                       </a>
                       </div>
