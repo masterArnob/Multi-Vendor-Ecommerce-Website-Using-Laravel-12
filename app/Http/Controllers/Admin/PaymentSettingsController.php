@@ -54,26 +54,51 @@ class PaymentSettingsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //dd($request->all());
-        $validatedData = $request->validate([
-            'paypal_mode' => ['required', 'in:sandbox,live'],
-            'paypal_currency' => ['required'],
-            'paypal_rate' => ['required', 'numeric'],
-            'paypal_client_id' => ['required'],
-            'paypal_client_secret' => ['required'],
-            'paypal_app_id' => ['required']
-        ]);
 
-        foreach($validatedData as $key => $value){
-            PaymentSettings::updateOrCreate(
-                ['key' => $key],
-                ['value' => $value]
-            );
+        if ($request->payment_method === 'paypal') {
+            //dd($request->all());
+            $validatedData = $request->validate([
+                'paypal_mode' => ['required', 'in:sandbox,live'],
+                'paypal_currency' => ['required'],
+                'paypal_rate' => ['required', 'numeric'],
+                'paypal_client_id' => ['required'],
+                'paypal_client_secret' => ['required'],
+                'paypal_app_id' => ['required']
+            ]);
+
+            foreach ($validatedData as $key => $value) {
+                PaymentSettings::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $value]
+                );
+            }
+
+            Artisan::call('config:clear');
+            notyf()->success('Paypal Settings Updated Successfully!');
+            return redirect()->back();
+        } else if ($request->payment_method === 'stripe') {
+            //dd($request->all());
+            $validatedData = $request->validate([
+                'stripe_status' => ['required'],
+                'stripe_currency' => ['required'],
+                'stripe_rate' => ['required', 'numeric'],
+                'stripe_publish_key' => ['required'],
+                'stripe_client_secret' => ['required'],
+            ]);
+
+              foreach ($validatedData as $key => $value) {
+                PaymentSettings::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $value]
+                );
+            }
+
+            Artisan::call('config:clear');
+            notyf()->success('Stripe Settings Updated Successfully!');
+            return redirect()->back();
         }
 
-        Artisan::call('config:clear');
-          notyf()->success('Paypal Settings Updated Successfully!');
-          return redirect()->back();
+
     }
 
     /**

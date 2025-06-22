@@ -40,9 +40,9 @@
                       </a>
                       </div>
 
-                        <div class="col-xl-3 col-lg-3 mx-2">
+                        <div class="col-xl-3 col-lg-3 ">
                          <a href="">
-                          <img src="{{ asset('frontend/assets/images/payment-gateway/paypal.webp') }}" width="100%">
+                          <img src="{{ asset('frontend/assets/images/payment-gateway/stripe.png') }}" width="100%">
                       </a>
                       </div>
 

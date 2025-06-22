@@ -54,7 +54,20 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' 
 
 
     /**
-     * Paymanr Routes
+     * Stripe Paymant Routes
+     */
+
+     Route::get('payment/stripe', [PaymentController::class, 'payWithStripe'])->name('payment.stripe');
+     Route::get('payment/stripe/success', [PaymentController::class, 'stripeSuccess'])->name('payment.stripe.success');
+     Route::get('payment/stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('payment.stripe.cancel');
+    /**
+     * Stripe Paymant Routes
+     */
+
+
+
+    /**
+     * Payypal Paymant Routes
      */
 
      Route::get('payment/paypal', [PaymentController::class, 'payWithPaypal'])->name('payment.pypal');
@@ -64,7 +77,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' 
     Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
     Route::get('payment/failed', [PaymentController::class, 'paymentFailed'])->name('payment.failed');
     /**
-     * Paymanr Routes
+     * Payypal Paymant Routes
      */
     Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');
     Route::post('checkout/form-submit', [CheckoutController::class, 'checkoutFormSubmit'])->name('checkout.form.submit');

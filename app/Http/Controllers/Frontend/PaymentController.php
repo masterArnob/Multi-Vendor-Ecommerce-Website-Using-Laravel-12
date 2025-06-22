@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\PaymentSettings;
 use App\Models\Product;
 use App\Models\Settings;
 use App\Models\Transaction;
@@ -25,7 +26,10 @@ public function payWithPaypal()
     $provider = new PayPalClient;
     $provider->getAccessToken();
 
-    $payableAmount = finalCost();
+    $paymentSettings = PaymentSettings::all()->pluck('value', 'key')->toArray();
+
+    $total = finalCost();
+   $payableAmount = $total * ($paymentSettings['paypal_rate'] ?? 1);
 
     $response = $provider->createOrder([
         'intent' => 'CAPTURE',
@@ -151,4 +155,19 @@ public function payWithPaypal()
         Session::forget('shipping_rule');
         Session::forget('coupon');
     }
+
+
+    public function payWithStripe(){
+
+    }
+
+
+    public function stripeSuccess(Request $request){
+
+    }
+
+    public function stripeCancel(){
+        
+    }
+
 }
