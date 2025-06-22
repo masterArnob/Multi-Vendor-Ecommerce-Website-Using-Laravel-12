@@ -14,92 +14,101 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Stripe\Checkout\Session as StripeSession;
+use Stripe\Stripe;
+
 class PaymentController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('frontend.pages.payment.index');
     }
 
 
-public function payWithPaypal()
-{
-    $provider = new PayPalClient;
-    $provider->getAccessToken();
+    public function payWithPaypal()
+    {
+        $provider = new PayPalClient;
+        $provider->getAccessToken();
 
-    $paymentSettings = PaymentSettings::all()->pluck('value', 'key')->toArray();
+        $paymentSettings = PaymentSettings::all()->pluck('value', 'key')->toArray();
 
-    $total = finalCost();
-   $payableAmount = $total * ($paymentSettings['paypal_rate'] ?? 1);
+        $total = finalCost();
+        $payableAmount = $total * ($paymentSettings['paypal_rate'] ?? 1);
 
-    $response = $provider->createOrder([
-        'intent' => 'CAPTURE',
-        'application_context' => [
-            'return_url' => route('user.payment.paypal.success'),
-            'cancel_url' => route('user.payment.paypal.cancel'),
-        ],
-        'purchase_units' => [
-            [
-                'amount' => [
-                    'currency_code' => config('paypal.currency'),
-                    'value' => $payableAmount,
+        $response = $provider->createOrder([
+            'intent' => 'CAPTURE',
+            'application_context' => [
+                'return_url' => route('user.payment.paypal.success'),
+                'cancel_url' => route('user.payment.paypal.cancel'),
+            ],
+            'purchase_units' => [
+                [
+                    'amount' => [
+                        'currency_code' => config('paypal.currency'),
+                        'value' => $payableAmount,
+                    ]
                 ]
             ]
-        ]
-    ]);
+        ]);
 
-    //dd($response);
+        //dd($response);
 
-    if(isset($response['id']) && $response['id'] !== null){
-        foreach($response['links'] as $link){
-            if($link['rel'] === 'approve'){
-                return redirect($link['href']);
+        if (isset($response['id']) && $response['id'] !== null) {
+            foreach ($response['links'] as $link) {
+                if ($link['rel'] === 'approve') {
+                    return redirect($link['href']);
+                }
             }
         }
     }
-}
 
-    public function paypalSuccess(Request $request){
-       // dd($request->all());
-    $provider = new PayPalClient;
-    $provider->getAccessToken();
-    $response = $provider->capturePaymentOrder($request->token);
-    if(isset($response['status']) && $response['status'] === 'COMPLETED'){
-        // Payment was successful, you can process the order here
-        // For example, you can save the order details to the database
-        // and redirect the user to a success page.
-        $capture = $response['purchase_units'][0]['payments']['captures'][0];
-        $tansactionId = $capture['id'];
-        $amount = $capture['amount']['value'];
-        $currency = $capture['amount']['currency_code'];
-        $this->storeOrder($tansactionId, $amount, $currency, 'paypal', '1');
-        $this->clearSessions();
+    public function paypalSuccess(Request $request)
+    {
+        // dd($request->all());
+        $provider = new PayPalClient;
+        $provider->getAccessToken();
+        $response = $provider->capturePaymentOrder($request->token);
+        if (isset($response['status']) && $response['status'] === 'COMPLETED') {
+            // Payment was successful, you can process the order here
+            // For example, you can save the order details to the database
+            // and redirect the user to a success page.
+            $capture = $response['purchase_units'][0]['payments']['captures'][0];
+            $tansactionId = $capture['id'];
+            $amount = $capture['amount']['value'];
+            $currency = $capture['amount']['currency_code'];
+            $this->storeOrder($tansactionId, $amount, $currency, 'paypal', '1');
+            $this->clearSessions();
 
-        notyf()->success('Payment is Successfull!');
-        return redirect()->route('user.payment.success');
-    } else {
-        notyf()->error('Payment is Failed!');
-        return redirect()->route('user.payment.failed');
+            notyf()->success('Payment is Successfull!');
+            return redirect()->route('user.payment.success');
+        } else {
+            notyf()->error('Payment is Failed!');
+            return redirect()->route('user.payment.failed');
+        }
     }
-}
 
 
-    public function paypalCancel(){
+    public function paypalCancel()
+    {
         notyf()->success('Something went wrong!');
         return redirect()->route('user.payment.index');
     }
 
 
-    public function paymentSuccess(){
+    public function paymentSuccess()
+    {
         return view('frontend.pages.payment.success');
     }
 
-    public function paymentFailed(){
+    public function paymentFailed()
+    {
         return view('frontend.pages.payment.failed');
     }
 
 
 
-    public function storeOrder($tansactionId, $amount, $currency, $payment_method, $paid_amount){
+    public function storeOrder($tansactionId, $amount, $currency, $payment_method, $paid_amount)
+    {
         $settings = Settings::first();
         $order = new Order();
         $order->invoice_id = time() . '-' . rand(1000, 9999);
@@ -119,7 +128,7 @@ public function payWithPaypal()
         $order->save();
 
         $items = Cart::content();
-        foreach($items as $item){
+        foreach ($items as $item) {
             $product = Product::findOrFail($item->id);
             $orderProduct = new OrderProduct();
             $orderProduct->order_id = $order->id;
@@ -149,7 +158,8 @@ public function payWithPaypal()
         $transaction->save();
     }
 
-    public function clearSessions(){
+    public function clearSessions()
+    {
         Cart::destroy();
         Session::forget('shippingAddress');
         Session::forget('shipping_rule');
@@ -157,17 +167,71 @@ public function payWithPaypal()
     }
 
 
-    public function payWithStripe(){
+    public function payWithStripe()
+    {
+        //srtipe client secret
+        //Stripe::setApiKey();
+        //srtipe client secret
+        $clientSecret = PaymentSettings::where('key', 'stripe_client_secret')->first();
+        $stripeRate = PaymentSettings::where('key', 'stripe_rate')->first();
+        $stripeCurrency = PaymentSettings::where('key', 'stripe_currency')->first();
+        if (!$clientSecret) {
+            notyf()->error('Stripe Client Secret is not set!');
+            return redirect()->route('user.payment.index');
+        }
+         Stripe::setApiKey($clientSecret->value);
 
+        $payableAmount = (finalCost() * 100) * $stripeRate->value; // Convert to cents
+        $quantityCount = 1 ;
+        $response = StripeSession::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => $stripeCurrency->value,
+                        'product_data' => [
+                            'name' => 'Product'
+                        ],
+                        'unit_amount' => $payableAmount
+                    ],
+                    'quantity' => $quantityCount
+                ]
+            ],
+            'mode' => 'payment',
+            'success_url' => route('user.payment.stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('user.payment.stripe.cancel')
+        ]);
+
+        return redirect()->away($response->url);
     }
 
 
-    public function stripeSuccess(Request $request){
-
-    }
-
-    public function stripeCancel(){
+    public function stripeSuccess(Request $request) {
+          $clientSecret = PaymentSettings::where('key', 'stripe_client_secret')->first();
+        Stripe::setApiKey($clientSecret->value);
         
+        $response = StripeSession::retrieve($request->session_id);
+        if($response->payment_status === 'paid') {
+            $transactionId = $response->payment_intent;
+            $mainAmount = finalCost();
+            $paidAmount = $response->amount_total / 100;
+            $currency = $response->currency;
+
+            try {
+     
+                //order
+            $this->storeOrder($transactionId, $mainAmount, $currency, 'stripe', '1');
+            $this->clearSessions();
+                //order
+
+                return redirect()->route('user.payment.success');
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+        return redirect()->route('user.payment.failed');
     }
 
+    public function stripeCancel() {
+        return redirect()->route('user.payment.failed');
+    }
 }

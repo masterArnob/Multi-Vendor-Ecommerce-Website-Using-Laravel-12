@@ -41,7 +41,7 @@
                       </div>
 
                         <div class="col-xl-3 col-lg-3 ">
-                         <a href="">
+                         <a href="{{ route('user.payment.stripe') }}">
                           <img src="{{ asset('frontend/assets/images/payment-gateway/stripe.png') }}" width="100%">
                       </a>
                       </div>
