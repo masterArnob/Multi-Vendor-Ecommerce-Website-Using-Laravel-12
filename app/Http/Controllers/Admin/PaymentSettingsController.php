@@ -96,6 +96,28 @@ class PaymentSettingsController extends Controller
             Artisan::call('config:clear');
             notyf()->success('Stripe Settings Updated Successfully!');
             return redirect()->back();
+        }else if($request->payment_method === 'ssl'){
+            //dd($request->all());
+            $validatedData = $request->validate([
+                'ssl_mode' => ['nullable'],
+                'ssl_status' => ['required', 'in:active,inactive'],
+                'ssl_currency' => ['required'],
+                'ssl_store_id' => ['required'],
+                'store_pass' => ['required']
+            ]);
+
+          
+
+              foreach ($validatedData as $key => $value) {
+                PaymentSettings::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $value]
+                );
+            }
+
+            Artisan::call('config:clear');
+            notyf()->success('SslCommerz Settings Updated Successfully!');
+            return redirect()->back();
         }
 
 

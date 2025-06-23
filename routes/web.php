@@ -21,10 +21,31 @@ use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Models\PaymentSettings;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 
 
+
+
+/**
+ * Checking if the SSLCommerz env is dynamically changing or not
+ */
+Route::get('/debug-sslcommerz-config', function () {
+    return [
+        'runtime_config' => config('sslcommerz'), // Current SSLCommerz config
+        'database_settings' => PaymentSettings::all()->pluck('value', 'key')->toArray(), // Database values
+        'env_file' => [
+            'SSLCZ_MODE' => env('SSLCZ_MODE'),
+            'SSLCZ_SANDBOX_STORE_ID' => env('SSLCZ_SANDBOX_STORE_ID'),
+            'SSLCZ_SANDBOX_STORE_PASSWORD' => env('SSLCZ_SANDBOX_STORE_PASSWORD'),
+            'SSLCZ_TESTMODE' => env('SSLCZ_TESTMODE'),
+        ], // Values from .env
+    ];
+});
+/**
+ * Checking if the SSLCommerz env is dynamically changing or not
+ */
 
 
 // SSLCOMMERZ Start

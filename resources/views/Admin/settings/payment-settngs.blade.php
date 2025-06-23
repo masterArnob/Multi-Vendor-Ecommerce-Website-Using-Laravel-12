@@ -13,7 +13,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <a href="#tabs-activity-8" class="nav-link" data-bs-toggle="tab" aria-selected="false" role="tab"
-                        tabindex="-1">Activity</a>
+                        tabindex="-1">SslCommerz Settings</a>
                 </li>
             </ul>
         </div>
@@ -174,9 +174,82 @@
 
                 </div>
                 <div class="tab-pane fade" id="tabs-activity-8" role="tabpanel">
-                    <h4>Activity tab</h4>
-                    <div>Donec ac vitae diam amet vel leo egestas consequat rhoncus in luctus amet, facilisi sit mauris
-                        accumsan nibh habitant senectus</div>
+                    <h4>SslCommerz Settings</h4>
+                       <form action="{{ route('admin.payment-settings.update', 1) }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+
+
+                        <input type="hidden" name="payment_method" value="ssl">
+
+                             <div class="col-md-7 mt-3">
+                                <div class="form-label">Mode</div>
+                                <select name="ssl_mode" class="form-control">
+                                    <option value="">Select</option>
+                                    <option @selected(@$paymentSettings['ssl_mode'] === 'live') value="live">Live</option>
+                                    <option @selected(@$paymentSettings['ssl_mode'] === 'sandbox') value="sandbox">Sandbox
+                                    </option>
+
+                                </select>
+                            </div>
+
+
+                        <div class="col-md-7 mt-3">
+                            <div class="form-label">SslCommerz Status</div>
+                            <select name="ssl_status" class="form-control">
+                                <option value="">Select</option>
+                                <option @selected(@$paymentSettings['ssl_status'] === 'active') value="active">Active</option>
+                                <option @selected(@$paymentSettings['ssl_status'] === 'inactive') value="inactive">Inactive
+                                </option>
+
+                            </select>
+                        </div>
+
+
+
+
+
+                        <div class="col-md-7 mt-3">
+                            <div class="form-label">Currency</div>
+                            <select name="ssl_currency" class="js-example-basic form-control">
+                                <option value="">Select</option>
+                                @forelse (config('settings.currency_list') as $currency)
+                                    <option @selected(@$paymentSettings['ssl_currency'] === $currency) value="{{ $currency }}">
+                                        {{ $currency }}</option>
+                                @empty
+                                    No Data Available
+                                @endforelse
+
+                            </select>
+                        </div>
+
+
+                     
+
+
+                        <div class="col-md-7 mt-3">
+                            <div class="form-label">Store ID</div>
+                            <input type="text" name="ssl_store_id" class="form-control"
+                                value="{{ @$paymentSettings['ssl_store_id'] }}">
+                            <x-input-error :messages="$errors->get('ssl_store_id')" class="mt-2 text-danger" />
+                        </div>
+
+
+                        <div class="col-md-7 mt-3">
+                            <div class="form-label">Store Password</div>
+                            <input type="text" name="store_pass" class="form-control"
+                                value="{{ @$paymentSettings['store_pass'] }}">
+                            <x-input-error :messages="$errors->get('store_pass')" class="mt-2 text-danger" />
+                        </div>
+
+
+
+                        <div class="mt-4">
+                            <button class="btn btn-primary">Update</button>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>

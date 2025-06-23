@@ -43,6 +43,20 @@ class AppServiceProvider extends ServiceProvider
             Config::set('paypal.currency', $paymentSettings['paypal_currency'] ?? 'USD');
             Config::set('paypal.payment_action', $paymentSettings['paypal_payment_action'] ?? 'Sale'); // Add if needed
             Config::set('paypal.validate_ssl', isset($paymentSettings['paypal_validate_ssl']) ? (bool) $paymentSettings['paypal_validate_ssl'] : false);
+
+       
+                  // Override SSLCommerz config if settings exist
+            Config::set('sslcommerz.apiCredentials.store_id', $paymentSettings['ssl_store_id'] ?? env('SSLCZ_STORE_ID', 'mini68592264caa31'));
+            Config::set('sslcommerz.apiCredentials.store_password', $paymentSettings['store_pass'] ?? env('SSLCZ_STORE_PASSWORD', 'mini68592264caa31@ssl'));
+            Config::set('sslcommerz.sandbox.store_id', $paymentSettings['ssl_store_id'] ?? env('SSLCZ_STORE_ID', 'mini68592264caa31'));
+            Config::set('sslcommerz.sandbox.store_password', $paymentSettings['store_pass'] ?? env('SSLCZ_STORE_PASSWORD', 'mini68592264caa31@ssl'));
+
+            // Set testmode and apiDomain based on ssl_mode (sandbox => true, live => false)
+            $testMode = isset($paymentSettings['ssl_mode'])
+                ? ($paymentSettings['ssl_mode'] === 'sandbox' ? true : false)
+                : env('SSLCZ_TESTMODE', true);
+            Config::set('sslcommerz.testmode', $testMode);
+            Config::set('sslcommerz.apiDomain', $testMode ? 'https://sandbox.sslcommerz.com' : 'https://securepay.sslcommerz.com');
         }
 
         View::composer('*', function($view) use ($settings, $paymentSettings){

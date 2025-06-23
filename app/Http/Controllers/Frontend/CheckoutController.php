@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\ShippingRule;
 use App\Models\UserAddress;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\Session;
 class CheckoutController extends Controller
 {
     public function index(){
+        if(Cart::count() < 1){
+           abort(404);
+        }
         $addresses = UserAddress::where(['user_id' => Auth::user()->id])->orderby('id', 'DESC')->get();
         $rules = ShippingRule::where('status', 1)->get();
         return view('frontend.pages.checkout', compact('addresses', 'rules'));
