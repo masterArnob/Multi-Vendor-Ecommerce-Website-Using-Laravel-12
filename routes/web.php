@@ -20,7 +20,19 @@ use App\Http\Controllers\Vendor\ProductVariantItemController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SslCommerzPaymentController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
+
+
+
+
+// SSLCOMMERZ Start
+Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('user.payment.ssl');
+Route::post('/success', [SslCommerzPaymentController::class, 'success'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail'])->withoutMiddleware([VerifyCsrfToken::class]);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel'])->withoutMiddleware([VerifyCsrfToken::class]);
+//SSLCOMMERZ END
 
 
 /**
@@ -45,6 +57,9 @@ Route::get('/debug-paypal-config', function () {
 
 Route::get('vendor/register', [RegisteredVendorController::class, 'create'])->name('vendor.register.index');
 Route::post('vendor/register/store', [RegisteredVendorController::class, 'store'])->name('vendor.register.store');
+
+
+
 
 /**
  * User Routes

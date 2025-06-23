@@ -19,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'guest' => RedirectIfAuthenticated::class,
             'check_role' => CheckRoleMiddleware::class
         ]);
+        // Explicitly assign the VerifyCsrfToken middleware to the web group
+        $middleware->web(append: [
+            \App\Http\Middleware\VerifyCsrfToken::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

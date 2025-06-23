@@ -47,9 +47,16 @@
                       </div>
 
                         <div class="col-xl-3 col-lg-3 mx-2">
-                           <a href="">
-                          <img src="{{ asset('frontend/assets/images/payment-gateway/paypal.webp') }}" width="100%">
-                      </a>
+                  
+                            <form action="{{ route('user.payment.ssl') }}" method="POST">
+                                @csrf
+                           
+                               <button type="submit" class="bg-transparent border-0">
+                                   <img src="{{ asset('frontend/assets/images/payment-gateway/ssl.png') }}" width="100%">
+                               </button>
+                            </form>
+                        
+             
                       </div>
                     </div>
 
