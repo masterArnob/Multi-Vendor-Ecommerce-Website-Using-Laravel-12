@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\AdminAllOrdersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 
@@ -64,7 +66,17 @@ class AllOrdersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $orderProduct = OrderProduct::where('order_id', $order->id)->get();
+        foreach ($orderProduct as $product) {
+           // $product->delete();
+        }
+        $tansaction = Transaction::where('transaction_id', $order->transaction_id)->first();
+        //dd($tansaction);
+        $tansaction->delete();
+        $order->delete();
+        notyf()->success('Order Deleted Successfully!');
+        return response(['status' => 'success']);
     }
 
 

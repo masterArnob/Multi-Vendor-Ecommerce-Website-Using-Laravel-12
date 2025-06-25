@@ -194,7 +194,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-end font-weight-bold text-uppercase">Total Due</td>
+                                    <td colspan="6" class="text-end font-weight-bold text-uppercase">Total</td>
                                     <td class="text-end font-weight-bold">
                                         {{ $order->currency_icon }}{{ $order->amount }}</td>
                                 </tr>
