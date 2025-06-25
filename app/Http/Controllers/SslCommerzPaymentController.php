@@ -125,8 +125,8 @@ class SslCommerzPaymentController extends Controller
         $order->user_id = Auth::user()->id;
         $order->sub_total = getSubTotal();
         $order->amount = $amount;
-        $order->currency_name = $settings->currency_name;
-        $order->currency_icon = $settings->currency_icon;
+        $order->currency_name = 'BDT';
+        $order->currency_icon = '৳';
         $order->product_qty = Cart::content()->count();
         $order->payment_method = $payment_method;
         $order->payment_status = 1;

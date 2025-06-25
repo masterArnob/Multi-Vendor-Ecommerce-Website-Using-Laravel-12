@@ -39,8 +39,7 @@
         <!-- Content -->
         <div class="page-wrapper">
             @yield('content')
-            <!-- Footer -->
-            @include('admin.layout.footer')
+          
         </div>
     </div>
 
@@ -211,6 +210,9 @@
   {{-- select 2 js --}}
   <script src="{{ asset('frontend/assets/js/select2.min.js') }}"></script>
   {{-- select 2 js --}}
+
+
+  
 
     <!-- Vite-bundled admin.js -->
     @vite(['resources/js/admin.js'])

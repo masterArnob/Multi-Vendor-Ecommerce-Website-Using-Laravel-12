@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AllOrdersController;
 use App\Http\Controllers\Admin\ApprovedVendorController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
@@ -61,7 +62,10 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
 
 
+    
 
+
+    Route::resource('all-orders', AllOrdersController::class);
 
     Route::resource('payment-settings', PaymentSettingsController::class);
 
