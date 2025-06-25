@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ShippingRuleController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\VendorProductController;
 use App\Http\Controllers\Admin\VendorProductImageGalleryController;
 use App\Http\Controllers\Admin\VendorProductVariant;
@@ -63,6 +64,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
 
     
+    Route::resource('transaction', TransactionController::class);
 
     Route::post('change-order-status/', [AllOrdersController::class, 'changeOrderStatus'])->name('change-order-status');
 

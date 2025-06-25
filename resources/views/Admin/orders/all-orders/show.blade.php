@@ -151,7 +151,7 @@
                                                 alt="Product Image" style="max-width: 50px; height: auto;">
                                         </td>
                                         <td>
-                                            <p class="strong mb-1">{{ $product->product_name }}</p>
+                                           <a href="{{ route('product-details.show', $product->product_id) }}"> <p class="strong mb-1">{{ $product->product_name }}</p></a>
                                             @forelse ($variants as $key => $variant)
                                                 <div class="text-secondary">{{ $key }}:
                                                     {{ $variant['name'] }}

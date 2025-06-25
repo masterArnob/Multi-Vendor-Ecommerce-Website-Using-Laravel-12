@@ -96,7 +96,7 @@ $delete = '<a href="' . route('admin.all-orders.destroy', $query->id) . '" class
                 return $query->user->name;
             })
 
-        
+     
 
 
             ->rawColumns(['action', 'payment_status', 'order_status'])

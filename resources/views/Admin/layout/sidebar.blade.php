@@ -318,10 +318,10 @@
                   <div class="dropdown-menu-columns">
                     <div class="dropdown-menu-column">
                       <a class="dropdown-item" href="{{ route('admin.all-orders.index') }}">
-                        All Orders
+                         Orders
                       </a>
-                      <a class="dropdown-item" href="{{ route('admin.vendor-product.index') }}">
-                        Vendor Products
+                      <a class="dropdown-item" href="{{ route('admin.transaction.index') }}">
+                        Transctions
                       </a>
                   </div>
                 </div>
