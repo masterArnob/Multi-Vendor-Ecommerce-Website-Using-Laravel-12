@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.
 
     
 
+    Route::post('change-order-status/', [AllOrdersController::class, 'changeOrderStatus'])->name('change-order-status');
 
     Route::resource('all-orders', AllOrdersController::class);
 

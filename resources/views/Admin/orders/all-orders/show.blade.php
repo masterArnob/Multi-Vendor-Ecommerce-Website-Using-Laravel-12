@@ -34,6 +34,14 @@
             font-feature-settings: "cv03", "cv04", "cv11";
         }
     </style>
+       <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <!-- Notyf CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
+            <!-- Vite-bundled admin.js -->
+    @vite(['resources/js/admin.js'])
 </head>
 
 <body>
@@ -107,14 +115,14 @@
                                 <div class="col-6">
                                     <h1>Invoice #{{ $order->invoice_id }}</h1>
                                     <p class="">Order Status</p>
-                                    <select name="order_status" class="form-control order_status">
-                                        <option value="pending">Pending</option>
-                                        <option value="processed_and_ready_to_ship">Processed and Ready to Ship</option>
-                                        <option value="dropped_off">Dropped Off</option>
-                                        <option value="shipped">Shipped</option>
-                                        <option value="out_for_delivery">Out For Delivery</option>
-                                        <option value="delivered">Delivered</option>
-                                        <option value="canceled">Canceled</option>
+                                    <select name="order_status" data-id="{{ $order->id }}" class="form-control order_status">
+                                        <option @selected($order->order_status === 'pending') value="pending">Pending</option>
+                                        <option @selected($order->order_status === 'processed_and_ready_to_ship') value="processed_and_ready_to_ship">Processed and Ready to Ship</option>
+                                        <option @selected($order->order_status === 'dropped_off') value="dropped_off">Dropped Off</option>
+                                        <option @selected($order->order_status === 'shipped') value="shipped">Shipped</option>
+                                        <option @selected($order->order_status === 'out_for_delivery') value="out_for_delivery">Out For Delivery</option>
+                                        <option @selected($order->order_status === 'delivered') value="delivered">Delivered</option>
+                                        <option @selected($order->order_status === 'canceled') value="canceled">Canceled</option>
                                     </select>
                                 </div>
 
@@ -202,10 +210,30 @@
 
         </div>
     </div>
+
+
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <!-- Notyf JS -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <!-- Libs JS -->
     <!-- Tabler Core -->
     <script src="{{ asset('admin/dist/js/tabler.min.js?1692870487') }}" defer></script>
     <script src="{{ asset('admin/dist/js/demo.min.js?1692870487') }}" defer></script>
+
+
+    <script>
+               var config = {
+            routes: {
+                changeOrderStatus: "{{ route('admin.change-order-status') }}", // Changed to route() for consistency
+            },
+            icon: {
+                currency_icon: "{{ $settings->currency_icon ?? '$' }}",
+            }
+        };
+    </script>
 </body>
 
 </html>

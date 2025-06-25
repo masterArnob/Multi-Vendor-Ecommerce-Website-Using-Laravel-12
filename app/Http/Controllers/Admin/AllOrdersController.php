@@ -68,5 +68,12 @@ class AllOrdersController extends Controller
     }
 
 
+    public function changeOrderStatus(Request $request){
+        // dd($request->all());
+        $order = Order::findOrFail($request->order_id);
+        $order->order_status = $request->order_status;
+        $order->save();
+        return response(['status' => 'success', 'message' => 'Order Status Updated Successfully!']);
+    }
 
 }
