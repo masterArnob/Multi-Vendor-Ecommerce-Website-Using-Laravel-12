@@ -22,6 +22,7 @@ use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Models\PaymentSettings;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
@@ -89,6 +90,7 @@ Route::post('vendor/register/store', [RegisteredVendorController::class, 'store'
 Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' => 'user', 'as' => 'user.'], function () {
 
 
+    Route::resource('order', UserOrderController::class);
 
     /**
      * Stripe Paymant Routes
