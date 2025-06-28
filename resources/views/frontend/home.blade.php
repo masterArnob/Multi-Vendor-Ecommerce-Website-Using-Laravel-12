@@ -30,18 +30,22 @@
 
 
 
-        {{-- 
+
 
     <!--============================
        MONTHLY TOP PRODUCT START
     ==============================-->
-      @include('frontend.sections.monthly-top-product-section')
+    @if (!empty($topCategories))
+      @include('frontend.sections.top-category-section')        
+    @endif
+
 
     <!--============================
        MONTHLY TOP PRODUCT END
     ==============================-->
 
 
+            {{-- 
     <!--============================
         BRAND SLIDER START
     ==============================-->

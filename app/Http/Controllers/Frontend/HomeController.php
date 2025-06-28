@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\Slider;
+use App\Models\TopCategorySection;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +15,13 @@ class HomeController extends Controller
         $sliders = Slider::where('status', '1')->orderBy('serial', 'ASC')->get();
         $flashSaleDate = FlashSale::first();
         $flashSaleItemsSliders = FlashSaleItem::where(['status' => '1', 'show_at_home' => '1'])->orderBy('id', 'DESC')->get();
-        return view('frontend.home', compact('sliders', 'flashSaleItemsSliders', 'flashSaleDate'));
+        $topCategories = TopCategorySection::first();
+        return view('frontend.home', compact(
+            'sliders', 
+           'flashSaleItemsSliders',
+                       'flashSaleDate',
+                       'topCategories',
+
+            ));
     }
 }

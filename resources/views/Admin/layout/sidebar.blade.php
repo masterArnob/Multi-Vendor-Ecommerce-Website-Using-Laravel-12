@@ -254,14 +254,23 @@
                         Manage Brands
                       </a>
 
+
+
                         <a class="dropdown-item" href="{{ route('admin.flash-sale.index') }}">
                         Manage Flash Sale
+                      </a>
+
+                          <a class="dropdown-item" href="{{ route('admin.top-category.index') }}">
+                        Manage Top Catgories
                       </a>
 
 
                         <a class="dropdown-item" href="{{ route('admin.shipping-rule.index') }}">
                         Manage Shipping Rules
                       </a>
+
+
+
                   </div>
                 </div>
               </li>

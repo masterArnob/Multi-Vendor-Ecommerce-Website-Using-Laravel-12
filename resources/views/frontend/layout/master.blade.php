@@ -392,6 +392,11 @@
                 currency_icon: "{{ $settings->currency_icon ?? '$' }}",
             }
         };
+
+
+        $(document).ready(function(){
+            $('.auto_click').click();
+        })
     </script>
 
 

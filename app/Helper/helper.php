@@ -2,6 +2,7 @@
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 function getSubTotal(){
     $total = 0;
@@ -71,4 +72,9 @@ function getSubTotal(){
         $shippingFee = shippingFee();
         $finalCost = ($total + $shippingFee);
         return round($finalCost);
+    }
+
+
+    function limitText($text, $limit = 20){
+        return Str::limit($text, $limit, '...');
     }
