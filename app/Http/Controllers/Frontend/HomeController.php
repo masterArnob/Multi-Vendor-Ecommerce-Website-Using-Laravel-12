@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
+use App\Models\Product;
 use App\Models\Slider;
 use App\Models\TopCategorySection;
 use Illuminate\Http\Request;
@@ -21,12 +22,48 @@ class HomeController extends Controller
         ->where('is_featured', 1)
         ->orderBy('id', 'DESC')
         ->get();
+
+        $typeBasedProduct = $this->getTypeBasedProduct();
+       // dd($typeBasedProduct);
         return view('frontend.home', compact(
             'sliders', 
            'flashSaleItemsSliders',
                        'flashSaleDate',
                        'topCategories',
                        'brands',
+                       'typeBasedProduct',
             ));
+    }
+
+
+    public function getTypeBasedProduct(){
+        $typeBasedProduct = [];
+        
+        
+        
+        
+        $typeBasedProduct['new_arrival'] = Product::where(['status' => 1, 'is_approved' => 1, 'product_type' => 'new_arrival'])
+        ->orderBy('id', 'DESC')
+        ->take(8)
+        ->get();
+
+         $typeBasedProduct['featured_product'] = Product::where(['status' => 1, 'is_approved' => 1, 'product_type' => 'featured_product'])
+        ->orderBy('id', 'DESC')
+        ->take(8)
+        ->get();
+
+
+         $typeBasedProduct['top_product'] = Product::where(['status' => 1, 'is_approved' => 1, 'product_type' => 'top_product'])
+        ->orderBy('id', 'DESC')
+        ->take(8)
+        ->get();
+
+
+         $typeBasedProduct['best_product'] = Product::where(['status' => 1, 'is_approved' => 1, 'product_type' => 'best_product'])
+        ->orderBy('id', 'DESC')
+        ->take(8)
+        ->get();
+
+        return $typeBasedProduct;
     }
 }
