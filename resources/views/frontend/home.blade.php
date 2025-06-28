@@ -45,16 +45,20 @@
     ==============================-->
 
 
-            {{-- 
+        
     <!--============================
         BRAND SLIDER START
     ==============================-->
-     @include('frontend.sections.brand-slider-section')
+    @if ($brands->count() > 0)
+             @include('frontend.sections.brand-slider-section')
+    @endif
 
     <!--============================
         BRAND SLIDER END
     ==============================-->
 
+
+        {{-- 
 
     <!--============================
         SINGLE BANNER START
