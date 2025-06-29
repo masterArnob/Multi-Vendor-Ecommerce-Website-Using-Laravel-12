@@ -17,8 +17,9 @@ class SingleCategorySectionController extends Controller
         $categories = Category::where('status', 1)->get();
         $singleCatOne = SingleCategorySection::first();
         $singleCatTwo = SingleCategorySection::where('id', 2)->first();
+        $singleCatThree = SingleCategorySection::where('id', 3)->first();
         //dd($singleCatTwo);
-        return view('admin.single-category.index', compact('categories', 'singleCatOne', 'singleCatTwo'));
+        return view('admin.single-category.index', compact('categories', 'singleCatOne', 'singleCatTwo', 'singleCatThree'));
     }
 
     /**
@@ -111,6 +112,41 @@ class SingleCategorySectionController extends Controller
                 );
 
                 notyf()->success('Single Category Section Two Updated Successfully!');
+                return to_route('admin.single-category.index');
+
+            case 3:
+                //dd('yes  case 3');
+                   $request->validate(
+                    [
+                        'cat_one' => ['required'],
+                        'cat_two' => ['required'],
+                    ],
+                    [
+                        'cat_one.required' => 'Category one is required',
+                        'cat_two.required' => 'Category one is required',
+                    ]
+                );
+
+                $data = [
+                    [
+                        'category' => $request->cat_one,
+                        'sub_category' => $request->sub_cat_one,
+                        'child_category' => $request->child_cat_one
+                    ],
+                       [
+                        'category' => $request->cat_two,
+                        'sub_category' => $request->sub_cat_two,
+                        'child_category' => $request->child_cat_two
+                    ],
+                ];
+
+                // dd($data);
+                SingleCategorySection::updateOrCreate(
+                    ['key' => 'single_category_section_three'],
+                    ['value' => json_encode($data)]
+                );
+
+                notyf()->success('Single Category Section Three Updated Successfully!');
                 return to_route('admin.single-category.index');
         }
     }

@@ -29,6 +29,7 @@ class HomeController extends Controller
 
        $singleCatOne = SingleCategorySection::first();
        $singleCatTwo = SingleCategorySection::where('id', 2)->first();
+       $singleCatThree = SingleCategorySection::where('id', 3)->first();
         return view('frontend.home', compact(
             'sliders', 
            'flashSaleItemsSliders',
@@ -38,6 +39,7 @@ class HomeController extends Controller
                        'typeBasedProduct',
                        'singleCatOne',
                        'singleCatTwo',
+                       'singleCatThree'
             ));
     }
 

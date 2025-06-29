@@ -96,7 +96,7 @@
      @include('frontend.sections.single-category-section-two')
    @endif
 
-    {{-- 
+
     <!--============================
         LARGE BANNER  START  
     ==============================-->
@@ -106,17 +106,19 @@
         LARGE BANNER  END  
     ==============================-->
 
-
+   
     <!--============================
         WEEKLY BEST ITEM START  
     ==============================-->
-        @include('frontend.sections.weekly-best-item-section')
+       @if ($singleCatThree->count() > 0)
+     @include('frontend.sections.single-category-section-three')
+   @endif
 
     <!--============================
         WEEKLY BEST ITEM END 
     ==============================-->
 
-
+ {{-- 
     <!--============================
       HOME SERVICES START
     ==============================-->
