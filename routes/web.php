@@ -137,7 +137,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' 
 Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix' => 'vendor', 'as' => 'vendor.'], function () {
 
     
-      Route::post('change-order-status/', [OrderController::class, 'changeOrderStatus'])->name('change-order-status');
+    Route::post('change-order-status/', [OrderController::class, 'changeOrderStatus'])->name('change-order-status');
     Route::resource('order', OrderController::class);
     Route::resource('product/image-gallery', ProductImageGalleryController::class);
     Route::delete('product/variant-item/destroy/{variant_item_id}', [ProductVariantItemController::class, 'destroy'])->name('product-variant-item.destroy');

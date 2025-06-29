@@ -14,18 +14,18 @@
 
                         @forelse ($categories as $category)
                             <li><a class="{{ count($category->subCategories) > 0 ? 'wsus__droap_arrow' : '' }}"
-                                    href="#"><i class="{{ $category->icon }}"></i>
+                                    href="{{ route('product-details.index', ['category' => $category->slug]) }}"><i class="{{ $category->icon }}"></i>
                                     {{ $category->name }} </a>
                                 @if (count($category->subCategories) > 0)
                                     <ul class="wsus_menu_cat_droapdown">
                                         @forelse ($category->subCategories as $subCategory)
-                                            <li><a href="#">{{ $subCategory->name }} <i
+                                            <li><a href="{{ route('product-details.index', ['sub_category' => $subCategory->slug]) }}">{{ $subCategory->name }} <i
                                                         class="{{ count($subCategory->childCategories) > 0 ? 'fas fa-angle-right' : '' }}"></i></a>
 
                                                         @if (count($subCategory->childCategories) > 0)
                                                                                                             <ul class="wsus__sub_category">
                                                     @forelse ($subCategory->childCategories as $childCategory)
-                                                        <li><a href="#">{{ $childCategory->name }}</a> </li>
+                                                        <li><a href="{{ route('product-details.index', ['child_category' => $childCategory->slug]) }}">{{ $childCategory->name }}</a> </li>
                                                     @empty
                                                         No Data Available
                                                     @endforelse
