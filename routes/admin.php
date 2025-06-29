@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\ProductVariantItemController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ShippingRuleController;
+use App\Http\Controllers\Admin\SingleCategorySectionController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TopCategorySectionController;
@@ -63,6 +64,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
 
+    Route::resource('single-category', SingleCategorySectionController::class);
 
     Route::resource('top-category', TopCategorySectionController::class);
     

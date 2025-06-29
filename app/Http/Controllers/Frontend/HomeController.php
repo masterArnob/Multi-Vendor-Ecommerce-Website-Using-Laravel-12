@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\Product;
+use App\Models\SingleCategorySection;
 use App\Models\Slider;
 use App\Models\TopCategorySection;
 use Illuminate\Http\Request;
@@ -25,6 +26,9 @@ class HomeController extends Controller
 
         $typeBasedProduct = $this->getTypeBasedProduct();
        // dd($typeBasedProduct);
+
+       $singleCatOne = SingleCategorySection::first();
+       $singleCatTwo = SingleCategorySection::where('id', 2)->first();
         return view('frontend.home', compact(
             'sliders', 
            'flashSaleItemsSliders',
@@ -32,6 +36,8 @@ class HomeController extends Controller
                        'topCategories',
                        'brands',
                        'typeBasedProduct',
+                       'singleCatOne',
+                       'singleCatTwo',
             ));
     }
 

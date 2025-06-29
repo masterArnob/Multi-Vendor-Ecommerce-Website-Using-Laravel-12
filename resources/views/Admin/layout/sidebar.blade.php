@@ -265,6 +265,11 @@
                       </a>
 
 
+                    <a class="dropdown-item" href="{{ route('admin.single-category.index') }}">
+                        Manage Single Catgories
+                      </a>
+
+
                         <a class="dropdown-item" href="{{ route('admin.shipping-rule.index') }}">
                         Manage Shipping Rules
                       </a>

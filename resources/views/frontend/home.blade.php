@@ -81,20 +81,22 @@
     ==============================-->
 
 
-        {{-- 
+    
     <!--============================
         ELECTRONIC PART START  
     ==============================-->
-     @include('frontend.sections.electronic-section')
-
+    @if ($singleCatOne->count() > 0)
+             @include('frontend.sections.single-category-section-one')
+    @endif
     <!--============================
         ELECTRONIC PART END  
     ==============================-->
 
+    @if ($singleCatTwo->count() > 0)
+     @include('frontend.sections.single-category-section-two')
+   @endif
 
-
-
-
+    {{-- 
     <!--============================
         LARGE BANNER  START  
     ==============================-->
