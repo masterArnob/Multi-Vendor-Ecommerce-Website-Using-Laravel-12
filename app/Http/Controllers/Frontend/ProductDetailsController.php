@@ -76,6 +76,42 @@ class ProductDetailsController extends Controller
             })
             ->orderBy('id', 'DESC')
             ->paginate(12);
+        }else if($request->has('search')){
+            $products = Product::where(['status' => 1, 'is_approved' => 1])
+            ->where(function($query) use($request){
+                $query->where('name', 'LIKE', '%'.$request->search.'%')
+                        ->orWhere('short_description', 'LIKE', '%'.$request->search.'%')
+                         ->orWhere('long_description', 'LIKE', '%'.$request->search.'%')
+                         ->orWhereHas('category', function($query) use($request){
+                            $query->where('name', 'LIKE', '%'.$request->search.'%');
+                         })
+                        ->orWhereHas('brand', function($query) use($request){
+                            $query->where('name', 'LIKE', '%'.$request->search.'%');
+                         });
+
+            })
+             ->when($request->has('range'), function($query) use($request){
+                $range = explode(';', $request->range);
+                if(count($range) == 2){
+                $min = $range[0];
+                $max = $range[1];
+                return $query->whereBetween('price', [$min, $max]);
+                }
+            })
+            ->orderBy('id', 'DESC')
+            ->paginate(12);
+        }else{
+            $products = Product::where(['status' => 1, 'is_approved' => 1])
+            ->when($request->has('range'), function($query) use($request){
+                $range = explode(';', $request->range);
+                if(count($range) == 2){
+                $min = $range[0];
+                $max = $range[1];
+                return $query->whereBetween('price', [$min, $max]);
+                }
+            })
+            ->orderBy('id', 'DESC')
+            ->paginate(12);
         }
         $categories = Category::where('status', 1)->orderBy('id', 'DESC')->get();
         $brands = Brand::where('status', 1)->orderBy('id', 'DESC')->get();
