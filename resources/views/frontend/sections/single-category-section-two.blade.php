@@ -81,6 +81,11 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>(133 review)</span>
                             </p>
+
+                            <ul class="wsus__single_pro_icon">
+                             <li><a class="add_wishlist" data-id="{{ $item->id }}"><i class="fal fa-heart"></i></a></li>
+                        </ul>
+
                             <a class="wsus__pro_name"
                                 href="{{ route('product-details.show', $item->id) }}">{{ $item->name }}</a>
                             <p class="wsus__price">

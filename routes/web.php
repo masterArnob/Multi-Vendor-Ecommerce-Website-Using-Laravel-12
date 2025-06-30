@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
+use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\User\UserAddressController;
@@ -89,6 +90,10 @@ Route::post('vendor/register/store', [RegisteredVendorController::class, 'store'
  */
 Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' => 'user', 'as' => 'user.'], function () {
 
+
+    Route::get('wish-count/remove', [WishlistController::class, 'wishRemoveProduct'])->name('wishlist.product.remove');
+    Route::post('wish-count', [WishlistController::class, 'wishCount'])->name('wishlist.count');
+    Route::resource('wishlist', WishlistController::class);
 
     Route::resource('order', UserOrderController::class);
 

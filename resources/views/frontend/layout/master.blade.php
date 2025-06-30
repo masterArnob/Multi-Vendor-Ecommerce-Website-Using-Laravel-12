@@ -387,6 +387,8 @@
                 applyCoupon: "{{ route('coupon.apply') }}",
                 couponCalculation: "{{ route('coupon.calculation') }}",
                 chckoutFormSubmit: "{{ route('user.checkout.form.submit') }}",
+                wishlist: "{{ route('user.wishlist.store') }}",
+                wishlistCount: "{{ route('user.wishlist.count') }}",
             },
             icon: {
                 currency_icon: "{{ $settings->currency_icon ?? '$' }}",

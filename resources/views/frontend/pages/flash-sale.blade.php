@@ -114,6 +114,12 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <span>(133 review)</span>
                             </p>
+
+                            <ul class="wsus__single_pro_icon">
+                             <li><a class="add_wishlist" data-id="{{ $item->product->id }}"><i class="fal fa-heart"></i></a></li>
+                        </ul>
+
+                        
                             <a class="wsus__pro_name" href="{{ route('product-details.show', $item->product->id) }}">{{ $item->product->name }}</a>
                             <p class="wsus__price">
                                 @if ($item->product->offer_price > 0 && $item->product->offer_start_date <= now() && $item->product->offer_end_date >= now())

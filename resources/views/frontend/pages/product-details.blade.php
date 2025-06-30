@@ -135,7 +135,7 @@
                                 <button class="add_cart" type="submit">Add to cart</button>
 
 
-                            <li><a href="#"><i class="fal fa-heart"></i></a></li>
+                            <li><a class="add_wishlist" data-id="{{ $product->id }}"><i class="fal fa-heart"></i></a></li>
 
                         </ul>
                         </form>

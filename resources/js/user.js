@@ -333,3 +333,64 @@ $(document).on("click", ".checkoutForm", function (e) {
         });
     }
 });
+
+$(document).on('click', '.add_wishlist', function(e){
+    e.preventDefault();
+    //alert('aaaaaaaaaa');
+    let id = $(this).data('id');
+
+            $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+
+    $.ajax({
+        url: config.routes.wishlist,
+        method: 'POST',
+        data: {
+            id: id,
+        },
+        success: function(data){
+            if(data.status === 'success'){
+                notyf.success(data.message);
+                getWisCount();
+            }else if(data.status === 'error'){
+                window.location.reload();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("Error:", xhr, status, error); // Debug: Log the error
+            notyf.error(
+                xhr.responseJSON?.message ||
+                "An error occurred while adding to wishlist"
+            );
+        }
+    })
+})
+
+function getWisCount(){
+              $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+    $.ajax({
+        url: config.routes.wishlistCount,
+        type: 'POST',
+        success: function(data){
+            if(data.status === 'success'){
+                $('.wishlist_count').text(data.count);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("Error:", xhr, status, error); // Debug: Log the error
+            notyf.error(
+                xhr.responseJSON?.message ||
+                "An error occurred while fetching wishlist count"
+            );
+        }
+    });
+}

@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Wishlist;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -74,6 +76,11 @@ function getSubTotal(){
         return round($finalCost);
     }
 
+
+    function wishCount(){
+        $count = Wishlist::where('user_id', Auth::user()->id)->count();
+        return $count;
+    }
 
     function limitText($text, $limit = 20){
         return Str::limit($text, $limit, '...');

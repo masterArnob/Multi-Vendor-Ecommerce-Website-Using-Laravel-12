@@ -69,6 +69,10 @@
                                 alt="product" class="img-fluid w-100 img_2" />
                         </a>
 
+                        <ul class="wsus__single_pro_icon">
+                             <li><a class="add_wishlist" data-id="{{ $item->id }}"><i class="fal fa-heart"></i></a></li>
+                        </ul>
+
                         <div class="wsus__product_details">
                             <a class="wsus__category" href="#">{{ $item->category->name }} </a>
                             <p class="wsus__pro_rating">
