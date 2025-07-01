@@ -4,19 +4,58 @@
                 <div class="col-xl-3 col-sm-7 col-md-6 col-lg-3">
                     <div class="wsus__footer_content">
                         <a class="wsus__footer_2_logo" href="#">
-                            <img src="images/logo_2.png" alt="logo">
+                            <img src="{{ asset(@$footer->logo) }}" alt="logo">
                         </a>
                         <a class="action" href="callto:+8896254857456"><i class="fas fa-phone-alt"></i>
-                            +8896254857456</a>
+                            {{ @$footer->phone }}</a>
                         <a class="action" href="mailto:example@gmail.com"><i class="far fa-envelope"></i>
-                            example@gmail.com</a>
-                        <p><i class="fal fa-map-marker-alt"></i> San Francisco City Hall, San Francisco, CA</p>
+                            {{ @$footer->email }}</a>
+                        <p><i class="fal fa-map-marker-alt"></i> {!! @$footer->address !!}</p>
                         <ul class="wsus__footer_social">
-                            <li><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a class="whatsapp" href="#"><i class="fab fa-whatsapp"></i></a></li>
-                            <li><a class="pinterest" href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                            <li><a class="behance" href="#"><i class="fab fa-behance"></i></a></li>
+                            @if (@$footer->fb_link !== null)
+                            <li><a class="facebook" href="{{ @$footer->fb_link }}"><i class="fab fa-facebook-f"></i></a>
+                            </li>      
+                            @endif
+
+                            @if (@$footer->twitter_link !== null)
+                            <li><a class="twitter" href="{{ @$footer->twitter_link }}"><i
+                                        class="fab fa-twitter"></i></a></li>        
+                            @endif
+                          
+                        
+                            @if (@$footer->whatsapp_link !== null)
+                            <li><a class="whatsapp" href="{{ @$footer->whatsapp_link }}"><i
+                                        class="fab fa-whatsapp"></i></a></li>      
+                            @endif
+                          
+                            @if (@$footer->pinterest_link !== null)
+                            <li><a class="pinterest" href="{{ @$footer->pinterest_link }}"><i
+                                        class="fab fa-pinterest-p"></i></a></li>       
+                            @endif
+
+                            @if (@$footer->instagram_link !== null)
+                            <li><a class="instagram" href="{{ @$footer->instagram_link }}"><i
+                                        class="fab fa-instagram"></i></a></li>        
+                            @endif
+                         
+                        
+                            @if (@$footer->youtube_link !== null)
+                            <li><a class="youtube" href="{{ @$footer->youtube_link }}"><i
+                                        class="fab fa-youtube"></i></a></li>       
+                            @endif
+
+                            @if (@$footer->linkedin_link !== null)
+                            <li><a class="linkedin" href="{{ @$footer->linkedin_link }}"><i
+                                        class="fab fa-linkedin-in"></i></a></li>         
+                            @endif
+
+                            @if (@$footer->tiktok_link !== null)
+                            <li><a class="tiktok" href="{{ @$footer->tiktok_link }}"><i class="fab fa-tiktok"></i></a>
+                            </li>     
+                            @endif
+                         
+                       
+                           
                         </ul>
                     </div>
                 </div>
@@ -57,10 +96,12 @@
                             <input type="text" placeholder="Search...">
                             <button type="submit" class="common_btn">subscribe</button>
                         </form>
-                        <div class="footer_payment">
+                       @if (@$footer->gateway_logo !== null)
+                            <div class="footer_payment">
                             <p>We're using safe payment for :</p>
-                            <img src="images/credit2.png" alt="card" class="img-fluid">
+                            <img src="{{ asset(@$footer->gateway_logo) }}" alt="card" class="img-fluid">
                         </div>
+                       @endif
                     </div>
                 </div>
             </div>
@@ -70,7 +111,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="wsus__copyright d-flex justify-content-center">
-                            <p>Copyright © 2021 Sazao shop. All Rights Reserved.</p>
+                            <p>{{ @$footer->copyright }}</p>
                         </div>
                     </div>
                 </div>

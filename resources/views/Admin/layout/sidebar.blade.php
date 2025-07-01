@@ -5,7 +5,7 @@
           </button>
           <h1 class="navbar-brand navbar-brand-autodark">
             <a href=".">
-                {{ $settings->site_name }}
+                {{ @$settings->site_name }}
              {{--  <img src="./static/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image"> --}}
             </a>
           </h1>
@@ -272,6 +272,10 @@
 
                         <a class="dropdown-item" href="{{ route('admin.shipping-rule.index') }}">
                         Manage Shipping Rules
+                      </a>
+
+                          <a class="dropdown-item" href="{{ route('admin.footer-section.index') }}">
+                        Manage Footer
                       </a>
 
 

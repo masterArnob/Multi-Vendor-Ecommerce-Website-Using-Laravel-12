@@ -15,9 +15,22 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'vendor',
-                'username' => 'vendor',
-                'email' => 'vendor@gmail.com',
+                'name' => 'vendor1',
+                'username' => 'vendor1',
+                'email' => 'vendor1@gmail.com',
+                'password' => bcrypt('password'),
+                'role' => 'vendor',
+                'is_user' => '0',
+                'user_status' => 'is_vendor',
+                'is_vendor' => '1',
+                'vendor_status' => 'approved',
+                'document' => 'demo.pdf',
+                'vendor_request' => '1'
+            ],
+             [
+                'name' => 'vendor2',
+                'username' => 'vendor2',
+                'email' => 'vendor2@gmail.com',
                 'password' => bcrypt('password'),
                 'role' => 'vendor',
                 'is_user' => '0',
@@ -28,9 +41,22 @@ class UserSeeder extends Seeder
                 'vendor_request' => '1'
             ],
             [
-                'name' => 'user',
-                'username' => 'user',
-                'email' => 'user@gmail.com',
+                'name' => 'user1',
+                'username' => 'user1',
+                'email' => 'user1@gmail.com',
+                'password' => bcrypt('password'),
+                'role' => 'user',
+                'is_user' => '1',
+                'user_status' => 'active',
+                'is_vendor' => '0',
+                'vendor_status' => 'is_user',
+                'document' => '',
+                'vendor_request' => 0
+            ],
+               [
+                'name' => 'user2',
+                'username' => 'user2',
+                'email' => 'user2@gmail.com',
                 'password' => bcrypt('password'),
                 'role' => 'user',
                 'is_user' => '1',

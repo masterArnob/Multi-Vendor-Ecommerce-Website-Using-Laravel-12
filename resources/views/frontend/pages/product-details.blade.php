@@ -103,7 +103,7 @@
                                                     @forelse ($variant->variantItem as $item)
                                                         @if ($item->status === 1)
                                                             <option value="{{ $item->id }}">{{ $item->name }}
-                                                                (+{{ $settings->currency_icon }}{{ $item->price }})
+                                                                (+{{ @$settings->currency_icon }}{{ $item->price }})
                                                             </option>
                                                         @endif
 
@@ -514,9 +514,9 @@
     <script>
         $(document).ready(function() {
             simplyCountdown('.simply-countdown-one', {
-                year: {{ date('Y', strtotime($flashSaleDate->end_date)) }},
-                month: {{ date('m', strtotime($flashSaleDate->end_date)) }},
-                day: {{ date('d', strtotime($flashSaleDate->end_date)) }},
+                year: {{ date('Y', strtotime(@$flashSaleDate->end_date)) }},
+                month: {{ date('m', strtotime(@$flashSaleDate->end_date)) }},
+                day: {{ date('d', strtotime(@$flashSaleDate->end_date)) }},
             });
         })
 

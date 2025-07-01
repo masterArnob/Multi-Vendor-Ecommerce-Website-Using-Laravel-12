@@ -1,6 +1,6 @@
 @extends('frontend.layout.master')
 @section('title')
-    {{ $settings->site_name }}
+    {{ @$settings->site_name }}
 @endsection
 
 
@@ -21,9 +21,19 @@
     <!--============================
         FLASH SELL START
     ==============================-->
-    @if ($flashSaleDate->end_date >= now())
-        @include('frontend.sections.flash-sell-section')
-    @endif
+@if ($flashSaleDate !== null && $flashSaleDate->end_date >= now())
+    @include('frontend.sections.flash-sell-section')
+@else
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-info text-center">
+                    <strong>Flash Sale is not available at this moment.</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
     <!--============================
         FLASH SELL END
     ==============================-->
@@ -74,7 +84,9 @@
     <!--============================
         HOT DEALS START
     ==============================-->
-     @include('frontend.sections.top-product-type-section')
+@if ($typeBasedProduct !== null && count($typeBasedProduct) > 0)
+    @include('frontend.sections.top-product-type-section')    
+@endif
 
     <!--============================
         HOT DEALS END  
@@ -85,16 +97,16 @@
     <!--============================
         ELECTRONIC PART START  
     ==============================-->
-    @if ($singleCatOne->count() > 0)
-             @include('frontend.sections.single-category-section-one')
-    @endif
+@if ($singleCatOne !== null && $singleCatOne->count() > 0)
+    @include('frontend.sections.single-category-section-one')
+@endif
     <!--============================
         ELECTRONIC PART END  
     ==============================-->
 
-    @if ($singleCatTwo->count() > 0)
-     @include('frontend.sections.single-category-section-two')
-   @endif
+@if ($singleCatTwo !== null && $singleCatTwo->count() > 0)
+    @include('frontend.sections.single-category-section-two')
+@endif
 
 
     <!--============================
@@ -110,9 +122,9 @@
     <!--============================
         WEEKLY BEST ITEM START  
     ==============================-->
-       @if ($singleCatThree->count() > 0)
-     @include('frontend.sections.single-category-section-three')
-   @endif
+@if ($singleCatThree !== null && $singleCatThree->count() > 0)
+    @include('frontend.sections.single-category-section-three')
+@endif
 
     <!--============================
         WEEKLY BEST ITEM END 

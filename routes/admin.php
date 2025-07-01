@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\FlashSaleController;
+use App\Http\Controllers\Admin\FooterSectionController;
 use App\Http\Controllers\Admin\ManageAdminController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\PaymentSettingsController;
@@ -63,6 +64,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
+    Route::resource('footer-section', FooterSectionController::class);
 
     Route::resource('single-category', SingleCategorySectionController::class);
 

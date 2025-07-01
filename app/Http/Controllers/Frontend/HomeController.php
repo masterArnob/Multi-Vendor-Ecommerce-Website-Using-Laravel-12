@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
+use App\Models\FooterSection;
 use App\Models\Product;
 use App\Models\SingleCategorySection;
 use App\Models\Slider;
@@ -30,6 +31,7 @@ class HomeController extends Controller
        $singleCatOne = SingleCategorySection::first();
        $singleCatTwo = SingleCategorySection::where('id', 2)->first();
        $singleCatThree = SingleCategorySection::where('id', 3)->first();
+       $footer = FooterSection::first();
         return view('frontend.home', compact(
             'sliders', 
            'flashSaleItemsSliders',
@@ -39,7 +41,8 @@ class HomeController extends Controller
                        'typeBasedProduct',
                        'singleCatOne',
                        'singleCatTwo',
-                       'singleCatThree'
+                       'singleCatThree',
+                       'footer',
             ));
     }
 
