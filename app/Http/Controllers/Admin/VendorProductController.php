@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\AdminVendorProductDataTable;
+use App\Helper\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Mail\ProductStatus;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
@@ -118,6 +120,13 @@ class VendorProductController extends Controller
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();
+
+            MailHelper::setMailConfig();
+
+
+    // Send mail
+    \Mail::to($product->vendor->email)->send(new ProductStatus($product));
+    
         notyf()->success('Product Updated Successfully!');
         return redirect()->route('admin.vendor-product.index');
     }

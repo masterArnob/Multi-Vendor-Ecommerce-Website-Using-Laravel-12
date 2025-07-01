@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\MailHelper;
+use App\Mail\PaymentStatus;
+use App\Mail\VendorOrders;
 use App\Models\OrderProduct;
 use DB;
 use Illuminate\Http\Request;
@@ -96,6 +99,14 @@ class SslCommerzPaymentController extends Controller
         $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
         //dd($validation);
         if ($validation === true) {
+         MailHelper::setMailConfig();
+
+
+    $user = Auth::user();
+    // Send mail
+    \Mail::to($user->email)->send(new PaymentStatus($user));
+
+    
             $this->clearSessions();
             return view('frontend.pages.payment.success');
         } else {
@@ -136,6 +147,8 @@ class SslCommerzPaymentController extends Controller
         $order->order_status = 'pending';
         $order->save();
 
+
+           MailHelper::setMailConfig();
         $items = Cart::content();
         foreach ($items as $item) {
             $product = Product::findOrFail($item->id);
@@ -155,6 +168,17 @@ class SslCommerzPaymentController extends Controller
             $product->save();
 
             $orderProduct->save();
+
+               $recipient = null;
+        if ($product->vendor_id != 0 && $product->vendor) {
+            // Product belongs to a vendor
+            $recipient = $product->vendor;
+        } elseif ($product->admin_id != 0) {
+            // Product belongs to an admin
+            $recipient = \App\Models\Admin::first();
+        }
+        \Mail::to($recipient->email)->send(new VendorOrders($recipient));
+
         }
 
         $transaction = new Transaction();

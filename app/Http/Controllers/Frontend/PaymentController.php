@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helper\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Mail\PaymentStatus;
+use App\Mail\VendorOrders;
+use App\Models\Admin;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\PaymentSettings;
@@ -127,6 +131,11 @@ class PaymentController extends Controller
         $order->order_status = 'pending';
         $order->save();
 
+
+         
+
+         MailHelper::setMailConfig();
+
         $items = Cart::content();
         foreach ($items as $item) {
             $product = Product::findOrFail($item->id);
@@ -146,6 +155,17 @@ class PaymentController extends Controller
             $product->save();
 
             $orderProduct->save();
+
+        $recipient = null;
+        if ($product->vendor_id != 0 && $product->vendor) {
+            // Product belongs to a vendor
+            $recipient = $product->vendor;
+        } elseif ($product->admin_id != 0) {
+            // Product belongs to an admin
+            $recipient = \App\Models\Admin::first();
+        }
+        \Mail::to($recipient->email)->send(new VendorOrders($recipient));
+             
         }
 
         $transaction = new Transaction();
@@ -156,6 +176,15 @@ class PaymentController extends Controller
         $transaction->amount_real_currency = $paid_amount;
         $transaction->amount_real_currency_name = $currency;
         $transaction->save();
+
+  
+
+    $user = Auth::user();
+    // Send mail
+    \Mail::to($user->email)->send(new PaymentStatus($user));
+
+
+
     }
 
     public function clearSessions()

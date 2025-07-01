@@ -280,6 +280,8 @@
 
 
 
+
+
                   </div>
                 </div>
               </li>
@@ -370,6 +372,11 @@
                       <a class="dropdown-item" href="{{ route('admin.payment-settings.index') }}">
                         Payment Settings
                       </a>
+
+                        <a class="dropdown-item" href="{{ route('admin.smtp-config.index') }}">
+                        SMTP Settings
+                      </a>
+                      smtp-config
                   </div>
                 </div>
               </li>

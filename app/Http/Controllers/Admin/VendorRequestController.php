@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\VendorRequestsDataTable;
+use App\Helper\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Mail\VendorStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
 use File;
@@ -87,6 +89,14 @@ class VendorRequestController extends Controller
             $user->user_status = 'active';
         }
         $user->save();
+
+
+    // Set mail configuration
+    MailHelper::setMailConfig();
+
+
+    // Send mail
+    \Mail::to($user->email)->send(new VendorStatus($user));
         notyf()->success('Vendor Status Updated Successfully!');
         return redirect()->route('admin.vendor-request.index');
     }

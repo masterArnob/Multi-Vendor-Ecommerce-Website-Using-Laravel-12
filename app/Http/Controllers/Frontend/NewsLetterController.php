@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helper\MailHelper;
 use App\Http\Controllers\Controller;
+use App\Mail\Subscription;
 use App\Models\Newsletter;
 use Illuminate\Http\Request;
 
@@ -26,24 +28,36 @@ class NewsLetterController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-       // dd($request->all());
-       $request->validate([
+     */public function store(Request $request)
+{
+    $request->validate([
         'email' => ['required', 'email'],
-       ]);
+    ]);
 
-       $check = Newsletter::where('email', $request->email)->count();
-       if($check > 0){
+    $check = Newsletter::where('email', $request->email)->count();
+    if ($check > 0) {
         notyf()->error('This email is already subscribed to our newsletter!');
         return response(['status' => 'error', 'message' => 'This email is already subscribed to our newsletter!']);
-       }
-       $news = new Newsletter();
-       $news->email = $request->email;
-       $news->save();
-       return response(['status' => 'success', 'message' => 'You have successfully subscribed to our newsletter!']);
     }
+
+    $news = new Newsletter();
+    $news->email = $request->email;
+    $news->save();
+
+    // Set mail configuration
+    MailHelper::setMailConfig();
+
+    // Log configuration just before sending
+    \Log::info('Mail Config Before Sending: ', [
+        'from_address' => config('mail.from.address'),
+        'from_name' => config('mail.from.name'),
+    ]);
+
+    // Send mail
+    \Mail::to($news->email)->send(new Subscription($news));
+
+    return response(['status' => 'success', 'message' => 'You have successfully subscribed to our newsletter!']);
+}
 
     /**
      * Display the specified resource.

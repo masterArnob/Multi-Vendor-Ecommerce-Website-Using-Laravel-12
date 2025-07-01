@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ShippingRuleController;
 use App\Http\Controllers\Admin\SingleCategorySectionController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\SMTPConfigController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TopCategorySectionController;
 use App\Http\Controllers\Admin\TransactionController;
@@ -63,6 +64,9 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 });
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+
+
+    Route::resource('smtp-config', SMTPConfigController::class);
 
     Route::resource('footer-section', FooterSectionController::class);
 
