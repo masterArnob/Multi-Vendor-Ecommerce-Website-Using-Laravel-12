@@ -92,8 +92,9 @@
                         <h3>Subscribe To Our Newsletter</h3>
                         <p>Get all the latest information on Events, Sales and Offers.
                             Get all the latest information on Events.</p>
-                        <form>
-                            <input type="text" placeholder="Search...">
+                        <form class="newsletter_form">
+                        
+                            <input type="email" placeholder="email..." name="email">
                             <button type="submit" class="common_btn">subscribe</button>
                         </form>
                        @if (@$footer->gateway_logo !== null)

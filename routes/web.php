@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredVendorController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\NewsLetterController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\WishlistController;
@@ -178,6 +179,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix
  /**
  * Frontend Routes
  */
+Route::resource('news-letter', NewsLetterController::class);
 Route::post('coupon-calculation', [CartController::class, 'couponCalculation'])->name('coupon.calculation');
 Route::post('apply-coupon', [CartController::class, 'applyCoupon'])->name('coupon.apply');
 Route::get('cart/sub-total', [CartController::class, 'getSubTotal'])->name('cart-sub-total');

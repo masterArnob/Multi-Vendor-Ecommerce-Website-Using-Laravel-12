@@ -389,6 +389,7 @@
                 chckoutFormSubmit: "{{ route('user.checkout.form.submit') }}",
                 wishlist: "{{ route('user.wishlist.store') }}",
                 wishlistCount: "{{ route('user.wishlist.count') }}",
+                newsLetter: "{{ route('news-letter.store') }}",
             },
             icon: {
                 currency_icon: "{{ $settings->currency_icon ?? '$' }}",

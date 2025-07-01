@@ -394,3 +394,36 @@ function getWisCount(){
         }
     });
 }
+
+
+$(document).on('submit', '.newsletter_form', function(e){
+    e.preventDefault();
+let email = $(this).find('input[name="email"]').val();
+                  $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+    $.ajax({
+        url: config.routes.newsLetter,
+        method: 'POST',
+        data: {
+            email: email,
+        },
+        success: function(data){
+            if(data.status === 'success'){
+                notyf.success(data.message);
+            }else if(data.status === 'error'){
+                notyf.error(data.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log("Error:", xhr, status, error); // Debug: Log the error
+            notyf.error(
+                xhr.responseJSON?.message ||
+                "An error occurred while subscribing to newsletter"
+            );
+        }
+    })
+})
