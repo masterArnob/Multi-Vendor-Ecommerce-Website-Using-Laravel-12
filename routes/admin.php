@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminNewsLetterController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AllOrdersController;
 use App\Http\Controllers\Admin\ApprovedVendorController;
@@ -65,6 +66,8 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
+
+    Route::resource('news-letter', AdminNewsLetterController::class);
 
     Route::resource('smtp-config', SMTPConfigController::class);
 
