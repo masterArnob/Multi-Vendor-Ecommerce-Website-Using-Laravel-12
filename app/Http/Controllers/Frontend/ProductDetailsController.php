@@ -8,9 +8,12 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
 use App\Models\FlashSale;
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductDetailsController extends Controller
 {
@@ -152,7 +155,20 @@ class ProductDetailsController extends Controller
         $product = Product::findOrFail($id);
         $flashSaleDate = FlashSale::first();
          $product_ad_one = Advertisement::where('key', 'home_page_banner_five')->first();
-         return view('frontend.pages.product-details', compact('product', 'flashSaleDate', 'product_ad_one'));
+         $reviews = Review::where(['product_id' => $product->id, 'status' => 1])
+         ->with(['user'])
+         ->orderBy('id', 'DESC')
+         ->paginate(5);
+
+         $canReview = false;
+         if(Auth::check()){
+        $canReview = Order::where(['user_id' => Auth::user()->id, 'order_status' => 'delivered'])
+        ->whereHas('orderProducts', function ($query) use ($product) {
+            $query->where('product_id', $product->id);
+        })->exists();
+         }
+
+         return view('frontend.pages.product-details', compact('product', 'flashSaleDate', 'product_ad_one', 'reviews', 'canReview'));
     }
 
     /**

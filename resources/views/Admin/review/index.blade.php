@@ -1,4 +1,4 @@
-@extends('user.layout.master')
+@extends('admin.layout.master')
 @section('content')
     <!-- Page header -->
     <div class="page-header d-print-none">
@@ -8,7 +8,7 @@
                     <!-- Page pre-title -->
              
                     <h2 class="page-title">
-                        Manage Orders
+                        Product Reviews
                     </h2>
                 </div>
                 <!-- Page title actions -->

@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsLetterController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\Vendor\VendorProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
+use App\Http\Controllers\Vendor\ReviewController as VendorReviewController;
 use App\Models\PaymentSettings;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
@@ -92,6 +94,7 @@ Route::post('vendor/register/store', [RegisteredVendorController::class, 'store'
 Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' => 'user', 'as' => 'user.'], function () {
 
 
+    Route::resource('review', ReviewController::class);
     Route::get('wish-count/remove', [WishlistController::class, 'wishRemoveProduct'])->name('wishlist.product.remove');
     Route::post('wish-count', [WishlistController::class, 'wishCount'])->name('wishlist.count');
     Route::resource('wishlist', WishlistController::class);
@@ -143,6 +146,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' 
 Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix' => 'vendor', 'as' => 'vendor.'], function () {
 
     
+    Route::resource('review', VendorReviewController::class);
     Route::post('change-order-status/', [OrderController::class, 'changeOrderStatus'])->name('change-order-status');
     Route::resource('order', OrderController::class);
     Route::resource('product/image-gallery', ProductImageGalleryController::class);

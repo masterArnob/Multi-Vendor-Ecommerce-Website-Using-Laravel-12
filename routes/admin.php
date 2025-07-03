@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\ProductImageGalleryController;
 use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\ProductVariantItemController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ShippingRuleController;
 use App\Http\Controllers\Admin\SingleCategorySectionController;
@@ -66,6 +67,8 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 });
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+
+    Route::resource('review', ReviewController::class);
 
     Route::resource('ad', AdController::class);
 

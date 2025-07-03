@@ -8,7 +8,7 @@
                     <!-- Page pre-title -->
              
                     <h2 class="page-title">
-                        Manage Orders
+                        My Reviews
                     </h2>
                 </div>
                 <!-- Page title actions -->

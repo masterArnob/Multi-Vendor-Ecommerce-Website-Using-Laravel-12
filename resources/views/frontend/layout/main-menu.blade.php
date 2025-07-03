@@ -143,9 +143,21 @@
                     <ul class="wsus__menu_item wsus__menu_item_right">
                         <li><a href="contact.html">contact</a></li>
 
-                        <li><a href="{{ route('login') }}">Login</a></li>
+                        @if (Auth::check())
+                        @if (Auth::user()->role === 'user')
+                             <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
+                        @elseif(Auth::user()->role === 'vendor')
+                          <li><a href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
+                        @else
+                           <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        @endif
+                        
+                        @else
+   <li><a href="{{ route('login') }}">Login</a></li>
                         <li><a href="{{ route('register') }}">Register</a></li>
                         <li><a href="{{ route('vendor.register.index') }}">Vendor Register</a></li>
+                        @endif
+                     
                     </ul>
                 </div>
             </div>
