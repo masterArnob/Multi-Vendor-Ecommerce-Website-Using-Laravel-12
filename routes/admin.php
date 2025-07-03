@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminNewsLetterController;
 use App\Http\Controllers\Admin\AdminProfileController;
@@ -66,6 +67,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
+    Route::resource('ad', AdController::class);
 
     Route::resource('news-letter', AdminNewsLetterController::class);
 

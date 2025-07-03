@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
@@ -115,11 +116,15 @@ class ProductDetailsController extends Controller
         }
         $categories = Category::where('status', 1)->orderBy('id', 'DESC')->get();
         $brands = Brand::where('status', 1)->orderBy('id', 'DESC')->get();
-         return view('frontend.pages.product-list', 
+        
+         $product_list_ad = Advertisement::where('key', 'home_page_banner_six')->first();
+         
+        return view('frontend.pages.product-list', 
          compact(
             'products', 
             'categories',
             'brands',
+            'product_list_ad'
         ));
     }
 
@@ -146,7 +151,8 @@ class ProductDetailsController extends Controller
     {
         $product = Product::findOrFail($id);
         $flashSaleDate = FlashSale::first();
-         return view('frontend.pages.product-details', compact('product', 'flashSaleDate'));
+         $product_ad_one = Advertisement::where('key', 'home_page_banner_five')->first();
+         return view('frontend.pages.product-details', compact('product', 'flashSaleDate', 'product_ad_one'));
     }
 
     /**

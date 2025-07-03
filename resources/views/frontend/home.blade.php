@@ -23,16 +23,6 @@
     ==============================-->
 @if ($flashSaleDate !== null && $flashSaleDate->end_date >= now())
     @include('frontend.sections.flash-sell-section')
-@else
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert alert-info text-center">
-                    <strong>Flash Sale is not available at this moment.</strong>
-                </div>
-            </div>
-        </div>
-    </div>
 @endif
     <!--============================
         FLASH SELL END
@@ -72,7 +62,10 @@
     <!--============================
         SINGLE BANNER START
     ==============================-->
-        @include('frontend.sections.single-banner-section')
+    @if ($home_page_banner_two !== null)
+        @include('frontend.sections.single-banner-section')        
+    @endif
+
 
     <!--============================
         SINGLE BANNER END  

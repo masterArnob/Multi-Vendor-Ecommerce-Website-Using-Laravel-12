@@ -67,6 +67,10 @@ class SliderDataTable extends DataTable
                 return $admin ? $admin->email : 'N/A';
             })
 
+            ->addColumn('created_at', function($query){
+                return date('Y-m-d', strtotime($query->created_at));
+            })
+
             ->rawColumns(['action', 'status', 'banner', 'created_by', 'created_person_email'])
             ->setRowId('id');
     }

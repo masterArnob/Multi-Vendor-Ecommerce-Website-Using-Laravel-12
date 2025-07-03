@@ -170,16 +170,12 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="wsus__det_sidebar_banner">
-                            <img src="images/blog_1.jpg" alt="banner" class="img-fluid w-100">
-                            <div class="wsus__det_sidebar_banner_text_overlay">
-                                <div class="wsus__det_sidebar_banner_text">
-                                    <p>Black Friday Sale</p>
-                                    <h4>Up To 70% Off</h4>
-                                    <a href="#" class="common_btn">shope now</a>
-                                </div>
-                            </div>
-                        </div>
+                  
+                  
+                        @if (!empty($product_ad_one))
+                       @include('frontend.sections.ads.product-ad-one')     
+                        @endif
+                       
                     </div>
                 </div>
             </div>
@@ -509,6 +505,7 @@
     <!--============================
                     PRODUCT DETAILS END
                 ==============================-->
+                
 @endsection
 @push('scripts')
     <script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 use App\Models\Brand;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
@@ -20,10 +21,10 @@ class HomeController extends Controller
         $flashSaleDate = FlashSale::first();
         $flashSaleItemsSliders = FlashSaleItem::where(['status' => '1', 'show_at_home' => '1'])->orderBy('id', 'DESC')->get();
         $topCategories = TopCategorySection::first();
-        $brands = Brand::where('status', 1)
-        ->where('is_featured', 1)
+        $brands = Brand::where(['status' => 1, 'is_featured' => 1])
         ->orderBy('id', 'DESC')
         ->get();
+  
 
         $typeBasedProduct = $this->getTypeBasedProduct();
        // dd($typeBasedProduct);
@@ -32,6 +33,11 @@ class HomeController extends Controller
        $singleCatTwo = SingleCategorySection::where('id', 2)->first();
        $singleCatThree = SingleCategorySection::where('id', 3)->first();
        $footer = FooterSection::first();
+       $home_page_banner_one = Advertisement::where('key', 'home_page_banner_one')->first();
+       $home_page_banner_two = Advertisement::where('key', 'home_page_banner_two')->first();
+       $home_page_banner_three = Advertisement::where('key', 'home_page_banner_three')->first();
+       $home_page_banner_four = Advertisement::where('key', 'home_page_banner_four')->first();
+     
         return view('frontend.home', compact(
             'sliders', 
            'flashSaleItemsSliders',
@@ -43,6 +49,11 @@ class HomeController extends Controller
                        'singleCatTwo',
                        'singleCatThree',
                        'footer',
+                       'home_page_banner_one',
+                       'home_page_banner_two',
+                       'home_page_banner_three',
+                       'home_page_banner_four',
+             
             ));
     }
 

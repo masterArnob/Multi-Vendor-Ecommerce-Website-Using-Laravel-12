@@ -274,6 +274,11 @@
                         Manage Shipping Rules
                       </a>
 
+
+                            <a class="dropdown-item" href="{{ route('admin.ad.index') }}">
+                        Manage Advertisements
+                      </a>
+
                           <a class="dropdown-item" href="{{ route('admin.footer-section.index') }}">
                         Manage Footer
                       </a>

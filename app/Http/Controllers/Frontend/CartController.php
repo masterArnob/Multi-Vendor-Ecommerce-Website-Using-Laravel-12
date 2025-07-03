@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\ProductVariantItem;
@@ -71,7 +72,8 @@ class CartController extends Controller
         if(count($cartItems) === 0){
             Session::forget('coupon');
         }
-        return view('frontend.pages.cart-details', compact('cartItems'));
+        $cart_ad = Advertisement::where('key', 'home_page_banner_seven')->first();
+        return view('frontend.pages.cart-details', compact('cartItems', 'cart_ad'));
     }
 
 
