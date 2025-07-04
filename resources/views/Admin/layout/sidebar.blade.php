@@ -321,6 +321,9 @@
                       <a class="dropdown-item" href="{{ route('admin.about-page.index') }}">
                         About Page
                       </a>
+                        <a class="dropdown-item" href="{{ route('admin.term-page.index') }}">
+                        Terms and Conditions Page
+                      </a>
                   
 
 

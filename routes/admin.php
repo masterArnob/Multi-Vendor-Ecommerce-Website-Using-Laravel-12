@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\SingleCategorySectionController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SMTPConfigController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\TermConditionController;
 use App\Http\Controllers\Admin\TopCategorySectionController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\VendorConditionController;
@@ -69,6 +70,8 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 });
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+
+     Route::resource('term-page', TermConditionController::class);
 
     Route::resource('about-page', AboutPageController::class);
 

@@ -13,6 +13,7 @@ use App\Models\FooterSection;
 use App\Models\Product;
 use App\Models\SingleCategorySection;
 use App\Models\Slider;
+use App\Models\TermCondition;
 use App\Models\TopCategorySection;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -117,5 +118,10 @@ class HomeController extends Controller
     public function aboutPage(){
         $content = json_decode(AboutPage::where('key', 'content')->first()->value);
         return view('frontend.pages.about-page', compact('content'));
+    }
+
+    public function TermPage(){
+         $content = json_decode(TermCondition::where('key', 'content')->first()->value);
+        return view('frontend.pages.term-page', compact('content'));
     }
 }

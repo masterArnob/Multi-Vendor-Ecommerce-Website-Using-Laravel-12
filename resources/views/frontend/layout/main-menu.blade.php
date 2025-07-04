@@ -119,6 +119,7 @@
                         </li>
                         <li><a href="{{ route('vendor-list.index') }}">vendor</a></li>
                         <li><a href="{{ route('about-page.index') }}">About Us</a></li>
+                          <li><a href="{{ route('term-page.index') }}">Terms & Conditions</a></li>
                         <li><a href="daily_deals.html">campain</a></li>
                         <li class="wsus__relative_li"><a href="#">pages <i class="fas fa-caret-down"></i></a>
                             <ul class="wsus__menu_droapdown">
