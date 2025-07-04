@@ -5,6 +5,8 @@ use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsLetterController;
+use App\Http\Controllers\Frontend\OrderTracking;
+use App\Http\Controllers\Frontend\OrderTrackingController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProductDetailsController;
 use App\Http\Controllers\Frontend\ReviewController;
@@ -183,6 +185,8 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix
  /**
  * Frontend Routes
  */
+
+Route::get('order-track', [OrderTrackingController::class, 'index'])->name('order-track');
 Route::resource('news-letter', NewsLetterController::class);
 Route::post('coupon-calculation', [CartController::class, 'couponCalculation'])->name('coupon.calculation');
 Route::post('apply-coupon', [CartController::class, 'applyCoupon'])->name('coupon.apply');

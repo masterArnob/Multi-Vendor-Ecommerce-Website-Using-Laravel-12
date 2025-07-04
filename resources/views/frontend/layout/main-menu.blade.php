@@ -120,6 +120,7 @@
                         <li><a href="{{ route('vendor-list.index') }}">vendor</a></li>
                         <li><a href="{{ route('about-page.index') }}">About Us</a></li>
                           <li><a href="{{ route('term-page.index') }}">Terms & Conditions</a></li>
+                           <li><a href="{{ route('order-track') }}">track order</a></li>
                         <li><a href="daily_deals.html">campain</a></li>
                         <li class="wsus__relative_li"><a href="#">pages <i class="fas fa-caret-down"></i></a>
                             <ul class="wsus__menu_droapdown">
@@ -138,7 +139,7 @@
                                 <li><a href="brands.html">brands</a></li>
                             </ul>
                         </li>
-                        <li><a href="track_order.html">track order</a></li>
+                       
                         <li><a href="daily_deals.html">daily deals</a></li>
                     </ul>
                   <ul class="wsus__menu_item wsus__menu_item_right">
