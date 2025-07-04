@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\FooterSection;
@@ -12,6 +13,7 @@ use App\Models\Product;
 use App\Models\SingleCategorySection;
 use App\Models\Slider;
 use App\Models\TopCategorySection;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -87,5 +89,26 @@ class HomeController extends Controller
         ->get();
 
         return $typeBasedProduct;
+    }
+
+
+    public function vendorList(){
+        $vendors = User::where(['role' => 'vendor', 'vendor_status' => 'approved'])
+        ->orderBy('id', 'DESC')
+        ->paginate(10);
+        return view('frontend.pages.vendor-list', compact('vendors'));
+    }
+
+
+    public function vendorDetails($vendor_id){
+        $vendor = User::findOrFail($vendor_id);
+        $products = Product::where(['status' => 1, 'is_approved' => 1, 'vendor_id' => $vendor_id])
+        ->orderBy('id', 'DESC')
+        ->paginate(10);
+
+          $categories = Category::where('status', 1)->orderBy('id', 'DESC')->get();
+        $brands = Brand::where('status', 1)->orderBy('id', 'DESC')->get();
+        
+        return view('frontend.pages.vendor-details', compact('vendor', 'products', 'categories', 'brands'));
     }
 }

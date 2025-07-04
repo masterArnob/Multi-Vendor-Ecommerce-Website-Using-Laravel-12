@@ -195,6 +195,8 @@ Route::get('cart-count', [CartController::class, 'getCartCount'])->name('cart-co
 Route::post('add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::resource('product-details', ProductDetailsController::class);
 Route::resource('flash-sale', FlashSaleController::class);
+Route::get('vendor-details/{vendor_id}', [HomeController::class, 'vendorDetails'])->name('vendor-details.index');
+Route::get('vendor-list', [HomeController::class, 'vendorList'])->name('vendor-list.index');
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
   /**
