@@ -63,7 +63,7 @@
                     <div class="wsus__footer_content">
                         <h5>Company</h5>
                         <ul class="wsus__footer_menu">
-                            <li><a href="#"><i class="fas fa-caret-right"></i> About Us</a></li>
+                            <li><a href="{{ route('about-page.index') }}"><i class="fas fa-caret-right"></i> About Us</a></li>
                             <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
                             <li><a href="#"><i class="fas fa-caret-right"></i> Career</a></li>
                             <li><a href="#"><i class="fas fa-caret-right"></i> Contact Us</a></li>

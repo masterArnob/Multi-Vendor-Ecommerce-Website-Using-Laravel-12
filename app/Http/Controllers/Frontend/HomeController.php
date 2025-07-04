@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutPage;
 use App\Models\Advertisement;
 use App\Models\Brand;
 use App\Models\Category;
@@ -110,5 +111,11 @@ class HomeController extends Controller
         $brands = Brand::where('status', 1)->orderBy('id', 'DESC')->get();
         
         return view('frontend.pages.vendor-details', compact('vendor', 'products', 'categories', 'brands'));
+    }
+
+
+    public function aboutPage(){
+        $content = json_decode(AboutPage::where('key', 'content')->first()->value);
+        return view('frontend.pages.about-page', compact('content'));
     }
 }
