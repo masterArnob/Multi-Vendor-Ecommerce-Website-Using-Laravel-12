@@ -141,25 +141,26 @@
                         <li><a href="track_order.html">track order</a></li>
                         <li><a href="daily_deals.html">daily deals</a></li>
                     </ul>
-                    <ul class="wsus__menu_item wsus__menu_item_right">
-                        <li><a href="contact.html">contact</a></li>
+                  <ul class="wsus__menu_item wsus__menu_item_right">
+    <li><a href="{{ route('contact-page.index') }}">contact</a></li>
 
-                        @if (Auth::check())
-                        @if (Auth::user()->role === 'user')
-                             <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
-                        @elseif(Auth::user()->role === 'vendor')
-                          <li><a href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
-                        @else
-                           <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        @endif
-                        
-                        @else
-   <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
-                        <li><a href="{{ route('vendor.register.index') }}">Vendor Register</a></li>
-                        @endif
-                     
-                    </ul>
+    @if (Auth::guard('admin')->check())
+        <!-- Admin is logged in -->
+        <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+    @elseif (Auth::guard('web')->check())
+        <!-- User or Vendor is logged in -->
+        @if (Auth::guard('web')->user()->role === 'user')
+            <li><a href="{{ route('user.dashboard') }}">Dashboard</a></li>
+        @elseif (Auth::guard('web')->user()->role === 'vendor')
+            <li><a href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
+        @endif
+    @else
+        <!-- No user is logged in -->
+        <li><a href="{{ route('login') }}">Login</a></li>
+        <li><a href="{{ route('register') }}">Register</a></li>
+        <li><a href="{{ route('vendor.register.index') }}">Vendor Register</a></li>
+    @endif
+</ul>
                 </div>
             </div>
         </div>

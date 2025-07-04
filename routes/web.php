@@ -197,6 +197,9 @@ Route::resource('product-details', ProductDetailsController::class);
 Route::resource('flash-sale', FlashSaleController::class);
 Route::get('vendor-details/{vendor_id}', [HomeController::class, 'vendorDetails'])->name('vendor-details.index');
 
+
+Route::post('contact-page/send-message', [HomeController::class, 'sendMail'])->name('contact-page.send');
+Route::get('contact-page', [HomeController::class, 'ContactPage'])->name('contact-page.index');
 Route::get('term-page', [HomeController::class, 'TermPage'])->name('term-page.index');
 Route::get('about-page', [HomeController::class, 'aboutPage'])->name('about-page.index');
 Route::get('vendor-list', [HomeController::class, 'vendorList'])->name('vendor-list.index');

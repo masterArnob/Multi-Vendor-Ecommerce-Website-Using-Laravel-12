@@ -61,7 +61,6 @@ public function update(Request $request, string $id)
             'contact_email' => ['required', 'email', 'max:255'],
             'contact_phone' => ['required', 'string', 'max:20'],
             'contact_address' => ['required'],
-            'map' => ['nullable', 'string', 'max:255'],
             'currency_name' => ['required', 'string', 'max:100'],
             'currency_icon' => ['required'],
             'time_zone' => ['required']

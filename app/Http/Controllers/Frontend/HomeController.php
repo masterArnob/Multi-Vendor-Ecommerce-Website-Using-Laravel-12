@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use App\Models\AboutPage;
 use App\Models\Advertisement;
 use App\Models\Brand;
@@ -11,6 +12,7 @@ use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\FooterSection;
 use App\Models\Product;
+use App\Models\Settings;
 use App\Models\SingleCategorySection;
 use App\Models\Slider;
 use App\Models\TermCondition;
@@ -123,5 +125,32 @@ class HomeController extends Controller
     public function TermPage(){
          $content = json_decode(TermCondition::where('key', 'content')->first()->value);
         return view('frontend.pages.term-page', compact('content'));
+    }
+
+
+    public function ContactPage(){
+        return view('frontend.pages.contact-page');
+    }
+
+
+    public function sendMail(Request $request){
+        //dd($request->all());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'subject' => ['required', 'string', 'max:255'],
+            'message' => ['required', 'string']
+        ]);
+
+
+        $username = $request->name;
+        $subject = $request->subject;
+        $email = $request->email;
+        $messageContant = $request->message;
+        $settings = Settings::first();
+        if(!empty($settings->contact_email)){
+              \Mail::to($settings->contact_email)->send(new ContactMail( $subject, $email, $messageContant, $username));
+        }
+        return response(['status' => 'success', 'message' => 'Your message has been sent successfully!']);
     }
 }
