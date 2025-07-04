@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +28,22 @@ class UserDashboardController extends Controller
             // Redirect to the homepage
             return redirect('/');
         }
-        return view('user.dashboard');
+
+
+
+
+        $total_orders = Order::where('user_id', Auth::user()->id)->count();
+        $pending_orders = Order::where('user_id', Auth::user()->id)
+        ->where('order_status', '!=', 'delivered')
+        ->where('order_status', '!=', 'cancelled')
+        ->count();
+        $complete_orders = Order::where(['user_id' => Auth::user()->id, 'order_status' => 'delivered'])->count();
+        $wishlist_count = Wishlist::where('user_id', Auth::user()->id)->count();
+        return view('user.dashboard', compact(
+            'total_orders',
+            'pending_orders',
+            'complete_orders',
+            'wishlist_count'
+        ));
     }
 }

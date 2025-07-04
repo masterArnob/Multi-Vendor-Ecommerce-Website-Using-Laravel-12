@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class FlashSaleController extends Controller

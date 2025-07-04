@@ -29,4 +29,8 @@ class Product extends Model
     public function admin(){
         return $this->belongsTo(Admin::class);
     }
+
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
 }

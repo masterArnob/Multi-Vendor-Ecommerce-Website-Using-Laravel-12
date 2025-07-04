@@ -55,14 +55,53 @@
 
                         <div class="wsus__product_details">
                             <a class="wsus__category" href="#">{{ $item->product->category->name }} </a>
+                           
                             <p class="wsus__pro_rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>(133 review)</span>
-                            </p>
+                                     @php
+                                            $review = $item->product->reviews->where('status', 1)->count();
+                                            $rating = $item->product->reviews->where('status', 1)->sum('rating');
+                                            $averageRating = $review > 0 ? round($rating / $review, 1) : 0;
+                                            $averageRating = number_format($averageRating, 1);
+                                            $rate = round($averageRating);
+                                        @endphp
+
+                                        @if ($rate == 0)
+                                            No rating
+                                        @elseif($rate == 1)
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif($rate == 2)
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif($rate == 3)
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif($rate == 4)
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif($rate == 5)
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        @endif
+
+                                        <span>({{ $review }} review)</span>
+                                    
+                                </p>
                             <a class="wsus__pro_name" href="{{ route('product-details.show', $item->product->id) }}">{{ $item->product->name }}</a>
                             <p class="wsus__price">
                                 @if ($item->product->offer_price > 0 && $item->product->offer_start_date <= now() && $item->product->offer_end_date >= now())

@@ -86,13 +86,53 @@
                                     </div>
                                     <div class="wsus__hot_deals__single_text">
                                         <h5>{{ limitText($item->name) }}</h5>
-                                        <p class="wsus__rating">
+                                         <p class="wsus__rating">
+                                     @php
+                                            $review = $item->reviews->where('status', 1)->count();
+                                            $rating = $item->reviews->where('status', 1)->sum('rating');
+                                            $averageRating = $review > 0 ? round($rating / $review, 1) : 0;
+                                            $averageRating = number_format($averageRating, 1);
+                                            $rate = round($averageRating);
+                                        @endphp
+
+                                        @if ($rate == 0)
+                                            No rating
+                                        @elseif($rate == 1)
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif($rate == 2)
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif($rate == 3)
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        @elseif($rate == 4)
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </p>
+                                            <i class="far fa-star"></i>
+                                        @elseif($rate == 5)
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        @endif
+
+                                        <span>({{ $review }} review)</span>
+                                    
+                                </p>
+                                     
                                         @if ($item->offer_price > 0 && $item->offer_start_date <= now() && $item->offer_end_date >= now())
                                          
                                             <p class="wsus__tk">{{ @$settings->currency_icon }}{{ $item->offer_price }} <del class="text-danger"> {{ @$settings->currency_icon }}{{ $item->price }}</del></p>
