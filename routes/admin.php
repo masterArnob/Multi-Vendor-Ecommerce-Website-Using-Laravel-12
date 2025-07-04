@@ -38,6 +38,7 @@ use App\Http\Controllers\Admin\SMTPConfigController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\TopCategorySectionController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\VendorConditionController;
 use App\Http\Controllers\Admin\VendorProductController;
 use App\Http\Controllers\Admin\VendorProductImageGalleryController;
 use App\Http\Controllers\Admin\VendorProductVariant;
@@ -67,6 +68,8 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 });
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+
+    Route::resource('vendor-condition', VendorConditionController::class);
 
     Route::resource('review', ReviewController::class);
 

@@ -169,6 +169,10 @@
                 <div class="dropdown-menu">
                   <div class="dropdown-menu-columns">
                     <div class="dropdown-menu-column">
+                    <a class="dropdown-item" href="{{ route('admin.vendor-condition.index') }}">
+                        Set Vendor Conditions
+                      </a>
+
                       <a class="dropdown-item" href="{{ route('admin.vendor-request.index') }}">
                         Request to be vendor
                       </a>

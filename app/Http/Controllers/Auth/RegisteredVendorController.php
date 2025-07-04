@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\VendorCondition;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class RegisteredVendorController extends Controller
      */
     public function create(): View
     {
-        return view('auth.vendor-register');
+        $conditions = json_decode(VendorCondition::where('key', 'vendor_conditions')->first()->value);
+        return view('auth.vendor-register', compact('conditions'));
     }
 
     /**
