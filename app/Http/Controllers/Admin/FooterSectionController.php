@@ -67,7 +67,7 @@ class FooterSectionController extends Controller
         'phone' => $request->phone,
         'email' => $request->email,
         'address' => $request->address,
-         'copyright' => $request->copyright ? 'Copyright © ' . now()->year . ' ' . $request->copyright . ' shop. All Rights Reserved.' : 'Copyright © ' . now()->year . ' shop. All Rights Reserved.',
+         'copyright' => 'Copyright © '.now()->year.' '.$request->copyright . 'shop. All Rights Reserved.',
         'fb_link' => $request->fb_link,
         'twitter_link' => $request->twitter_link,
         'instagram_link' => $request->instagram_link,

@@ -449,7 +449,11 @@
                         <a class="dropdown-item" href="{{ route('admin.smtp-config.index') }}">
                         SMTP Settings
                       </a>
-                      smtp-config
+                      <a class="dropdown-item" href="{{ route('admin.maintainance.index') }}">
+                        Maintainance Settings
+                      </a>
+                      
+
                   </div>
                 </div>
               </li>

@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\FlashSaleController;
 use App\Http\Controllers\Admin\FooterSectionController;
+use App\Http\Controllers\Admin\MaintainanceController;
 use App\Http\Controllers\Admin\ManageAdminController;
 use App\Http\Controllers\Admin\ManageUserController;
 use App\Http\Controllers\Admin\PaymentSettingsController;
@@ -72,6 +73,9 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 });
 
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+
+
+    Route::resource('maintainance', MaintainanceController::class);
 
     Route::resource('withdraw-request', WithdrawRequestController::class);
 

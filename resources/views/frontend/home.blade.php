@@ -6,6 +6,23 @@
 
 @section('content')
     
+
+
+     @if (!empty($mode) && $mode->mode === 'on')
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h1 class="text-danger">Maintenance Mode</h1>
+                    <p class="text-muted">The site is currently under maintenance. Please check back later.</p>
+                    <p class="text-muted">If you are an admin, you can access the site using the secret key: <strong>{{ $mode->secret_key }}</strong></p>
+                </div>
+            </div>
+        </div>
+        
+         
+     @endif
+    
+
     <!--============================
         BANNER PART 2 START
     ==============================-->

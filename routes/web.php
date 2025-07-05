@@ -187,6 +187,11 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix
  /**
  * Frontend Routes
  */
+// Public maintenance page route
+Route::get('/maintenance', function () {
+    return view('admin.maintainance.error');
+})->name('maintenance');
+
 
 Route::get('order-track', [OrderTrackingController::class, 'index'])->name('order-track');
 Route::resource('news-letter', NewsLetterController::class);

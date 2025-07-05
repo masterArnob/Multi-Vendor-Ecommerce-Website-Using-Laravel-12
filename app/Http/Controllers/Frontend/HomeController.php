@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\FooterSection;
+use App\Models\Maintainance;
 use App\Models\Product;
 use App\Models\Settings;
 use App\Models\SingleCategorySection;
@@ -19,11 +20,14 @@ use App\Models\TermCondition;
 use App\Models\TopCategorySection;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function home(){
-        $sliders = Slider::where('status', '1')->orderBy('serial', 'ASC')->get();
+        $sliders = Cache::rememberForever('sliders', function(){
+            return Slider::where('status', '1')->orderBy('serial', 'ASC')->get();
+        });
         $flashSaleDate = FlashSale::first();
         $flashSaleItemsSliders = FlashSaleItem::where(['status' => '1', 'show_at_home' => '1'])->orderBy('id', 'DESC')->get();
         $topCategories = TopCategorySection::first();
@@ -43,7 +47,7 @@ class HomeController extends Controller
        $home_page_banner_two = Advertisement::where('key', 'home_page_banner_two')->first();
        $home_page_banner_three = Advertisement::where('key', 'home_page_banner_three')->first();
        $home_page_banner_four = Advertisement::where('key', 'home_page_banner_four')->first();
-     
+       $mode = Maintainance::first();
         return view('frontend.home', compact(
             'sliders', 
            'flashSaleItemsSliders',
@@ -59,6 +63,7 @@ class HomeController extends Controller
                        'home_page_banner_two',
                        'home_page_banner_three',
                        'home_page_banner_four',
+                       'mode'
              
             ));
     }

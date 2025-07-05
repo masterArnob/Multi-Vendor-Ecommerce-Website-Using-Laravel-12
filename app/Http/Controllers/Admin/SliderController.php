@@ -8,6 +8,7 @@ use App\Models\Slider;
 use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class SliderController extends Controller
 {
@@ -66,6 +67,9 @@ class SliderController extends Controller
         $slider->created_by = Auth::user()->id;
         $slider->status = $request->status;
         $slider->save();
+
+        Cache::forget('sliders');
+
          notyf()->success('Slider Created Successfully!');
         return redirect()->route('admin.slider.index');
     }

@@ -67,29 +67,19 @@
                              <li><a href="{{ route('term-page.index') }}"><i class="fas fa-caret-right"></i> Terms & Conditions</a></li>
                               <li><a href="{{ route('contact-page.index') }}"><i class="fas fa-caret-right"></i> Contact Us</a></li>
                                <li><a href="{{ route('order-track') }}"><i class="fas fa-caret-right"></i> Order Track</a></li>
-                            <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
+                          
+                               {{-- 
+                                 <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
                             <li><a href="#"><i class="fas fa-caret-right"></i> Career</a></li>
                            
                             <li><a href="#"><i class="fas fa-caret-right"></i> Affilate</a></li>
                            
                             <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
+                               --}}
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-2 col-sm-5 col-md-4 col-lg-2">
-                    <div class="wsus__footer_content">
-                        <h5>Company</h5>
-                        <ul class="wsus__footer_menu">
-                            <li><a href="#"><i class="fas fa-caret-right"></i> About Us</a></li>
-                            <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
-                            <li><a href="#"><i class="fas fa-caret-right"></i> Career</a></li>
-                            <li><a href="#"><i class="fas fa-caret-right"></i> Contact Us</a></li>
-                            <li><a href="#"><i class="fas fa-caret-right"></i> Affilate</a></li>
-                            <li><a href="#"><i class="fas fa-caret-right"></i> Order History</a></li>
-                            <li><a href="#"><i class="fas fa-caret-right"></i> Team Member</a></li>
-                        </ul>
-                    </div>
-                </div>
+            
                 <div class="col-xl-4 col-sm-7 col-md-8 col-lg-5">
                     <div class="wsus__footer_content wsus__footer_content_2">
                         <h3>Subscribe To Our Newsletter</h3>
