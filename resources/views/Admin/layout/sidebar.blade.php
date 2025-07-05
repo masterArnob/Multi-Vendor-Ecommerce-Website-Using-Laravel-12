@@ -179,6 +179,18 @@
                       <a class="dropdown-item" href="{{ route('admin.approved-vendors.index') }}">
                         Approved Vendors
                       </a>
+
+
+                          <a class="dropdown-item" href="{{ route('admin.withdraw-method.index') }}">
+                        Set Withdraw Methods
+                      </a>
+
+                          <a class="dropdown-item" href="{{ route('admin.withdraw-request.index') }}">
+                        Vendor Withdraw Requests
+                      </a>
+
+
+                
                   </div>
                 </div>
               </li>

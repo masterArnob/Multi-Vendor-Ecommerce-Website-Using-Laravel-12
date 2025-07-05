@@ -9,7 +9,10 @@
                 <div class="col-xl-2 col-7 col-md-8 col-lg-2">
                     <div class="wsus_logo_area">
                         <a class="wsus__header_logo" href="index.html">
-                            <img src="images/logo_2.png" alt="logo" class="img-fluid w-100">
+                            @php
+                                $footer = App\Models\FooterSection::first();
+                            @endphp
+                            <img src="{{ asset(@$footer->logo) }}" alt="logo" class="img-fluid w-100">
                         </a>
                     </div>
                 </div>

@@ -26,7 +26,7 @@ class VendorDashboardController extends Controller
         ->where('payment_status',1)
         ->whereHas('orderProducts', function($query){
             $query->where('vendor_id', Auth::user()->id);
-        })->sum('sub_total');;
+        })->sum('sub_total');
         $monthlyEarnings = Order::where('order_status', 'delivered')
     ->where('payment_status', 1)
     ->whereMonth('created_at', now()->month)

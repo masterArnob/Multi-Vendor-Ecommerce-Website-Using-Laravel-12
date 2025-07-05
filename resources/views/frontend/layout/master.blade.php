@@ -43,7 +43,10 @@
     <!-- Summernote Lite CSS -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
-    <!-- <link rel="stylesheet" href="css/rtl.css"> -->
+    @if (@$settings->layout === 'RTL')
+     <link rel="stylesheet" href="{{ asset('frontend/assets/css/rtl.css') }}">      
+    @endif
+
 </head>
 
 <body>

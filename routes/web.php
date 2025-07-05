@@ -25,6 +25,7 @@ use App\Http\Controllers\Vendor\ProductVariantController;
 use App\Http\Controllers\Vendor\ProductVariantItemController;
 use App\Http\Controllers\Vendor\VendorDashboardController;
 use App\Http\Controllers\Vendor\VendorProfileController;
+use App\Http\Controllers\Vendor\WithdrawRequestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
@@ -148,6 +149,7 @@ Route::group(['middleware' => ['auth', 'verified', 'check_role:user'], 'prefix' 
 Route::group(['middleware' => ['auth', 'verified', 'check_role:vendor'], 'prefix' => 'vendor', 'as' => 'vendor.'], function () {
 
     
+    Route::resource('withdraw-request', WithdrawRequestController::class);
     Route::resource('review', VendorReviewController::class);
     Route::post('change-order-status/', [OrderController::class, 'changeOrderStatus'])->name('change-order-status');
     Route::resource('order', OrderController::class);

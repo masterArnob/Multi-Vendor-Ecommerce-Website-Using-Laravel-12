@@ -25,6 +25,10 @@
 
                             <input type="hidden" name="general_settings" value="general_settings">
 
+
+                                
+
+
                               <div class="col-md-7">
                                 <div class="form-label">Site Name</div>
                                 <input type="text" name="site_name" class="form-control" value="{{ @$settings->site_name }}">
