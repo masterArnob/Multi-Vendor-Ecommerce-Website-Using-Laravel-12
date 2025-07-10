@@ -17,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth' => Authenticate::class,
             'guest' => RedirectIfAuthenticated::class,
-            'check_role' => CheckRoleMiddleware::class
+            'check_role' => CheckRoleMiddleware::class,
+            
         ]);
         // Explicitly assign the VerifyCsrfToken middleware to the web group
         $middleware->web(append: [
