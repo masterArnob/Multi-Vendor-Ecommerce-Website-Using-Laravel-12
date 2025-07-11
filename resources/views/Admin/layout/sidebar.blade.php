@@ -438,8 +438,11 @@
                       <a class="dropdown-item" href="{{ route('admin.permission.index') }}">
                          Permissions
                       </a>
-                      <a class="dropdown-item" href="{{ route('admin.transaction.index') }}">
-                        Transctions
+                      <a class="dropdown-item" href="{{ route('admin.role.index') }}">
+                        Roles
+                      </a>
+                       <a class="dropdown-item" href="{{ route('admin.role-in-permission.index') }}">
+                        Role in Permission
                       </a>
                   </div>
                 </div>

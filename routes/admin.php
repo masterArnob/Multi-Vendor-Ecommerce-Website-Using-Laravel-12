@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\ProductVariantController;
 use App\Http\Controllers\Admin\ProductVariantItemController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\RoleInPermissionController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\ShippingRuleController;
 use App\Http\Controllers\Admin\SingleCategorySectionController;
@@ -50,6 +51,7 @@ use App\Http\Controllers\Admin\VendorProductVariantItem;
 use App\Http\Controllers\Admin\VendorRequestController;
 use App\Http\Controllers\Admin\WithdrawMethodController;
 use App\Http\Controllers\Admin\WithdrawRequestController;
+use App\Http\Controllers\Admin\AdminRoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -76,6 +78,8 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'admin', 'as' => 'admin
 Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
 
+    Route::resource('role-in-permission', RoleInPermissionController::class);
+    Route::resource('role', AdminRoleController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('maintainance', MaintainanceController::class);
 
