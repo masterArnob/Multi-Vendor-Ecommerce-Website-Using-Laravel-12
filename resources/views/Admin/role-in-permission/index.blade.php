@@ -39,7 +39,54 @@
         <div class="container-xl">
             <div class="col-12">
 
-                {{ $dataTable->table() }}
+                <div class="card">
+                  <div class="table-responsive">
+                    <table class="table table-vcenter card-table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Role Name</th>
+                          <th>Permissions</th>
+                          <th>Actions</th>
+                          <th class="w-1"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       @foreach($roles as $role)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $role->name }}</td>
+                                <td width="70%">
+                               
+                                    @foreach($role->permissions as $permission)
+                                        <span class="badge bg-success text-white mt-2">{{ $permission->name }}</span>
+                                    @endforeach
+                         
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.role-in-permission.edit', $role->id) }}" class="btn btn btn-primary">Edit</a>
+                                     <a href="{{ route('admin.role-in-permission.destroy', $role->id) }}" class="btn btn-danger delete-item">Delete</a>
+                                   
+                                   
+                                   
+                                
+                                </td>
+                            </tr>
+                        @endforeach
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+              
 
 
             </div>
@@ -52,6 +99,3 @@
 
 
 @endsection
-@push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush

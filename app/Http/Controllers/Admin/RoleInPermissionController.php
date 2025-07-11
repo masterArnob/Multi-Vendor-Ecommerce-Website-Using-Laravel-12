@@ -14,9 +14,10 @@ class RoleInPermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(RoleInPermissionDataTable $dataTable)
+    public function index()
     {
-          return $dataTable->render('admin.role-in-permission.index');
+        $roles = Role::all();
+        return view('admin.role-in-permission.index', compact('roles'));
     }
 
     /**
@@ -36,7 +37,19 @@ class RoleInPermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'role_id' => ['required', 'exists:roles,id'],
+            'permissions' => ['required', 'array'],
+            'permissions.*' => ['exists:permissions,id'],
+        ]);
+
+        $role = Role::findOrFail($request->role_id);
+        $permissions = Permission::whereIn('id', $request->permissions)->get();
+        $role->syncPermissions($permissions);
+
+        notyf()->success('Role Permissions Updated Successfully!');
+        return to_route('admin.role-in-permission.index');
+
     }
 
     /**
@@ -52,7 +65,12 @@ class RoleInPermissionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $roleInPermission = Role::findOrFail($id);
+        $roles = Role::all();
+        $permissions = Permission::all();
+        $permission_group_names = Permission::distinct()->pluck('group_name');
+        $getPermissionByGroupNames = Permission::whereIn('group_name', $permission_group_names)->get();
+        return view('admin.role-in-permission.edit', compact('roles', 'permissions', 'permission_group_names', 'getPermissionByGroupNames', 'roleInPermission'));
     }
 
     /**
@@ -60,7 +78,18 @@ class RoleInPermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'role_id' => ['required', 'exists:roles,id'],
+            'permissions' => ['required', 'array'],
+            'permissions.*' => ['exists:permissions,id'],
+        ]);
+
+        $roleInPermission = Role::findOrFail($id);
+        $permissions = Permission::whereIn('id', $request->permissions)->get();
+        $roleInPermission->syncPermissions($permissions);
+
+        notyf()->success('Role Permissions Updated Successfully!');
+        return to_route('admin.role-in-permission.index');
     }
 
     /**
@@ -68,6 +97,13 @@ class RoleInPermissionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $roleInPermission = Role::findOrFail($id);
+        $permissions = $roleInPermission->permissions;
+        foreach ($permissions as $permission) {
+            $roleInPermission->revokePermissionTo($permission);
+        }
+        notyf()->success('Role Permissions Deleted Successfully!');
+        return response(['status' => 'success']);
+       
     }
 }

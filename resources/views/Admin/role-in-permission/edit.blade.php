@@ -6,20 +6,21 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="mb-4">Create Roles in Permission</h2>
+                        <h2 class="mb-4">Manage Roles in Permission</h2>
 
-                        <form action="{{ route('admin.role-in-permission.store') }}" method="POST"
+                        <form action="{{ route('admin.role-in-permission.update', $roleInPermission->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
 
                             <div class="row g-3 align-items-center">
 
                                 <div class="col-md-7 mt-3">
                                     <div class="form-label">Role</div>
                                     <select name="role_id" class="form-select">
-                                        <option value="">Select</option>
+                                       
                                         @forelse ($roles as $role)
-                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            <option @selected($roleInPermission->id == $role->id) value="{{ $role->id }}">{{ $role->name }}</option>
                                         @empty
                                             No Data Available
                                         @endforelse
@@ -66,7 +67,9 @@
                                    name="permissions[]" 
                                    value="{{ $permission->id }}" 
                                    type="checkbox"
-                                   data-group="{{ $name }}">
+                                   data-group="{{ $name }}"
+                                   @checked($roleInPermission->permissions->contains($permission->id))
+                                   >
                             <span class="form-check-label">{{ $permission->name }}</span>
                         </label>
                     @endforeach
@@ -97,7 +100,7 @@
                             </div>
 
                             <div class="mt-4">
-                                <button class="btn btn-primary">Create</button>
+                                <button class="btn btn-primary">Update</button>
                             </div>
                         </form>
                     </div>
